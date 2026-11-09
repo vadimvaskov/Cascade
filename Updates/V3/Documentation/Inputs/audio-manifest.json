@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Midnight Floor",
+    "source": "/Users/anastasiavaskova/Projects/Midnight Floor.m4a",
+    "sha256": "65a0064495f384c7df48a545e01a8a3c14fccb6cb9b8ff0b2f210120ec0e4788",
+    "beatMapVerified": false
+  },
+  {
+    "name": "Drop Bass Princess",
+    "source": "/Users/anastasiavaskova/Projects/Drop Bass Princess.m4a",
+    "sha256": "80cf1761005954b953a2386e99c13e15cf7459b896e5080f7e0c93589a348014",
+    "beatMapVerified": false
+  },
+  {
+    "name": "Dark Bass Drop",
+    "source": "/Users/anastasiavaskova/Projects/Dark Bass Drop.m4a",
+    "sha256": "5fe2b300aaaae175316038ed9000999c43ef6fee0686e4c0204839b8c6d20f24",
+    "beatMapVerified": false
+  }
+]

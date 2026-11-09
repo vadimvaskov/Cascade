@@ -1,0 +1,477 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.InputSystem.UI;
+using UnityEngine.UI;
+
+namespace Cascade.Prototype
+{
+    public sealed class CascadeGame : MonoBehaviour
+    {
+        public enum Phase { Menu, Countdown, Playing, Reaction, Paused, Result, Error }
+        [SerializeField] Camera gameCamera;
+        [SerializeField] AudioSource music;
+        [SerializeField] CascadeCell[] views;
+        [SerializeField] Transform boardRoot;
+        [SerializeField] RectTransform safeRoot;
+        [SerializeField] GameObject menu, hud, modal;
+        [SerializeField] Text scoreText, multiplierText, timeText, levelText, statusText, nextText, modalTitle, modalBody;
+        [SerializeField] Image progress;
+        [SerializeField] Material[] orbMaterials;
+        [SerializeField] LineRenderer perimeter;
+        [SerializeField] Text[] recordTexts;
+        [SerializeField] CascadeCell preview;
+        [SerializeField] string[] trackNames = { "Midnight Floor", "Drop Bass Princess", "Dark Bass Drop" };
+        public Phase State { get; private set; } = Phase.Menu;
+        public Board Model { get; private set; }
+        Balance balance; Rhythm rhythm; BeatMap beatMap;
+        int level, score, moves, bestOccupied;
+        double startDsp, pausedPosition, scheduledDsp, eventAnchor, dspAnchor;
+        float reactionAge, countdown;
+        Turn pending;
+        Phase resumePhase;
+        bool pointerTaken, reduced;
+        float volume = .7f;
+        int offsetMs, testSeed;
+        bool devPanel;
+        double Position => State == Phase.Paused || State == Phase.Result ? pausedPosition : Math.Max(0, AudioSettings.dspTime - startDsp);
+        readonly List<MoveLog> journal = new List<MoveLog>();
+        [Serializable] public class MoveLog { public double time, error; public int cell, points, waves, occupied, streak; public string rhythm, rejection; }
+        [Serializable] public class AttemptLog { public string config, track, mapVersion, result; public int seed, score; public MoveLog[] moves; }
+        void Awake()
+        {
+            if (!Application.isPlaying) return;
+            balance = JsonUtility.FromJson<Balance>(Resources.Load<TextAsset>("Data/balance").text);
+            volume = PlayerPrefs.GetFloat("cascade.volume", .7f); reduced = PlayerPrefs.GetInt("cascade.reduced", 0) != 0;
+            offsetMs = PlayerPrefs.GetInt("cascade.offset", 0);
+            BindUI(); music.volume = volume; Application.targetFrameRate = 60;
+            Screen.orientation = ScreenOrientation.Portrait;
+            AudioSettings.OnAudioConfigurationChanged += AudioChanged;
+            InputSystem.onEvent += InputEvent;
+            ShowMenu();
+        }
+        void OnDestroy() { AudioSettings.OnAudioConfigurationChanged -= AudioChanged; InputSystem.onEvent -= InputEvent; }
+        void OnApplicationPause(bool pause) { if (pause) Pause(); }
+        void OnApplicationFocus(bool focus) { if (!focus) Pause(); }
+        void AudioChanged(bool changed) { Pause(); }
+        void ShowMenu()
+        {
+            music.Stop(); State = Phase.Menu; menu.SetActive(true); hud.SetActive(false); modal.SetActive(false); boardRoot.gameObject.SetActive(false);
+            for (int i = 0; i < recordTexts.Length; i++) recordTexts[i].text = "ЛУЧШИЙ РЕЗУЛЬТАТ  " + PlayerPrefs.GetInt("cascade.best." + i, 0).ToString("N0");
+        }
+        public void StartLevel(int index)
+        {
+            if (State == Phase.Countdown) return;
+            level = index; music.Stop(); pending = null; score = moves = 0; bestOccupied = balance.initialCount; journal.Clear();
+            int seed = testSeed != 0 ? testSeed : unchecked((int)DateTime.UtcNow.Ticks);
+            Model = new Board(balance, seed); rhythm = null; beatMap = null;
+            music.clip = Resources.Load<AudioClip>("Audio/" + trackNames[level]);
+            if (music.clip == null) { Error("Музыка недоступна. Нужен импортированный WAV."); return; }
+            var mapAsset = Resources.Load<TextAsset>("Data/" + trackNames[level]);
+            if (mapAsset != null) beatMap = JsonUtility.FromJson<BeatMap>(mapAsset.text);
+            // Mechanic milestone intentionally has no invented beat grid or rhythm rewards.
+            if (beatMap != null && beatMap.Valid(music.clip.length)) rhythm = new Rhythm(beatMap, balance);
+            music.loop = false; music.pitch = 1; music.volume = volume; music.time = 0; music.clip.LoadAudioData();
+            menu.SetActive(false); hud.SetActive(true); modal.SetActive(false); boardRoot.gameObject.SetActive(true);
+            levelText.text = "УРОВЕНЬ " + (level + 1) + "\n" + trackNames[level];
+            statusText.text = rhythm == null ? "ТЕСТ МЕХАНИКИ · РАЗМЕТКА В РАБОТЕ" : "ПОПАДАЙ В РИТМ · ОСВОБОЖДАЙ ПОЛЕ";
+            countdown = 3; State = Phase.Countdown; pausedPosition = 0;
+            Render(Model.cells); RefreshHud();
+            UnityEngine.Debug.Log("Cascade seed=" + Model.seed + " config=" + balance.version + " track=" + trackNames[level]);
+        }
+        void Error(string message) { State = Phase.Error; menu.SetActive(false); hud.SetActive(false); modal.SetActive(true); modalTitle.text = "НЕ УДАЛОСЬ ПОДГОТОВИТЬ"; modalBody.text = message; SetModalButtons(false); }
+        void Update()
+        {
+            if (safeRoot == null) return;
+            Rect a = Screen.safeArea; safeRoot.anchorMin = a.min / new Vector2(Screen.width, Screen.height); safeRoot.anchorMax = a.max / new Vector2(Screen.width, Screen.height);
+            float aspect = (float)Screen.width / Screen.height; gameCamera.orthographicSize = Mathf.Max(6.7f, 3.65f / aspect);
+            if (State == Phase.Countdown)
+            {
+                if (music.clip.loadState == AudioDataLoadState.Failed) { Error("Не удалось декодировать трек."); return; }
+                if (music.clip.loadState != AudioDataLoadState.Loaded) return;
+                countdown -= Time.unscaledDeltaTime;
+                statusText.text = countdown > 0 ? Mathf.CeilToInt(countdown).ToString() : "ПОЕХАЛИ";
+                if (countdown <= 0)
+                {
+                    startDsp = AudioSettings.dspTime + .12; scheduledDsp = startDsp; music.PlayScheduled(startDsp);
+                    eventAnchor = InputState.currentTime; dspAnchor = AudioSettings.dspTime; State = Phase.Playing;
+                    statusText.text = rhythm == null ? "ТЕСТ МЕХАНИКИ · РАЗМЕТКА В РАБОТЕ" : "ЛОВИ РИТМ";
+                }
+            }
+            if (State == Phase.Playing || State == Phase.Reaction)
+            {
+                rhythm?.Advance(Position);
+                if (State == Phase.Reaction)
+                {
+                    reactionAge += Time.unscaledDeltaTime;
+                    float duration = balance.presentationSeconds;
+                    int stages = pending.waves.Count + 2;
+                    int stage = Mathf.Min(stages - 1, Mathf.FloorToInt(reactionAge / duration * stages));
+                    if (stage == 0) Render(pending.afterPlacement);
+                    else if (stage <= pending.afterWaves.Count) Render(pending.afterWaves[stage - 1]);
+                    else Render(pending.final);
+                    if (reactionAge >= duration)
+                    {
+                        Render(pending.final);
+                        if (pending.full) Finish(false); else if (Position >= music.clip.length) Finish(true); else State = Phase.Playing;
+                        pending = null;
+                    }
+                }
+                else if (Position >= music.clip.length) Finish(true);
+                RefreshHud();
+            }
+            float pulse = rhythm == null || rhythm.Streak == 0 || beatMap.IsExcluded(Position) || reduced ? 0 : BeatPulse(Position);
+            float strength = Mathf.Min(1, pulse * (rhythm == null ? 0 : .25f + rhythm.Multiplier * .2f));
+            perimeter.startColor = perimeter.endColor = Color.Lerp(new Color(.55f,.14f,.65f), new Color(1,.65f,.25f), strength);
+            foreach (var view in views)
+            {
+                view.border.startColor = view.border.endColor = Color.Lerp(new Color(.24f,.10f,.34f), new Color(.85f,.36f,1), strength);
+                if (view.charge > 0 && State != Phase.Paused)
+                {
+                    float breathe = reduced ? 1 : 1 + .015f * Mathf.Sin(Time.unscaledTime * 2 + view.index);
+                    view.orb.localScale = Vector3.one * .78f * breathe;
+                }
+            }
+        }
+        float BeatPulse(double t)
+        {
+            if (beatMap == null || beatMap.beats.Length == 0) return 0;
+            int i = Array.BinarySearch(beatMap.beats, t); if (i < 0) i = ~i - 1;
+            return i < 0 ? 0 : Mathf.Exp((float)(-(t - beatMap.beats[i]) * 12));
+        }
+        void InputEvent(InputEventPtr evt, InputDevice device)
+        {
+            if (!Application.isPlaying || (!evt.IsA<StateEvent>() && !evt.IsA<DeltaStateEvent>())) return;
+            // The original Input System event time is mapped to the DSP clock, before Update ends a song.
+            if (device is Touchscreen touch)
+            {
+                if (!touch.primaryTouch.press.ReadValueFromEvent(evt, out float press)) return;
+                if (press <= .5f) { pointerTaken = false; return; }
+                if (pointerTaken) return;
+                if (!touch.primaryTouch.position.ReadValueFromEvent(evt, out Vector2 pos)) pos = touch.primaryTouch.position.ReadValue();
+                pointerTaken = true; AcceptPointer(pos, evt.time);
+            }
+            else if (device is Mouse mouse)
+            {
+                if (!mouse.leftButton.ReadValueFromEvent(evt, out float press)) return;
+                if (press <= .5f) { pointerTaken = false; return; }
+                if (pointerTaken) return;
+                if (!mouse.position.ReadValueFromEvent(evt, out Vector2 pos)) pos = mouse.position.ReadValue();
+                pointerTaken = true; AcceptPointer(pos, evt.time);
+            }
+        }
+        void AcceptPointer(Vector2 point, double eventTime)
+        {
+            if (State != Phase.Playing || AudioSettings.dspTime < scheduledDsp) return;
+            double songTime = dspAnchor + eventTime - eventAnchor - startDsp;
+            if (songTime < 0 || songTime >= music.clip.length) return;
+            if (EventSystem.current != null)
+            {
+                var hits = new List<RaycastResult>(); EventSystem.current.RaycastAll(new PointerEventData(EventSystem.current) { position = point }, hits);
+                if (hits.Count > 0) return;
+            }
+            if (!Physics.Raycast(gameCamera.ScreenPointToRay(point), out RaycastHit hit)) return;
+            var cell = hit.collider.GetComponent<CascadeCell>(); if (cell == null) return;
+            PlaceCell(cell.index, songTime);
+        }
+        public bool PlaceCell(int cell, double songTime)
+        {
+            if (State != Phase.Playing || songTime >= music.clip.length || songTime < 0) return false;
+            if (cell < 0 || cell >= Model.cells.Length || Model.cells[cell] != 0)
+            { journal.Add(new MoveLog { time = songTime, cell = cell, rejection = "occupied" }); return false; }
+            var assessment = rhythm == null ? new RhythmResult { multiplier = 1, kind = "unmapped", error = double.NaN } : rhythm.Evaluate(songTime, offsetMs / 1000.0);
+            pending = Model.Place(cell, assessment.multiplier); score += pending.points; moves++; bestOccupied = Math.Max(bestOccupied, Model.Occupied);
+            journal.Add(new MoveLog { time = songTime, cell = cell, points = pending.points, waves = pending.waves.Count, occupied = Model.Occupied, streak = rhythm?.Streak ?? 0, rhythm = assessment.kind, error = double.IsNaN(assessment.error) ? 0 : assessment.error });
+            statusText.text = rhythm == null ? "+" + pending.points + " · ТЕСТ МЕХАНИКИ" : assessment.kind == "hit" ? "В РИТМЕ  +" + pending.points : assessment.kind == "miss" ? "МИМО · СЕРИЯ СБРОШЕНА" : "+" + pending.points;
+            reactionAge = 0; State = Phase.Reaction; Render(pending.afterPlacement); RefreshHud(); return true;
+        }
+        void Render(int[] values)
+        {
+            for (int i = 0; i < views.Length; i++)
+            {
+                var v = views[i]; int charge = Mathf.Clamp(values[i], 0, 4); v.charge = charge; v.orb.gameObject.SetActive(charge > 0);
+                if (charge == 0) continue; v.shell.sharedMaterial = orbMaterials[charge - 1];
+                for (int k = 0; k < v.symbols.Length; k++) v.symbols[k].SetActive(k == charge - 1);
+            }
+        }
+        void RefreshHud()
+        {
+            scoreText.text = score.ToString("N0"); multiplierText.text = "×" + (rhythm?.Multiplier ?? 1);
+            double t = Math.Min(Position, music.clip.length); if (State == Phase.Countdown) t = 0;
+            timeText.text = Clock(t) + " / " + Clock(music.clip.length); progress.fillAmount = (float)(t / music.clip.length);
+            
+            nextText.text = "СЛЕДУЮЩАЯ"; nextText.color = Palette(Model.NextCharge);
+            if (preview != null) { preview.orb.gameObject.SetActive(true); preview.shell.sharedMaterial = orbMaterials[Model.NextCharge-1]; for(int i=0;i<4;i++) preview.symbols[i].SetActive(i==Model.NextCharge-1); }
+        }
+        static string Clock(double t) => ((int)t / 60) + ":" + ((int)t % 60).ToString("00");
+        public void Pause()
+        {
+            if (State != Phase.Playing && State != Phase.Reaction && State != Phase.Countdown) return;
+            resumePhase = State; pausedPosition = State == Phase.Countdown ? 0 : Position;
+            music.Pause(); State = Phase.Paused; modal.SetActive(true); modalTitle.text = "ПАУЗА";
+            modalBody.text = "Музыка и поле ждут тебя"; SetModalButtons(true);
+        }
+        public void Resume()
+        {
+            if (State != Phase.Paused) return;
+            modal.SetActive(false); State = resumePhase;
+            if (State != Phase.Countdown)
+            {
+                startDsp = AudioSettings.dspTime - pausedPosition;
+                if (pausedPosition <= 0) { startDsp = AudioSettings.dspTime + .12; scheduledDsp = startDsp; music.Stop(); music.PlayScheduled(startDsp); }
+                else music.UnPause();
+                eventAnchor = InputState.currentTime; dspAnchor = AudioSettings.dspTime;
+            }
+            pointerTaken = false;
+        }
+        void Finish(bool won)
+        {
+            if (State == Phase.Result) return;
+            pausedPosition = Math.Min(Position, music.clip.length); State = Phase.Result; music.Stop(); modal.SetActive(true);
+            if (won && rhythm != null) { int best = PlayerPrefs.GetInt("cascade.best." + level, 0); if (score > best) PlayerPrefs.SetInt("cascade.best." + level, score); PlayerPrefs.Save(); }
+            modalTitle.text = won ? "ТРЕК ЗАВЕРШЁН" : "ПОЛЕ ЗАПОЛНЕНО";
+            modalBody.text = score.ToString("N0") + " ОЧКОВ\n\nХодов: " + moves + "   •   Макс. занято: " + bestOccupied + "\nЛучшая серия: " + (rhythm?.Best ?? 0) + "\nПопаданий: " + (rhythm?.Hits ?? 0) + "   •   Промахов: " + (rhythm?.Misses ?? 0) + (rhythm == null ? "\n\nТест механики: ритм и рекорды отключены" : "");
+            SetModalButtons(false); Export(won ? "completed" : "full");
+        }
+        void Export(string result)
+        {
+            var log = new AttemptLog { config = balance.version, track = trackNames[level], mapVersion = beatMap?.version ?? "unmapped", seed = Model.seed, score = score, result = result, moves = journal.ToArray() };
+            try { File.WriteAllText(Path.Combine(Application.persistentDataPath, "cascade-last-attempt.json"), JsonUtility.ToJson(log, true)); }
+            catch (Exception e) { UnityEngine.Debug.LogWarning(e.Message); }
+        }
+        void SetModalButtons(bool paused)
+        {
+            modal.transform.Find("Continue").gameObject.SetActive(paused);
+            modal.transform.Find("Next").gameObject.SetActive(!paused && State == Phase.Result && level < 2 && Model.Occupied < Model.cells.Length);
+            modal.transform.Find("Settings").gameObject.SetActive(paused);
+            modal.transform.Find("Effects").gameObject.SetActive(paused);
+            modal.transform.Find("Cancel").gameObject.SetActive(false);
+        }
+        public void Restart() { if (State == Phase.Paused) Confirm(true); else StartLevel(level); }
+        public void ExitMenu() { if (State == Phase.Paused) Confirm(false); else ShowMenu(); }
+        void Confirm(bool restart)
+        {
+            modal.transform.Find("Cancel").gameObject.SetActive(true); modalTitle.text = "ЗАВЕРШИТЬ ПОПЫТКУ?"; modalBody.text = "Текущее поле и очки будут потеряны.";
+            var btn = modal.transform.Find("Continue").GetComponent<Button>(); var label = btn.GetComponentInChildren<Text>();
+            label.text = restart ? "ДА, НАЧАТЬ ЗАНОВО" : "ДА, В МЕНЮ"; btn.onClick.RemoveAllListeners();
+            btn.onClick.AddListener(() => { RestoreContinue(); if (restart) StartLevel(level); else ShowMenu(); });
+        }
+        void RestoreContinue() { var b = modal.transform.Find("Continue").GetComponent<Button>(); b.GetComponentInChildren<Text>().text = "ПРОДОЛЖИТЬ"; b.onClick.RemoveAllListeners(); b.onClick.AddListener(Resume); }
+        public void CycleSettings()
+        {
+            volume = volume >= .99f ? 0 : Mathf.Min(1,volume + .25f); music.volume = volume;
+            PlayerPrefs.SetFloat("cascade.volume", volume); PlayerPrefs.SetInt("cascade.reduced", reduced ? 1 : 0); PlayerPrefs.Save();
+            modalBody.text = "Громкость: " + Mathf.RoundToInt(volume * 100) + "%\nУменьшенные эффекты: " + (reduced ? "да" : "нет");
+        }
+        public void ToggleEffects()
+        {
+            reduced = !reduced; PlayerPrefs.SetInt("cascade.reduced",reduced ? 1 : 0); PlayerPrefs.Save();
+            modalBody.text = "Уменьшенные эффекты: " + (reduced ? "да" : "нет");
+        }
+        void OnGUI()
+        {
+            if (!Application.isPlaying) return;
+            if (GUI.Button(new Rect(8,8,64,32), "DEV")) devPanel = !devPanel;
+            if (!devPanel) return;
+            GUI.Box(new Rect(8,44,340,240), "Панель тестирования");
+            GUI.Label(new Rect(20,74,310,24), "Seed (0 = новый):"); string s = GUI.TextField(new Rect(170,74,160,24), testSeed.ToString()); int.TryParse(s,out testSeed);
+            GUI.Label(new Rect(20,105,310,24), "Offset: " + offsetMs + " мс");
+            if (GUI.Button(new Rect(190,105,60,28), "−10")) offsetMs = Math.Max(-200,offsetMs-10);
+            if (GUI.Button(new Rect(260,105,60,28), "+10")) offsetMs = Math.Min(200,offsetMs+10);
+            PlayerPrefs.SetInt("cascade.offset",offsetMs);
+            GUI.Label(new Rect(20,142,310,40), "Поле: 6×6 · версия " + balance.version + "\nРитм: " + (rhythm == null ? "нет проверенной карты" : "карта загружена"));
+            GUI.Label(new Rect(20,190,310,50), "Seed попытки: " + (Model?.seed.ToString() ?? "—") + "\nЭкспорт: persistentDataPath/cascade-last-attempt.json");
+            if (State == Phase.Paused && GUI.Button(new Rect(20,244,300,28), "Экспортировать текущую попытку")) Export("paused");
+        }
+        public static Color Palette(int charge) => charge == 1 ? new Color(.04f,.64f,1) : charge == 2 ? new Color(.12f,1,.4f) : charge == 3 ? new Color(1,.53f,.06f) : new Color(.75f,.2f,1);
+        void BindUI()
+        {
+            for (int i = 0; i < 3; i++) { int selected = i; menu.transform.Find("Level" + i).GetComponent<Button>().onClick.AddListener(() => StartLevel(selected)); }
+            hud.transform.Find("Pause").GetComponent<Button>().onClick.AddListener(Pause);
+            RestoreContinue();
+            modal.transform.Find("Restart").GetComponent<Button>().onClick.AddListener(Restart);
+            modal.transform.Find("Menu").GetComponent<Button>().onClick.AddListener(ExitMenu);
+            modal.transform.Find("Next").GetComponent<Button>().onClick.AddListener(() => StartLevel(level + 1));
+            modal.transform.Find("Settings").GetComponent<Button>().onClick.AddListener(CycleSettings);
+            modal.transform.Find("Effects").GetComponent<Button>().onClick.AddListener(ToggleEffects);
+            modal.transform.Find("Cancel").GetComponent<Button>().onClick.AddListener(() => { RestoreContinue(); modalTitle.text="ПАУЗА"; modalBody.text="Музыка и поле ждут тебя"; modal.transform.Find("Cancel").gameObject.SetActive(false); });
+        }
+#if UNITY_EDITOR
+        Font font;
+        Material lineMat, goldMat, baseMat, cellMat;
+        Material MakeMaterial(string name, Color color, bool glow = false)
+        {
+            string path = "Assets/Cascade/Art/" + name + ".mat";
+            var m = UnityEditor.AssetDatabase.LoadAssetAtPath<Material>(path);
+            if (m == null) { m = new Material(Shader.Find("Universal Render Pipeline/Lit")); UnityEditor.AssetDatabase.CreateAsset(m,path); }
+            m.color = color; m.SetFloat("_Smoothness", .88f); m.SetFloat("_Metallic", glow ? .1f : .45f);
+            if (glow) { m.EnableKeyword("_EMISSION"); m.SetColor("_EmissionColor", color * 1.8f); }
+            return m;
+        }
+        GameObject Primitive(string name, PrimitiveType type, Transform parent, Vector3 position, Vector3 scale, Material material, bool collider = false)
+        {
+            var obj = GameObject.CreatePrimitive(type); obj.name = name; obj.transform.SetParent(parent,false); obj.transform.localPosition = position; obj.transform.localScale = scale;
+            obj.GetComponent<Renderer>().sharedMaterial = material;
+            if (!collider) DestroyImmediate(obj.GetComponent<Collider>());
+            return obj;
+        }
+        LineRenderer Line(string name, Transform parent, Vector3[] positions, float width, Color color, bool loop = false)
+        {
+            var o = new GameObject(name); o.transform.SetParent(parent,false); var l = o.AddComponent<LineRenderer>(); l.useWorldSpace = false; l.loop = loop; l.positionCount = positions.Length; l.SetPositions(positions);
+            l.sharedMaterial = lineMat; l.startWidth = l.endWidth = width; l.startColor = l.endColor = color; l.numCapVertices = 4; l.numCornerVertices = 4; return l;
+        }
+        Vector3[] Rounded(float width, float height, float radius, float z)
+        {
+            var points = new List<Vector3>();
+            for (int corner = 0; corner < 4; corner++) for (int j = 0; j <= 8; j++)
+            {
+                float angle = (corner * 90 + j * 90f / 8) * Mathf.Deg2Rad;
+                float cx = corner == 0 || corner == 3 ? width / 2 - radius : -width / 2 + radius;
+                float cy = corner < 2 ? height / 2 - radius : -height / 2 + radius;
+                points.Add(new Vector3(cx + radius * Mathf.Cos(angle),cy + radius * Mathf.Sin(angle),z));
+            }
+            return points.ToArray();
+        }
+        void Note(Transform parent, bool pair, Color color)
+        {
+            for (int n = 0; n < (pair ? 2 : 1); n++)
+            {
+                float x = pair ? -.13f + .26f * n : -.05f;
+                var ellipse = Enumerable.Range(0,24).Select(i => { float a = i * Mathf.PI * 2 / 24; return new Vector3(x + .105f * Mathf.Cos(a),-.13f + .07f * Mathf.Sin(a),-.54f); }).ToArray();
+                Line("Note head",parent,ellipse,.045f,color,true);
+                Line("Note stem",parent,new[] { new Vector3(x+.085f,-.13f,-.54f),new Vector3(x+.085f,.27f,-.54f),new Vector3(x+.23f,.19f,-.54f) },.04f,color);
+            }
+        }
+        public void BuildVisuals()
+        {
+            if (!UnityEditor.AssetDatabase.IsValidFolder("Assets/Cascade/Art")) UnityEditor.AssetDatabase.CreateFolder("Assets/Cascade", "Art");
+            font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            lineMat = MakeMaterial("Luminous ivory",new Color(1,.83f,.58f),true); lineMat.shader = Shader.Find("Cascade/GlowLine");
+            goldMat = MakeMaterial("Violet gold trim",new Color(.42f,.09f,.48f),true);
+            baseMat = MakeMaterial("Midnight enamel",new Color(.038f,.008f,.075f)); cellMat = MakeMaterial("Recessed plum",new Color(.025f,.008f,.045f));
+            orbMaterials = new Material[4]; for (int i = 0; i < 4; i++) orbMaterials[i] = MakeMaterial("Sphere " + (i+1),Palette(i+1) * .7f);
+            var cameraObj = new GameObject("Game Camera"); cameraObj.transform.SetParent(transform); gameCamera = cameraObj.AddComponent<Camera>(); cameraObj.tag = "MainCamera";
+            gameCamera.orthographic = true; gameCamera.orthographicSize = 7.1f; gameCamera.transform.position = new Vector3(0,-2.6f,-16); gameCamera.transform.LookAt(new Vector3(0,.05f,0));
+            gameCamera.clearFlags = CameraClearFlags.SolidColor; gameCamera.backgroundColor = new Color(.018f,.003f,.038f); cameraObj.AddComponent<AudioListener>();
+            var data = cameraObj.AddComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>(); data.renderPostProcessing = true; gameCamera.allowHDR = true;
+            music = gameObject.AddComponent<AudioSource>(); music.playOnAwake = false; music.spatialBlend = 0;
+            var lighting = new GameObject("Warm key"); lighting.transform.SetParent(transform); var key = lighting.AddComponent<Light>(); key.type = LightType.Directional; key.intensity = 1.8f; key.color = new Color(1,.8f,.65f); lighting.transform.rotation = Quaternion.Euler(35,-30,0);
+            var fillObj = new GameObject("Cool fill"); fillObj.transform.SetParent(transform); var fill = fillObj.AddComponent<Light>(); fill.type = LightType.Directional; fill.intensity = 1.1f; fill.color = new Color(.43f,.54f,1); fillObj.transform.rotation = Quaternion.Euler(-25,150,0);
+            RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat; RenderSettings.ambientLight = new Color(.18f,.13f,.28f);
+            var volObject = new GameObject("Restrained bloom"); volObject.transform.SetParent(transform); var volumeComponent = volObject.AddComponent<UnityEngine.Rendering.Volume>(); volumeComponent.isGlobal = true;
+            var profile = UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEngine.Rendering.VolumeProfile>("Assets/Cascade/Art/CascadeVolume.asset");
+            if (profile == null)
+            {
+                profile = ScriptableObject.CreateInstance<UnityEngine.Rendering.VolumeProfile>(); var bloom = profile.Add<UnityEngine.Rendering.Universal.Bloom>(); bloom.intensity.Override(.4f); bloom.threshold.Override(1.1f); bloom.scatter.Override(.55f);
+                UnityEditor.AssetDatabase.CreateAsset(profile,"Assets/Cascade/Art/CascadeVolume.asset"); UnityEditor.AssetDatabase.AddObjectToAsset(bloom,profile);
+            }
+            volumeComponent.sharedProfile = profile;
+            boardRoot = new GameObject("Board · 6 by 6").transform; boardRoot.SetParent(transform,false); boardRoot.localPosition = new Vector3(0,-.25f,0);
+            Primitive("Floating enamel base",PrimitiveType.Cube,boardRoot,new Vector3(0,0,.48f),new Vector3(6.6f,6.6f,.28f),baseMat);
+            perimeter = Line("Perimeter",boardRoot,Rounded(6.58f,6.58f,.30f,.24f),.035f,new Color(.8f,.23f,.75f),true);
+            Line("Inner gold edge",boardRoot,Rounded(6.43f,6.43f,.22f,.20f),.014f,new Color(1,.65f,.3f),true);
+            views = new CascadeCell[36];
+            for (int i = 0; i < 36; i++)
+            {
+                var obj = new GameObject("Cell " + i / 6 + "," + i % 6); obj.transform.SetParent(boardRoot,false); obj.transform.localPosition = new Vector3((i % 6 - 2.5f)*1.04f,(2.5f-i/6)*1.04f,0);
+                var view = obj.AddComponent<CascadeCell>(); view.index = i; views[i] = view;
+                var collider = obj.AddComponent<BoxCollider>(); collider.size = new Vector3(1.02f,1.02f,.12f);
+                Primitive("Recess",PrimitiveType.Cube,obj.transform,new Vector3(0,0,.29f),new Vector3(.98f,.98f,.10f),cellMat);
+                view.border = Line("Cell contour",obj.transform,Rounded(.97f,.97f,.15f,.19f),.016f,new Color(.34f,.1f,.43f),true);
+                var orb = Primitive("Musical glass sphere",PrimitiveType.Sphere,obj.transform,new Vector3(0,0,-.22f),Vector3.one*.78f,orbMaterials[0]); view.orb = orb.transform; view.shell = orb.GetComponent<Renderer>();
+                var ring = Enumerable.Range(0,64).Select(n => { float a = n*Mathf.PI*2/64; return new Vector3(Mathf.Cos(a)*.492f,Mathf.Sin(a)*.492f,-.025f); }).ToArray();
+                Line("Glass rim",orb.transform,ring,.014f,new Color(.45f,.85f,1),true);
+                var gleam = Enumerable.Range(0,18).Select(n => { float a = (40 + n*4)*Mathf.Deg2Rad; return new Vector3(Mathf.Cos(a)*.39f,Mathf.Sin(a)*.39f,-.30f); }).ToArray();
+                Line("Specular crescent",orb.transform,gleam,.025f,new Color(.8f,.9f,1));
+                view.symbols = new GameObject[4];
+                for (int c = 1; c <= 4; c++)
+                {
+                    var symbol = new GameObject("Charge " + c + " symbol"); symbol.transform.SetParent(orb.transform,false); view.symbols[c-1] = symbol;
+                    if (c < 4) {
+                        Note(symbol.transform,c == 3,new Color(1,.96f,.73f));
+                        if(c==2) { var facets=Enumerable.Range(0,8).Select(k=>{float a=k*Mathf.PI/4;return new Vector3(Mathf.Cos(a)*.49f,Mathf.Sin(a)*.49f,-.12f);}).ToArray();Line("Faceted green shell",symbol.transform,facets,.018f,Palette(2),true); }
+                    }
+                    else
+                    {
+                        var spiral = Enumerable.Range(0,64).Select(n => { float t = n/63f; float a = t*Mathf.PI*3.3f; float radius = .19f*(1-t*.5f); return new Vector3(Mathf.Cos(a)*radius,Mathf.Sin(a)*radius + t*.23f-.12f,-.54f); }).ToArray();
+                        Line("Treble spiral",symbol.transform,spiral,.035f,new Color(1,.74f,.25f));
+                        Line("Treble stem",symbol.transform,new[] {new Vector3(.01f,-.32f,-.54f),new Vector3(-.02f,.35f,-.54f)},.035f,new Color(1,.74f,.25f));
+                        for (int k = 0; k < 8; k++) { float a = k*Mathf.PI/4; var crystal = Primitive("Crown facet",PrimitiveType.Cube,symbol.transform,new Vector3(Mathf.Cos(a)*.43f,Mathf.Sin(a)*.43f,-.04f),new Vector3(.13f,.13f,.16f),orbMaterials[3]); crystal.transform.localRotation = Quaternion.Euler(20,25,k*45+45); }
+                    }
+                    symbol.SetActive(c == 1);
+                }
+            }
+            preview = Instantiate(views[0],boardRoot);
+            preview.name = "Next sphere preview"; preview.transform.localPosition = new Vector3(0,-5.05f,0);
+            DestroyImmediate(preview.GetComponent<BoxCollider>()); preview.border.gameObject.SetActive(false); preview.transform.Find("Recess").gameObject.SetActive(false);
+            BuildUI();
+        }
+        RectTransform Rect(string name, Transform parent, Vector2 pos, Vector2 size)
+        {
+            var obj = new GameObject(name,typeof(RectTransform)); var rt = obj.GetComponent<RectTransform>(); rt.SetParent(parent,false); rt.anchorMin = rt.anchorMax = new Vector2(.5f,.5f); rt.anchoredPosition = pos; rt.sizeDelta = size; return rt;
+        }
+        Text Label(string name, Transform parent, string value, Vector2 pos, Vector2 size, int fontSize, Color color)
+        {
+            var rt = Rect(name,parent,pos,size); var text = rt.gameObject.AddComponent<Text>(); text.font = font; text.text = value; text.fontSize = fontSize; text.color = color; text.alignment = TextAnchor.MiddleCenter; text.raycastTarget = false; return text;
+        }
+        GameObject Group(string name,Transform parent)
+        {
+            var rt = Rect(name,parent,Vector2.zero,Vector2.zero); rt.anchorMin = Vector2.zero;rt.anchorMax = Vector2.one;rt.sizeDelta=Vector2.zero; return rt.gameObject;
+        }
+        Button ButtonUI(string name,Transform parent,string text,Vector2 pos,Vector2 size)
+        {
+            var rt=Rect(name,parent,pos,size);var image=rt.gameObject.AddComponent<Image>();image.color=new Color(.16f,.045f,.23f,.97f);var btn=rt.gameObject.AddComponent<Button>(); var outline=rt.gameObject.AddComponent<Outline>();outline.effectColor=new Color(.64f,.25f,.65f,.8f);outline.effectDistance=new Vector2(1,-1);
+            Label("Label",rt,text,Vector2.zero,size-Vector2.one*10,24,new Color(1,.85f,.64f)); return btn;
+        }
+        void BuildUI()
+        {
+            var canvasObj = new GameObject("Cascade UI",typeof(RectTransform),typeof(Canvas),typeof(CanvasScaler),typeof(GraphicRaycaster));canvasObj.transform.SetParent(transform,false);var canvas=canvasObj.GetComponent<Canvas>();canvas.renderMode=RenderMode.ScreenSpaceOverlay;
+            var scaler=canvasObj.GetComponent<CanvasScaler>();scaler.uiScaleMode=CanvasScaler.ScaleMode.ScaleWithScreenSize;scaler.referenceResolution=new Vector2(720,1280);scaler.matchWidthOrHeight=.5f;
+            safeRoot=Group("Safe area",canvasObj.transform).GetComponent<RectTransform>();
+            menu=Group("Menu",safeRoot);hud=Group("HUD",safeRoot);modal=Group("Modal",safeRoot);
+            Color cream=new Color(1,.85f,.64f), muted=new Color(.65f,.51f,.75f);
+            Label("Title",menu.transform,"CASCADE",new Vector2(0,410),new Vector2(650,110),78,cream).fontStyle=FontStyle.Italic;
+            Label("Subtitle",menu.transform,"МУЗЫКА. СФЕРЫ. ЦЕПНАЯ РЕАКЦИЯ.",new Vector2(0,320),new Vector2(650,60),20,muted);
+            recordTexts=new Text[3];string[] durations={"3:07","3:01","3:53"};
+            for(int i=0;i<3;i++)
+            {
+                var b=ButtonUI("Level"+i,menu.transform,"",new Vector2(0,160-i*190),new Vector2(600,155));
+                Label("Number",b.transform,"0"+(i+1),new Vector2(-238,15),new Vector2(70,70),35,Palette(i+1));
+                Label("Track",b.transform,trackNames[i],new Vector2(25,24),new Vector2(420,60),30,cream);
+                recordTexts[i]=Label("Best",b.transform,"ЛУЧШИЙ РЕЗУЛЬТАТ  0",new Vector2(10,-32),new Vector2(430,40),17,muted);
+                Label("Duration",b.transform,durations[i],new Vector2(240,-35),new Vector2(70,36),19,muted);
+            }
+            Label("Milestone",menu.transform,"ПРОТОТИП 01 · ТЕСТ МЕХАНИКИ\nРитмическая разметка ещё не проверена",new Vector2(0,-470),new Vector2(650,90),19,muted);
+            Label("Brand",hud.transform,"CASCADE",new Vector2(0,500),new Vector2(500,90),65,cream).fontStyle=FontStyle.Italic;
+            levelText=Label("Level",hud.transform,"УРОВЕНЬ 1\nMidnight Floor",new Vector2(0,414),new Vector2(470,85),24,cream);
+            ButtonUI("Pause",hud.transform,"II",new Vector2(290,496),new Vector2(70,70));
+            Label("Score caption",hud.transform,"ОЧКИ",new Vector2(-240,337),new Vector2(120,50),20,muted);
+            scoreText=Label("Score",hud.transform,"0",new Vector2(-75,337),new Vector2(220,65),36,cream);
+            multiplierText=Label("Multiplier",hud.transform,"×1",new Vector2(250,337),new Vector2(130,70),45,cream);
+            var rail=Rect("Progress rail",hud.transform,new Vector2(-50,285),new Vector2(505,8));rail.gameObject.AddComponent<Image>().color=new Color(.23f,.06f,.29f);
+            progress=Rect("Progress",rail,Vector2.zero,new Vector2(505,8)).gameObject.AddComponent<Image>(); progress.color=new Color(1,.57f,.23f);progress.sprite = UnityEditor.AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UISprite.psd"); progress.type=Image.Type.Filled;progress.fillMethod=Image.FillMethod.Horizontal;progress.raycastTarget=false; rail.GetComponent<Image>().raycastTarget=false;
+            timeText=Label("Time",hud.transform,"0:00 / 3:07",new Vector2(258,285),new Vector2(150,45),18,muted);
+            nextText=Label("Next",hud.transform,"СЛЕДУЮЩАЯ\nГОЛУБАЯ · ОДНА НОТА",new Vector2(0,-385),new Vector2(650,45),24,Palette(1));
+            statusText=Label("Feedback",hud.transform,"ТЕСТ МЕХАНИКИ",new Vector2(0,-565),new Vector2(650,65),18,muted);
+            var shade=Rect("Shade",modal.transform,Vector2.zero,new Vector2(3000,3000));shade.gameObject.AddComponent<Image>().color=new Color(.018f,.004f,.035f,.97f);
+            modalTitle=Label("Title",modal.transform,"ПАУЗА",new Vector2(0,360),new Vector2(650,100),43,cream);
+            modalBody=Label("Body",modal.transform,"Музыка и поле ждут тебя",new Vector2(0,155),new Vector2(620,270),23,muted);
+            ButtonUI("Continue",modal.transform,"ПРОДОЛЖИТЬ",new Vector2(0,-45),new Vector2(540,76));
+            ButtonUI("Restart",modal.transform,"НАЧАТЬ ЗАНОВО",new Vector2(0,-140),new Vector2(540,76));
+            ButtonUI("Next",modal.transform,"СЛЕДУЮЩИЙ УРОВЕНЬ",new Vector2(0,-45),new Vector2(540,76));
+            ButtonUI("Menu",modal.transform,"В МЕНЮ",new Vector2(0,-235),new Vector2(540,76));
+            ButtonUI("Settings",modal.transform,"ГРОМКОСТЬ",new Vector2(-140,-350),new Vector2(260,65));
+            ButtonUI("Effects",modal.transform,"ЭФФЕКТЫ",new Vector2(140,-350),new Vector2(260,65));
+            ButtonUI("Cancel",modal.transform,"ОТМЕНА",new Vector2(0,-445),new Vector2(540,65));
+            var es=new GameObject("Event System"); es.transform.SetParent(transform,false);es.AddComponent<EventSystem>();es.AddComponent<InputSystemUIInputModule>();
+            menu.SetActive(true);hud.SetActive(false);modal.SetActive(false);boardRoot.gameObject.SetActive(false);
+        }
+#endif
+    }
+}

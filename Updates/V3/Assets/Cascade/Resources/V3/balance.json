@@ -1,0 +1,21 @@
+{
+  "version": "cascade-v3-bonus6x4",
+  "size": 6,
+  "initialCount": 6,
+  "threshold": 5,
+  "weight1": 60,
+  "weight2": 30,
+  "weight3": 10,
+  "placementPoints": 10,
+  "explosionPoints": 50,
+  "rhythmWindow": 0.12,
+  "streakTimeout": 10,
+  "doubleAt": 3,
+  "tripleAt": 6,
+  "presentationSeconds": 0.35,
+  "hitsPerStep": 3,
+  "maxMultiplier": 10,
+  "rhythmPrimaryBonus": true,
+  "rhythmBonusHits": 6,
+  "rhythmBonusBeats": 4
+}

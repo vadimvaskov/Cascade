@@ -1,0 +1,39 @@
+# Unity generated data, including the separate Updates/V3 project
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uilds/
+[Ll]ogs/
+UserSettings/
+MemoryCaptures/
+Recordings/
+# IDE and local build files
+.vs/
+.vscode/
+.idea/
+.DS_Store
+*.csproj
+!Tools/**/*.csproj
+!Updates/V3/Tools/**/*.csproj
+*.sln
+*.slnx
+*.user
+*.pidb
+*.booproj
+bin/
+obj/
+__pycache__/
+*.pyc
+# Credentials and signing material
+.env
+.env.*
+!.env.example
+.aws/
+*.p12
+*.pfx
+*.mobileprovision
+*.provisionprofile
+AuthKey_*.p8
+# Device-specific logs and attempt captures
+**/device-attempt*.json
+**/device-pull.json

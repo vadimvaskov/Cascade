@@ -1,0 +1,458 @@
+[
+  {
+    "level": 1,
+    "trackId": "disco_funk_01",
+    "title": "Disco Dancer",
+    "audioSha256": "0d7d1d6e53ac3e49d734d990208706dff826c9147bb10e0c1caf307f50128fe1",
+    "audioUnchanged": true,
+    "oldBpm": 122.072,
+    "newBpm": 122.072,
+    "oldBeatCount": 183,
+    "newBeatCount": 183,
+    "primaryPulses": 183,
+    "halfPulseCandidates": 0,
+    "phasePolicy": "Retain bass lattice on levels 3/5; PCM-supported bass on 7; combine attacks <=160ms by their center; keep distinct alternating pulses",
+    "oldExcludedSeconds": 0.522667,
+    "newExcludedSeconds": 0.522667,
+    "highAttackSupport": 0.9945,
+    "tempoEvidence": {
+      "low": [
+        {
+          "bpm": 122.159,
+          "autocorrelation": 0.0836
+        },
+        {
+          "bpm": 81.405,
+          "autocorrelation": 0.02257
+        },
+        {
+          "bpm": 129.625,
+          "autocorrelation": 0.00547
+        },
+        {
+          "bpm": 161.719,
+          "autocorrelation": 0.00136
+        }
+      ],
+      "high": [
+        {
+          "bpm": 122.236,
+          "autocorrelation": 0.04537
+        },
+        {
+          "bpm": 81.278,
+          "autocorrelation": 0.04492
+        },
+        {
+          "bpm": 165.062,
+          "autocorrelation": 0.01391
+        },
+        {
+          "bpm": 97.326,
+          "autocorrelation": 0.01224
+        }
+      ]
+    },
+    "changed": false,
+    "physicalDeviceVerified": false
+  },
+  {
+    "level": 2,
+    "trackId": "synthwave_electro_01",
+    "title": "Neon Overdrive",
+    "audioSha256": "0146a56119a887ce5d4262cd47d86d802e186fd5cf923bfc23a7adb5dde25c7e",
+    "audioUnchanged": true,
+    "oldBpm": 105.242,
+    "newBpm": 105.242,
+    "oldBeatCount": 156,
+    "newBeatCount": 156,
+    "primaryPulses": 154,
+    "halfPulseCandidates": 0,
+    "phasePolicy": "Retain bass lattice on levels 3/5; PCM-supported bass on 7; combine attacks <=160ms by their center; keep distinct alternating pulses",
+    "oldExcludedSeconds": 1.46,
+    "newExcludedSeconds": 1.46,
+    "highAttackSupport": 0.9935,
+    "tempoEvidence": {
+      "low": [
+        {
+          "bpm": 105.358,
+          "autocorrelation": 0.04555
+        },
+        {
+          "bpm": 108.182,
+          "autocorrelation": 0.02258
+        },
+        {
+          "bpm": 102.228,
+          "autocorrelation": 0.01998
+        },
+        {
+          "bpm": 140.175,
+          "autocorrelation": 0.01297
+        }
+      ],
+      "high": [
+        {
+          "bpm": 139.955,
+          "autocorrelation": 0.05809
+        },
+        {
+          "bpm": 105.212,
+          "autocorrelation": 0.05738
+        },
+        {
+          "bpm": 84.207,
+          "autocorrelation": 0.04575
+        },
+        {
+          "bpm": 70.027,
+          "autocorrelation": 0.04286
+        }
+      ]
+    },
+    "changed": false,
+    "physicalDeviceVerified": false
+  },
+  {
+    "level": 3,
+    "trackId": "electro_swing_01",
+    "title": "Phantom Limb",
+    "audioSha256": "d470bcf4d24b3b4573e196ce6974fefb10afcf0085a174827f9e4a1bb45993c5",
+    "audioUnchanged": true,
+    "oldBpm": 123.823,
+    "newBpm": 124,
+    "oldBeatCount": 186,
+    "newBeatCount": 339,
+    "primaryPulses": 185,
+    "halfPulseCandidates": 142,
+    "phasePolicy": "Retain bass lattice on levels 3/5; PCM-supported bass on 7; combine attacks <=160ms by their center; keep distinct alternating pulses",
+    "oldExcludedSeconds": 3.602667,
+    "newExcludedSeconds": 0.265,
+    "highAttackSupport": 0.9784,
+    "tempoEvidence": {
+      "low": [
+        {
+          "bpm": 123.84,
+          "autocorrelation": 0.05033
+        },
+        {
+          "bpm": 79.654,
+          "autocorrelation": 0.00713
+        },
+        {
+          "bpm": 86.014,
+          "autocorrelation": 0.00677
+        },
+        {
+          "bpm": 82.405,
+          "autocorrelation": 0.00641
+        }
+      ],
+      "high": [
+        {
+          "bpm": 82.391,
+          "autocorrelation": 0.04286
+        },
+        {
+          "bpm": 123.709,
+          "autocorrelation": 0.03774
+        },
+        {
+          "bpm": 74.178,
+          "autocorrelation": 0.00718
+        },
+        {
+          "bpm": 148.88,
+          "autocorrelation": 0.00671
+        }
+      ]
+    },
+    "changed": true,
+    "physicalDeviceVerified": false
+  },
+  {
+    "level": 4,
+    "trackId": "electronic_rock_01",
+    "title": "Static Rocker",
+    "audioSha256": "e0a1ad48d396e6f883d068f2fa06550878ccf939497b5a2022d16b9953282381",
+    "audioUnchanged": true,
+    "oldBpm": 91.443,
+    "newBpm": 136,
+    "oldBeatCount": 136,
+    "newBeatCount": 254,
+    "primaryPulses": 201,
+    "halfPulseCandidates": 53,
+    "phasePolicy": "Retain bass lattice on levels 3/5; PCM-supported bass on 7; combine attacks <=160ms by their center; keep distinct alternating pulses",
+    "oldExcludedSeconds": 5.627667,
+    "newExcludedSeconds": 1.34,
+    "highAttackSupport": 0.99,
+    "tempoEvidence": {
+      "low": [
+        {
+          "bpm": 90.702,
+          "autocorrelation": 0.02118
+        },
+        {
+          "bpm": 136.111,
+          "autocorrelation": 0.01741
+        },
+        {
+          "bpm": 181.401,
+          "autocorrelation": 0.01387
+        },
+        {
+          "bpm": 166.603,
+          "autocorrelation": 0.01251
+        }
+      ],
+      "high": [
+        {
+          "bpm": 135.903,
+          "autocorrelation": 0.07501
+        },
+        {
+          "bpm": 90.511,
+          "autocorrelation": 0.06196
+        },
+        {
+          "bpm": 181.393,
+          "autocorrelation": 0.03422
+        },
+        {
+          "bpm": 108.871,
+          "autocorrelation": 0.0315
+        }
+      ]
+    },
+    "changed": true,
+    "physicalDeviceVerified": false
+  },
+  {
+    "level": 5,
+    "trackId": "melodic_trance_01",
+    "title": "Ethereal Flight",
+    "audioSha256": "defd4b1aa0c3e1d61203827e4d955f551a7be85d828b4c5f0ad307b20fd862f5",
+    "audioUnchanged": true,
+    "oldBpm": 136.717,
+    "newBpm": 136,
+    "oldBeatCount": 203,
+    "newBeatCount": 400,
+    "primaryPulses": 203,
+    "halfPulseCandidates": 106,
+    "phasePolicy": "Retain bass lattice on levels 3/5; PCM-supported bass on 7; combine attacks <=160ms by their center; keep distinct alternating pulses",
+    "oldExcludedSeconds": 3.127667,
+    "newExcludedSeconds": 0.598833,
+    "highAttackSupport": 0.9507,
+    "tempoEvidence": {
+      "low": [
+        {
+          "bpm": 136.359,
+          "autocorrelation": 0.0859
+        },
+        {
+          "bpm": 142.124,
+          "autocorrelation": 0.04016
+        },
+        {
+          "bpm": 131.056,
+          "autocorrelation": 0.04
+        },
+        {
+          "bpm": 69.531,
+          "autocorrelation": 0.03672
+        }
+      ],
+      "high": [
+        {
+          "bpm": 136.295,
+          "autocorrelation": 0.06373
+        },
+        {
+          "bpm": 90.854,
+          "autocorrelation": 0.05614
+        },
+        {
+          "bpm": 181.656,
+          "autocorrelation": 0.05195
+        },
+        {
+          "bpm": 109.054,
+          "autocorrelation": 0.05017
+        }
+      ]
+    },
+    "changed": true,
+    "physicalDeviceVerified": false
+  },
+  {
+    "level": 6,
+    "trackId": "dubstep_bass_01",
+    "title": "Wasted Potential",
+    "audioSha256": "1c92d317a2b2d88d241a9699688502564dbb95932c41a1869065c9d13980ca87",
+    "audioUnchanged": true,
+    "oldBpm": 73.034,
+    "newBpm": 146,
+    "oldBeatCount": 110,
+    "newBeatCount": 219,
+    "primaryPulses": 219,
+    "halfPulseCandidates": 0,
+    "phasePolicy": "Retain bass lattice on levels 3/5; PCM-supported bass on 7; combine attacks <=160ms by their center; keep distinct alternating pulses",
+    "oldExcludedSeconds": 1.65,
+    "newExcludedSeconds": 0.255,
+    "highAttackSupport": 1.0,
+    "tempoEvidence": {
+      "low": [
+        {
+          "bpm": 73.13,
+          "autocorrelation": 0.02128
+        },
+        {
+          "bpm": 146.606,
+          "autocorrelation": 0.01847
+        },
+        {
+          "bpm": 109.537,
+          "autocorrelation": 0.01309
+        },
+        {
+          "bpm": 87.987,
+          "autocorrelation": 0.0097
+        }
+      ],
+      "high": [
+        {
+          "bpm": 146.154,
+          "autocorrelation": 0.06639
+        },
+        {
+          "bpm": 73.078,
+          "autocorrelation": 0.06546
+        },
+        {
+          "bpm": 109.601,
+          "autocorrelation": 0.02151
+        },
+        {
+          "bpm": 87.435,
+          "autocorrelation": 0.01867
+        }
+      ]
+    },
+    "changed": true,
+    "physicalDeviceVerified": false
+  },
+  {
+    "level": 7,
+    "trackId": "drum_and_bass_01",
+    "title": "Liquid Nitrogen",
+    "audioSha256": "894e4b3ed4f3fefef638245e6370f0f1913f53abf75b4378fda99987d0f2ff31",
+    "audioUnchanged": true,
+    "oldBpm": 175.605,
+    "newBpm": 175,
+    "oldBeatCount": 263,
+    "newBeatCount": 263,
+    "primaryPulses": 256,
+    "halfPulseCandidates": 72,
+    "phasePolicy": "Retain bass lattice on levels 3/5; PCM-supported bass on 7; combine attacks <=160ms by their center; keep distinct alternating pulses",
+    "oldExcludedSeconds": 17.65267,
+    "newExcludedSeconds": 2.38,
+    "highAttackSupport": 0.9531,
+    "tempoEvidence": {
+      "low": [
+        {
+          "bpm": 69.946,
+          "autocorrelation": 0.02398
+        },
+        {
+          "bpm": 116.181,
+          "autocorrelation": 0.02291
+        },
+        {
+          "bpm": 175.468,
+          "autocorrelation": 0.01539
+        },
+        {
+          "bpm": 87.202,
+          "autocorrelation": 0.01336
+        }
+      ],
+      "high": [
+        {
+          "bpm": 175.644,
+          "autocorrelation": 0.05391
+        },
+        {
+          "bpm": 69.941,
+          "autocorrelation": 0.05197
+        },
+        {
+          "bpm": 116.975,
+          "autocorrelation": 0.04827
+        },
+        {
+          "bpm": 87.482,
+          "autocorrelation": 0.04599
+        }
+      ]
+    },
+    "changed": true,
+    "physicalDeviceVerified": false
+  },
+  {
+    "level": 8,
+    "trackId": "orchestra_electronic_01",
+    "title": "Неоновый симфоний",
+    "audioSha256": "ac5ff87e235aafacd53c8ee727566ce88ab6e4183c25d45d3c405671ee54add9",
+    "audioUnchanged": true,
+    "oldBpm": 104.25,
+    "newBpm": 104.25,
+    "oldBeatCount": 155,
+    "newBeatCount": 155,
+    "primaryPulses": 152,
+    "halfPulseCandidates": 0,
+    "phasePolicy": "Retain bass lattice on levels 3/5; PCM-supported bass on 7; combine attacks <=160ms by their center; keep distinct alternating pulses",
+    "oldExcludedSeconds": 3.495003,
+    "newExcludedSeconds": 3.495003,
+    "highAttackSupport": 0.9934,
+    "tempoEvidence": {
+      "low": [
+        {
+          "bpm": 103.398,
+          "autocorrelation": 0.0411
+        },
+        {
+          "bpm": 136.798,
+          "autocorrelation": 0.01859
+        },
+        {
+          "bpm": 106.469,
+          "autocorrelation": 0.01635
+        },
+        {
+          "bpm": 83.186,
+          "autocorrelation": 0.01396
+        }
+      ],
+      "high": [
+        {
+          "bpm": 103.426,
+          "autocorrelation": 0.07877
+        },
+        {
+          "bpm": 138.243,
+          "autocorrelation": 0.04469
+        },
+        {
+          "bpm": 82.914,
+          "autocorrelation": 0.04051
+        },
+        {
+          "bpm": 73.804,
+          "autocorrelation": -0.0101
+        }
+      ]
+    },
+    "changed": false,
+    "physicalDeviceVerified": false
+  }
+]

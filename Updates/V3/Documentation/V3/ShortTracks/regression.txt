@@ -1,0 +1,31 @@
+Screen 1170x2532
+
+Неоновый симфоний: menu launch, 90s, ×2 at3 / ×10 at27 / cap at30, end result PASS
+Neon Overdrive: menu launch, 90s, ×2 at3 / ×10 at27 / cap at30, end result PASS
+Disco Dancer: menu launch, 90s, ×2 at3 / ×10 at27 / cap at30, end result PASS
+Phantom Limb: menu launch, 90s, ×2 at3 / ×10 at27 / cap at30, end result PASS
+Static Rocker: menu launch, 90s, ×2 at3 / ×10 at27 / cap at30, end result PASS
+Ethereal Flight: menu launch, 90s, ×2 at3 / ×10 at27 / cap at30, end result PASS
+Wasted Potential: menu launch, 90s, ×2 at3 / ×10 at27 / cap at30, end result PASS
+Liquid Nitrogen: menu launch, 90s, ×2 at3 / ×10 at27 / cap at30, end result PASS
+
+{
+    "passed": true,
+    "checks": [
+        "8 primary transitions; saturation; placed orb unaffected",
+        "Cascade impulses +1, secondary explosion, whole-move score, passive auto, invalid input",
+        "×1–×10: every third unique hit; ×10 from hit27; cap through hit40; repeat, miss recovery, exact10s timeout",
+        "All light knots/interpolation/cap; envelopes; 120ms pause fade; soft/local; ≤3Hz subset",
+        "8 exact catalog audio/map pairs; durations, hashes, stereo48k, provisional status",
+        "Reversible all-eight testing access without fake wins; atomic/backup save; zero-score win; replay;8 unlocks; multi-track record; song-hash migration"
+    ]
+}
+
+PASS: 6 charging hits +1; next four musical beats +2; no repeat/stack/recharge; second cycle; offsets 0/+142/-80 ms; Miss resets only charging; active miss does not cancel; no-input expiry; 10-second charge timeout; Read-only HUD vs delayed events; early/late bounds; dense beats; exclusions; song-end truncation
+
+PASS: 36 native 36-byte touches at JSON coordinates; 4 separate sphere states and next preview; live HUD; 8 track titles; ×1–×10 / every3 hits / whole-cascade scoring / HUD thresholds / immediate input; V3 balance, screen aura/hit testing, pause, cascade and restart
+
+PASS: locked launch; zero-move win; persisted/idempotent unlock; next-record navigation; last-move full priority; loss result; pause/resume; actual renderer independent of touch offset; soft mode; final collection result
+
+PASS: actual +1/+2 neighbour changes, 14 moves, repeat, miss, occupied cell, pause/resume, musical HUD countdown without input, journal, immediate input and restart
+PASS: 173 native rapid placements in 12 single-update batches, 2 ms spacing; 181 cascade waves; six batches charging / six with active +2; exact model, score, final visuals and terminal state; no reaction cooldown.

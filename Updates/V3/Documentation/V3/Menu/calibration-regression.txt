@@ -1,0 +1,1 @@
+PASS: calibration menu/pause, native timestamp +150 ms, warmup/duplicate exclusion, persisted Apply/Cancel, no gameplay moves, focus/audio interruption; V3 progress store

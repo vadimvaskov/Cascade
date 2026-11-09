@@ -1,0 +1,205 @@
+{
+  "file_key": "A8q1xOkIWPO4AIvRxYLaKr",
+  "pages": [
+    {
+      "name": "05 · Меню · 8 пластинок",
+      "node": "40:2",
+      "frames": [
+        {
+          "name": "Menu_01_disco_funk_open",
+          "url": "https://www.figma.com/design/A8q1xOkIWPO4AIvRxYLaKr/Cascade-Unity-Prototype-3-Levels?node-id=40-3&t=VGePdupYbMBfcksl-0",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "name": "Menu_02_synthwave_electro_open",
+          "url": "https://www.figma.com/design/A8q1xOkIWPO4AIvRxYLaKr/Cascade-Unity-Prototype-3-Levels?node-id=40-198&t=VGePdupYbMBfcksl-0",
+          "x": 1100,
+          "y": 0
+        },
+        {
+          "name": "Menu_03_electro_swing_open",
+          "url": "https://www.figma.com/design/A8q1xOkIWPO4AIvRxYLaKr/Cascade-Unity-Prototype-3-Levels?node-id=40-308&t=VGePdupYbMBfcksl-0",
+          "x": 2200,
+          "y": 0
+        },
+        {
+          "name": "Menu_04_electronic_rock_open",
+          "url": "https://www.figma.com/design/A8q1xOkIWPO4AIvRxYLaKr/Cascade-Unity-Prototype-3-Levels?node-id=40-363&t=VGePdupYbMBfcksl-0",
+          "x": 3300,
+          "y": 0
+        },
+        {
+          "name": "Menu_05_melodic_trance_open",
+          "url": "https://www.figma.com/design/A8q1xOkIWPO4AIvRxYLaKr/Cascade-Unity-Prototype-3-Levels?node-id=40-482&t=VGePdupYbMBfcksl-0",
+          "x": 0,
+          "y": 1850
+        },
+        {
+          "name": "Menu_06_dubstep_bass_open",
+          "url": "https://www.figma.com/design/A8q1xOkIWPO4AIvRxYLaKr/Cascade-Unity-Prototype-3-Levels?node-id=40-143&t=VGePdupYbMBfcksl-0",
+          "x": 1100,
+          "y": 1850
+        },
+        {
+          "name": "Menu_07_drum_and_bass_open",
+          "url": "https://www.figma.com/design/A8q1xOkIWPO4AIvRxYLaKr/Cascade-Unity-Prototype-3-Levels?node-id=40-253&t=VGePdupYbMBfcksl-0",
+          "x": 2200,
+          "y": 1850
+        },
+        {
+          "name": "Menu_08_orchestra_electronic_open",
+          "url": "https://www.figma.com/design/A8q1xOkIWPO4AIvRxYLaKr/Cascade-Unity-Prototype-3-Levels?node-id=40-51&t=VGePdupYbMBfcksl-0",
+          "x": 3300,
+          "y": 1850
+        },
+        {
+          "name": "Menu_01_disco_funk_completed",
+          "url": "https://www.figma.com/design/A8q1xOkIWPO4AIvRxYLaKr/Cascade-Unity-Prototype-3-Levels?node-id=40-92&t=VGePdupYbMBfcksl-0",
+          "x": 0,
+          "y": 3700
+        },
+        {
+          "name": "Menu_02_synthwave_electro_locked",
+          "url": "https://www.figma.com/design/A8q1xOkIWPO4AIvRxYLaKr/Cascade-Unity-Prototype-3-Levels?node-id=40-419&t=VGePdupYbMBfcksl-0",
+          "x": 1100,
+          "y": 3700
+        }
+      ]
+    },
+    {
+      "name": "06 · Меню · Треки и настройки",
+      "node": "40:537",
+      "frames": [
+        {
+          "name": "Tracks_01_disco_funk",
+          "url": "https://www.figma.com/design/A8q1xOkIWPO4AIvRxYLaKr/Cascade-Unity-Prototype-3-Levels?node-id=40-570&t=VGePdupYbMBfcksl-0",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "name": "Tracks_02_synthwave_electro",
+          "url": "https://www.figma.com/design/A8q1xOkIWPO4AIvRxYLaKr/Cascade-Unity-Prototype-3-Levels?node-id=40-603&t=VGePdupYbMBfcksl-0",
+          "x": 1100,
+          "y": 0
+        },
+        {
+          "name": "Tracks_03_electro_swing",
+          "url": "https://www.figma.com/design/A8q1xOkIWPO4AIvRxYLaKr/Cascade-Unity-Prototype-3-Levels?node-id=40-636&t=VGePdupYbMBfcksl-0",
+          "x": 2200,
+          "y": 0
+        },
+        {
+          "name": "Tracks_04_electronic_rock",
+          "url": "https://www.figma.com/design/A8q1xOkIWPO4AIvRxYLaKr/Cascade-Unity-Prototype-3-Levels?node-id=40-669&t=VGePdupYbMBfcksl-0",
+          "x": 3300,
+          "y": 0
+        },
+        {
+          "name": "Tracks_05_melodic_trance",
+          "url": "https://www.figma.com/design/A8q1xOkIWPO4AIvRxYLaKr/Cascade-Unity-Prototype-3-Levels?node-id=40-703&t=VGePdupYbMBfcksl-0",
+          "x": 0,
+          "y": 1850
+        },
+        {
+          "name": "Tracks_06_dubstep_bass",
+          "url": "https://www.figma.com/design/A8q1xOkIWPO4AIvRxYLaKr/Cascade-Unity-Prototype-3-Levels?node-id=40-736&t=VGePdupYbMBfcksl-0",
+          "x": 1100,
+          "y": 1850
+        },
+        {
+          "name": "Tracks_07_drum_and_bass",
+          "url": "https://www.figma.com/design/A8q1xOkIWPO4AIvRxYLaKr/Cascade-Unity-Prototype-3-Levels?node-id=40-769&t=VGePdupYbMBfcksl-0",
+          "x": 2200,
+          "y": 1850
+        },
+        {
+          "name": "Tracks_08_orchestra_electronic",
+          "url": "https://www.figma.com/design/A8q1xOkIWPO4AIvRxYLaKr/Cascade-Unity-Prototype-3-Levels?node-id=40-802&t=VGePdupYbMBfcksl-0",
+          "x": 3300,
+          "y": 1850
+        },
+        {
+          "name": "Settings_Menu",
+          "url": "https://www.figma.com/design/A8q1xOkIWPO4AIvRxYLaKr/Cascade-Unity-Prototype-3-Levels?node-id=40-836&t=VGePdupYbMBfcksl-0",
+          "x": 0,
+          "y": 3700
+        }
+      ]
+    },
+    {
+      "name": "07 · Меню · Графика для Unity",
+      "node": "40:866",
+      "frames": [
+        {
+          "name": "Assets_01_Eight_Covers",
+          "url": "https://www.figma.com/design/A8q1xOkIWPO4AIvRxYLaKr/Cascade-Unity-Prototype-3-Levels?node-id=40-894&t=VGePdupYbMBfcksl-0",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "name": "Assets_02_Shared_Graphics",
+          "url": "https://www.figma.com/design/A8q1xOkIWPO4AIvRxYLaKr/Cascade-Unity-Prototype-3-Levels?node-id=40-867&t=VGePdupYbMBfcksl-0",
+          "x": 0,
+          "y": 1750
+        },
+        {
+          "name": "Assets_03_Controls",
+          "url": "https://www.figma.com/design/A8q1xOkIWPO4AIvRxYLaKr/Cascade-Unity-Prototype-3-Levels?node-id=40-922&t=VGePdupYbMBfcksl-0",
+          "x": 0,
+          "y": 3800
+        }
+      ]
+    }
+  ],
+  "native_text_verified": true,
+  "typography": [
+    {
+      "layer": "Primary_Button_Label",
+      "details": []
+    },
+    {
+      "layer": "Completion_Progress",
+      "details": [
+        "+\t\t\t\t\t\t\t\t301 stepper (settable, integer) Description: X-position, Value: 348",
+        "+\t\t\t\t\t\t\t\t302 stepper (settable, integer) Description: Y-position, Value: 1333",
+        "+\t\t\t\t\t\t\t\t\t326 text field (disabled) Description: Width, Value: 245",
+        "+\t\t\t\t\t\t\t\t\t329 text field (disabled) Description: Height, Value: 35",
+        "+\t\t\t\t\t\t\t345 combo box (collapsed) Description: Font family, Value: Montserrat, Secondary Actions: Expand",
+        "+\t\t\t\t\t\t\t349 text Font style",
+        "+\t\t\t\t\t\t\t350 combo box (collapsed) Font style, Value: Regular, ID: :ra0:, Secondary Actions: Expand",
+        "+\t\t\t\t\t\t\t\t354 list Font size: 29 px",
+        "+\t\t\t\t\t\t\t\t\t356 combo box (collapsed, settable) Description: Font size: 29 px, Value: 29, Secondary Actions: Expand"
+      ]
+    },
+    {
+      "layer": "Record_Counter",
+      "details": [
+        "~\t\t\t\t\t\t\t\t301 stepper (settable, integer) Description: X-position, Value: 444",
+        "~\t\t\t\t\t\t\t\t302 stepper (settable, integer) Description: Y-position, Value: 1204",
+        "~\t\t\t\t\t\t\t\t\t326 text field (disabled) Description: Width, Value: 53",
+        "~\t\t\t\t\t\t\t\t\t329 text field (disabled) Description: Height, Value: 32",
+        "~\t\t\t\t\t\t\t350 combo box (collapsed) Font style, Value: Bold, ID: :ra0:, Secondary Actions: Expand",
+        "~\t\t\t\t\t\t\t\t354 list Font size: 26 px",
+        "~\t\t\t\t\t\t\t\t\t356 combo box (collapsed, settable) Description: Font size: 26 px, Value: 26, Secondary Actions: Expand"
+      ]
+    },
+    {
+      "layer": "Style_Title",
+      "details": [
+        "~\t\t\t\t\t\t\t\t301 stepper (settable, integer) Description: X-position, Value: 327",
+        "~\t\t\t\t\t\t\t\t302 stepper (settable, integer) Description: Y-position, Value: 1248",
+        "~\t\t\t\t\t\t\t\t\t326 text field (disabled) Description: Width, Value: 287",
+        "~\t\t\t\t\t\t\t\t\t329 text field (disabled) Description: Height, Value: 54",
+        "~\t\t\t\t\t\t\t\t354 list Font size: 44 px",
+        "~\t\t\t\t\t\t\t\t\t356 combo box (collapsed, settable) Description: Font size: 44 px, Value: 44, Secondary Actions: Expand"
+      ]
+    }
+  ],
+  "persistence_checked_after_reload": true,
+  "static_design": true,
+  "clickable_prototype": false,
+  "exported_reference_pngs": 22,
+  "content_revision": 3,
+  "latest_correction": "Figma_Correction_v3.json"
+}

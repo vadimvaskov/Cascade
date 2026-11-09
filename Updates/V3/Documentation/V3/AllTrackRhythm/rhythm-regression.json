@@ -1,0 +1,765 @@
+[
+  {
+    "level": 1,
+    "title": "Disco Dancer",
+    "sequences": [
+      {
+        "name": "high_flux",
+        "before": {
+          "maxMultiplier": 10,
+          "hits": 182,
+          "misses": 0,
+          "bestStreak": 182,
+          "kinds": {
+            "hit": 182
+          }
+        },
+        "after": {
+          "maxMultiplier": 10,
+          "hits": 182,
+          "misses": 0,
+          "bestStreak": 182,
+          "kinds": {
+            "hit": 182
+          }
+        },
+        "commonScorableEvents": 182,
+        "commonWithoutCalibration": {
+          "maxMultiplier": 10,
+          "hits": 182,
+          "misses": 0,
+          "bestStreak": 182,
+          "kinds": {
+            "hit": 182
+          }
+        },
+        "afterWithSavedCalibration": {
+          "maxMultiplier": 10,
+          "hits": 182,
+          "misses": 0,
+          "bestStreak": 182,
+          "kinds": {
+            "hit": 182
+          }
+        }
+      },
+      {
+        "name": "low_flux",
+        "before": {
+          "maxMultiplier": 10,
+          "hits": 179,
+          "misses": 0,
+          "bestStreak": 179,
+          "kinds": {
+            "hit": 179
+          }
+        },
+        "after": {
+          "maxMultiplier": 10,
+          "hits": 179,
+          "misses": 0,
+          "bestStreak": 179,
+          "kinds": {
+            "hit": 179
+          }
+        },
+        "commonScorableEvents": 179,
+        "commonWithoutCalibration": {
+          "maxMultiplier": 10,
+          "hits": 179,
+          "misses": 0,
+          "bestStreak": 179,
+          "kinds": {
+            "hit": 179
+          }
+        },
+        "afterWithSavedCalibration": {
+          "maxMultiplier": 10,
+          "hits": 179,
+          "misses": 0,
+          "bestStreak": 179,
+          "kinds": {
+            "hit": 179
+          }
+        }
+      }
+    ],
+    "thresholds": "PASS: x2 at3, x10 at27, cap, duplicate, \u002B142ms calibration",
+    "offbeatRejected": 181,
+    "offbeatJudged": 181
+  },
+  {
+    "level": 2,
+    "title": "Neon Overdrive",
+    "sequences": [
+      {
+        "name": "high_flux",
+        "before": {
+          "maxMultiplier": 10,
+          "hits": 122,
+          "misses": 31,
+          "bestStreak": 122,
+          "kinds": {
+            "miss": 31,
+            "hit": 122
+          }
+        },
+        "after": {
+          "maxMultiplier": 10,
+          "hits": 122,
+          "misses": 31,
+          "bestStreak": 122,
+          "kinds": {
+            "miss": 31,
+            "hit": 122
+          }
+        },
+        "commonScorableEvents": 152,
+        "commonWithoutCalibration": {
+          "maxMultiplier": 10,
+          "hits": 121,
+          "misses": 31,
+          "bestStreak": 121,
+          "kinds": {
+            "miss": 31,
+            "hit": 121
+          }
+        },
+        "afterWithSavedCalibration": {
+          "maxMultiplier": 10,
+          "hits": 121,
+          "misses": 31,
+          "bestStreak": 121,
+          "kinds": {
+            "miss": 31,
+            "hit": 121
+          }
+        }
+      },
+      {
+        "name": "low_flux",
+        "before": {
+          "maxMultiplier": 10,
+          "hits": 114,
+          "misses": 18,
+          "bestStreak": 113,
+          "kinds": {
+            "hit": 114,
+            "miss": 18
+          }
+        },
+        "after": {
+          "maxMultiplier": 10,
+          "hits": 114,
+          "misses": 18,
+          "bestStreak": 113,
+          "kinds": {
+            "hit": 114,
+            "miss": 18
+          }
+        },
+        "commonScorableEvents": 131,
+        "commonWithoutCalibration": {
+          "maxMultiplier": 10,
+          "hits": 113,
+          "misses": 18,
+          "bestStreak": 112,
+          "kinds": {
+            "hit": 113,
+            "miss": 18
+          }
+        },
+        "afterWithSavedCalibration": {
+          "maxMultiplier": 10,
+          "hits": 113,
+          "misses": 18,
+          "bestStreak": 112,
+          "kinds": {
+            "hit": 113,
+            "miss": 18
+          }
+        }
+      }
+    ],
+    "thresholds": "PASS: x2 at3, x10 at27, cap, duplicate, \u002B142ms calibration",
+    "offbeatRejected": 155,
+    "offbeatJudged": 155
+  },
+  {
+    "level": 3,
+    "title": "Phantom Limb",
+    "sequences": [
+      {
+        "name": "high_flux",
+        "before": {
+          "maxMultiplier": 10,
+          "hits": 87,
+          "misses": 84,
+          "bestStreak": 58,
+          "kinds": {
+            "hit": 87,
+            "excluded": 7,
+            "miss": 84
+          }
+        },
+        "after": {
+          "maxMultiplier": 10,
+          "hits": 178,
+          "misses": 0,
+          "bestStreak": 178,
+          "kinds": {
+            "hit": 178
+          }
+        },
+        "commonScorableEvents": 178,
+        "commonWithoutCalibration": {
+          "maxMultiplier": 10,
+          "hits": 178,
+          "misses": 0,
+          "bestStreak": 178,
+          "kinds": {
+            "hit": 178
+          }
+        },
+        "afterWithSavedCalibration": {
+          "maxMultiplier": 10,
+          "hits": 178,
+          "misses": 0,
+          "bestStreak": 178,
+          "kinds": {
+            "hit": 178
+          }
+        }
+      },
+      {
+        "name": "low_flux",
+        "before": {
+          "maxMultiplier": 10,
+          "hits": 148,
+          "misses": 19,
+          "bestStreak": 148,
+          "kinds": {
+            "excluded": 2,
+            "miss": 19,
+            "hit": 148
+          }
+        },
+        "after": {
+          "maxMultiplier": 10,
+          "hits": 148,
+          "misses": 20,
+          "bestStreak": 148,
+          "kinds": {
+            "excluded": 1,
+            "miss": 20,
+            "hit": 148
+          }
+        },
+        "commonScorableEvents": 168,
+        "commonWithoutCalibration": {
+          "maxMultiplier": 10,
+          "hits": 148,
+          "misses": 20,
+          "bestStreak": 148,
+          "kinds": {
+            "miss": 20,
+            "hit": 148
+          }
+        },
+        "afterWithSavedCalibration": {
+          "maxMultiplier": 10,
+          "hits": 148,
+          "misses": 20,
+          "bestStreak": 148,
+          "kinds": {
+            "miss": 20,
+            "hit": 148
+          }
+        }
+      }
+    ],
+    "thresholds": "PASS: x2 at3, x10 at27, cap, duplicate, \u002B142ms calibration",
+    "offbeatRejected": 34,
+    "offbeatJudged": 34
+  },
+  {
+    "level": 4,
+    "title": "Static Rocker",
+    "sequences": [
+      {
+        "name": "high_flux",
+        "before": {
+          "maxMultiplier": 1,
+          "hits": 62,
+          "misses": 125,
+          "bestStreak": 2,
+          "kinds": {
+            "miss": 125,
+            "hit": 62,
+            "excluded": 11
+          }
+        },
+        "after": {
+          "maxMultiplier": 10,
+          "hits": 169,
+          "misses": 29,
+          "bestStreak": 167,
+          "kinds": {
+            "hit": 169,
+            "miss": 29
+          }
+        },
+        "commonScorableEvents": 197,
+        "commonWithoutCalibration": {
+          "maxMultiplier": 10,
+          "hits": 168,
+          "misses": 29,
+          "bestStreak": 166,
+          "kinds": {
+            "hit": 168,
+            "miss": 29
+          }
+        },
+        "afterWithSavedCalibration": {
+          "maxMultiplier": 10,
+          "hits": 168,
+          "misses": 29,
+          "bestStreak": 166,
+          "kinds": {
+            "hit": 168,
+            "miss": 29
+          }
+        }
+      },
+      {
+        "name": "low_flux",
+        "before": {
+          "maxMultiplier": 2,
+          "hits": 53,
+          "misses": 94,
+          "bestStreak": 3,
+          "kinds": {
+            "miss": 94,
+            "hit": 53,
+            "excluded": 7
+          }
+        },
+        "after": {
+          "maxMultiplier": 10,
+          "hits": 140,
+          "misses": 14,
+          "bestStreak": 73,
+          "kinds": {
+            "hit": 140,
+            "miss": 14
+          }
+        },
+        "commonScorableEvents": 154,
+        "commonWithoutCalibration": {
+          "maxMultiplier": 10,
+          "hits": 140,
+          "misses": 14,
+          "bestStreak": 73,
+          "kinds": {
+            "hit": 140,
+            "miss": 14
+          }
+        },
+        "afterWithSavedCalibration": {
+          "maxMultiplier": 10,
+          "hits": 140,
+          "misses": 14,
+          "bestStreak": 73,
+          "kinds": {
+            "hit": 140,
+            "miss": 14
+          }
+        }
+      }
+    ],
+    "thresholds": "PASS: x2 at3, x10 at27, cap, duplicate, \u002B142ms calibration",
+    "offbeatRejected": 147,
+    "offbeatJudged": 147
+  },
+  {
+    "level": 5,
+    "title": "Ethereal Flight",
+    "sequences": [
+      {
+        "name": "high_flux",
+        "before": {
+          "maxMultiplier": 10,
+          "hits": 107,
+          "misses": 70,
+          "bestStreak": 107,
+          "kinds": {
+            "excluded": 5,
+            "miss": 70,
+            "hit": 107
+          }
+        },
+        "after": {
+          "maxMultiplier": 10,
+          "hits": 181,
+          "misses": 1,
+          "bestStreak": 106,
+          "kinds": {
+            "hit": 181,
+            "miss": 1
+          }
+        },
+        "commonScorableEvents": 182,
+        "commonWithoutCalibration": {
+          "maxMultiplier": 10,
+          "hits": 181,
+          "misses": 1,
+          "bestStreak": 106,
+          "kinds": {
+            "hit": 181,
+            "miss": 1
+          }
+        },
+        "afterWithSavedCalibration": {
+          "maxMultiplier": 10,
+          "hits": 181,
+          "misses": 1,
+          "bestStreak": 106,
+          "kinds": {
+            "hit": 181,
+            "miss": 1
+          }
+        }
+      },
+      {
+        "name": "low_flux",
+        "before": {
+          "maxMultiplier": 10,
+          "hits": 181,
+          "misses": 0,
+          "bestStreak": 181,
+          "kinds": {
+            "hit": 181,
+            "excluded": 1
+          }
+        },
+        "after": {
+          "maxMultiplier": 10,
+          "hits": 180,
+          "misses": 2,
+          "bestStreak": 176,
+          "kinds": {
+            "hit": 180,
+            "miss": 2
+          }
+        },
+        "commonScorableEvents": 182,
+        "commonWithoutCalibration": {
+          "maxMultiplier": 10,
+          "hits": 180,
+          "misses": 2,
+          "bestStreak": 176,
+          "kinds": {
+            "hit": 180,
+            "miss": 2
+          }
+        },
+        "afterWithSavedCalibration": {
+          "maxMultiplier": 10,
+          "hits": 180,
+          "misses": 2,
+          "bestStreak": 176,
+          "kinds": {
+            "hit": 180,
+            "miss": 2
+          }
+        }
+      }
+    ],
+    "thresholds": "PASS: x2 at3, x10 at27, cap, duplicate, \u002B142ms calibration",
+    "offbeatRejected": 6,
+    "offbeatJudged": 6
+  },
+  {
+    "level": 6,
+    "title": "Wasted Potential",
+    "sequences": [
+      {
+        "name": "high_flux",
+        "before": {
+          "maxMultiplier": 2,
+          "hits": 107,
+          "misses": 101,
+          "bestStreak": 5,
+          "kinds": {
+            "hit": 107,
+            "miss": 101,
+            "excluded": 4
+          }
+        },
+        "after": {
+          "maxMultiplier": 10,
+          "hits": 212,
+          "misses": 0,
+          "bestStreak": 212,
+          "kinds": {
+            "hit": 212
+          }
+        },
+        "commonScorableEvents": 211,
+        "commonWithoutCalibration": {
+          "maxMultiplier": 10,
+          "hits": 211,
+          "misses": 0,
+          "bestStreak": 211,
+          "kinds": {
+            "hit": 211
+          }
+        },
+        "afterWithSavedCalibration": {
+          "maxMultiplier": 10,
+          "hits": 211,
+          "misses": 0,
+          "bestStreak": 211,
+          "kinds": {
+            "hit": 211
+          }
+        }
+      },
+      {
+        "name": "low_flux",
+        "before": {
+          "maxMultiplier": 2,
+          "hits": 71,
+          "misses": 77,
+          "bestStreak": 4,
+          "kinds": {
+            "hit": 71,
+            "miss": 77
+          }
+        },
+        "after": {
+          "maxMultiplier": 10,
+          "hits": 148,
+          "misses": 0,
+          "bestStreak": 148,
+          "kinds": {
+            "hit": 148
+          }
+        },
+        "commonScorableEvents": 148,
+        "commonWithoutCalibration": {
+          "maxMultiplier": 10,
+          "hits": 148,
+          "misses": 0,
+          "bestStreak": 148,
+          "kinds": {
+            "hit": 148
+          }
+        },
+        "afterWithSavedCalibration": {
+          "maxMultiplier": 10,
+          "hits": 148,
+          "misses": 0,
+          "bestStreak": 148,
+          "kinds": {
+            "hit": 148
+          }
+        }
+      }
+    ],
+    "thresholds": "PASS: x2 at3, x10 at27, cap, duplicate, \u002B142ms calibration",
+    "offbeatRejected": 218,
+    "offbeatJudged": 218
+  },
+  {
+    "level": 7,
+    "title": "Liquid Nitrogen",
+    "sequences": [
+      {
+        "name": "high_flux",
+        "before": {
+          "maxMultiplier": 10,
+          "hits": 204,
+          "misses": 0,
+          "bestStreak": 204,
+          "kinds": {
+            "excluded": 35,
+            "hit": 204
+          }
+        },
+        "after": {
+          "maxMultiplier": 10,
+          "hits": 239,
+          "misses": 0,
+          "bestStreak": 239,
+          "kinds": {
+            "hit": 239
+          }
+        },
+        "commonScorableEvents": 239,
+        "commonWithoutCalibration": {
+          "maxMultiplier": 10,
+          "hits": 239,
+          "misses": 0,
+          "bestStreak": 239,
+          "kinds": {
+            "hit": 239
+          }
+        },
+        "afterWithSavedCalibration": {
+          "maxMultiplier": 10,
+          "hits": 239,
+          "misses": 0,
+          "bestStreak": 239,
+          "kinds": {
+            "hit": 239
+          }
+        }
+      },
+      {
+        "name": "low_flux",
+        "before": {
+          "maxMultiplier": 1,
+          "hits": 3,
+          "misses": 93,
+          "bestStreak": 2,
+          "kinds": {
+            "excluded": 7,
+            "hit": 3,
+            "miss": 93
+          }
+        },
+        "after": {
+          "maxMultiplier": 8,
+          "hits": 77,
+          "misses": 25,
+          "bestStreak": 21,
+          "kinds": {
+            "excluded": 1,
+            "hit": 77,
+            "miss": 25
+          }
+        },
+        "commonScorableEvents": 102,
+        "commonWithoutCalibration": {
+          "maxMultiplier": 8,
+          "hits": 77,
+          "misses": 25,
+          "bestStreak": 21,
+          "kinds": {
+            "hit": 77,
+            "miss": 25
+          }
+        },
+        "afterWithSavedCalibration": {
+          "maxMultiplier": 8,
+          "hits": 77,
+          "misses": 25,
+          "bestStreak": 21,
+          "kinds": {
+            "hit": 77,
+            "miss": 25
+          }
+        }
+      }
+    ],
+    "thresholds": "PASS: x2 at3, x10 at27, cap, duplicate, \u002B142ms calibration",
+    "offbeatRejected": 215,
+    "offbeatJudged": 215
+  },
+  {
+    "level": 8,
+    "title": "\u041D\u0435\u043E\u043D\u043E\u0432\u044B\u0439 \u0441\u0438\u043C\u0444\u043E\u043D\u0438\u0439",
+    "sequences": [
+      {
+        "name": "high_flux",
+        "before": {
+          "maxMultiplier": 10,
+          "hits": 147,
+          "misses": 0,
+          "bestStreak": 147,
+          "kinds": {
+            "hit": 147,
+            "excluded": 3
+          }
+        },
+        "after": {
+          "maxMultiplier": 10,
+          "hits": 147,
+          "misses": 0,
+          "bestStreak": 147,
+          "kinds": {
+            "hit": 147,
+            "excluded": 3
+          }
+        },
+        "commonScorableEvents": 147,
+        "commonWithoutCalibration": {
+          "maxMultiplier": 10,
+          "hits": 147,
+          "misses": 0,
+          "bestStreak": 147,
+          "kinds": {
+            "hit": 147
+          }
+        },
+        "afterWithSavedCalibration": {
+          "maxMultiplier": 10,
+          "hits": 147,
+          "misses": 0,
+          "bestStreak": 147,
+          "kinds": {
+            "hit": 147
+          }
+        }
+      },
+      {
+        "name": "low_flux",
+        "before": {
+          "maxMultiplier": 10,
+          "hits": 128,
+          "misses": 2,
+          "bestStreak": 104,
+          "kinds": {
+            "hit": 128,
+            "miss": 2
+          }
+        },
+        "after": {
+          "maxMultiplier": 10,
+          "hits": 128,
+          "misses": 2,
+          "bestStreak": 104,
+          "kinds": {
+            "hit": 128,
+            "miss": 2
+          }
+        },
+        "commonScorableEvents": 130,
+        "commonWithoutCalibration": {
+          "maxMultiplier": 10,
+          "hits": 128,
+          "misses": 2,
+          "bestStreak": 104,
+          "kinds": {
+            "hit": 128,
+            "miss": 2
+          }
+        },
+        "afterWithSavedCalibration": {
+          "maxMultiplier": 10,
+          "hits": 128,
+          "misses": 2,
+          "bestStreak": 104,
+          "kinds": {
+            "hit": 128,
+            "miss": 2
+          }
+        }
+      }
+    ],
+    "thresholds": "PASS: x2 at3, x10 at27, cap, duplicate, \u002B142ms calibration",
+    "offbeatRejected": 148,
+    "offbeatJudged": 148
+  }
+]

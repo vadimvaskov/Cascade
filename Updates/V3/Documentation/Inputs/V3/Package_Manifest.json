@@ -1,0 +1,590 @@
+{
+  "package": "Cascade_Update_8_Records_v3",
+  "excluded_working_folders": [
+    "Figma_Import",
+    "Prompts"
+  ],
+  "files": [
+    {
+      "path": "AssetManifest.json",
+      "bytes": 5859,
+      "sha256": "c331aef99bdb246b82aef8704d42a38bbd180b05877b651cff2d4831f766a271"
+    },
+    {
+      "path": "Assets/background.png",
+      "bytes": 1631847,
+      "sha256": "eec7d253a08b77d2ec47a411cdf1033e462a90436781a367532f486737dcaac2"
+    },
+    {
+      "path": "Assets/logo-cascade.png",
+      "bytes": 1134062,
+      "sha256": "82db674d9b2ff8e4c1268b5091f0db96c029c714054982fe05fca6d1598a309f"
+    },
+    {
+      "path": "Assets/play-button.png",
+      "bytes": 1376207,
+      "sha256": "7261a1f634e9403ef9970edb3fe527a9e7ebf359c8e9c5f553f46c978ccd2f60"
+    },
+    {
+      "path": "Assets/settings-button.png",
+      "bytes": 947347,
+      "sha256": "66c0829283f8e196531338e2cf7e4f0b33c850725992fd6683ea04aa1016d2dc"
+    },
+    {
+      "path": "Assets/stand.png",
+      "bytes": 870035,
+      "sha256": "0f57da4d5f9513f4c635d896f44e57d6f7764b8298f6227f77ca6ebc8351d473"
+    },
+    {
+      "path": "Assets/track-normal.png",
+      "bytes": 741310,
+      "sha256": "296825d4deb0f52352e8ffd98046d1898f955cf7abf168e9b35ea04bc4ee7c01"
+    },
+    {
+      "path": "Assets/track-selected.png",
+      "bytes": 953682,
+      "sha256": "e4d54db80bec0daa395736a65aa29dd6c9b781a505ce1d8945d67f2d036d0fbc"
+    },
+    {
+      "path": "Assets/UI/Arrow_Left.png",
+      "bytes": 10428,
+      "sha256": "9c95b4d9d9f7b2ba4c00b9d932b47c5ac0eca8a19ae43879b9ad804ee285b6c0"
+    },
+    {
+      "path": "Assets/UI/Arrow_Left.svg",
+      "bytes": 423,
+      "sha256": "49bfb106f37e8b5157d85ae6aeef74ef486d3b430344e4935dd23872fe05c747"
+    },
+    {
+      "path": "Assets/UI/Arrow_Right.png",
+      "bytes": 10354,
+      "sha256": "2eaf7898527d04aa90bd84e1c3061714845b807248f536057ab0cf400e6735e1"
+    },
+    {
+      "path": "Assets/UI/Arrow_Right.svg",
+      "bytes": 423,
+      "sha256": "4be1ba1d5583fcac7708bcc8b2ac5eb8214b04c855525e4475c9ba2ad0777308"
+    },
+    {
+      "path": "Assets/UI/Circle_Mask.png",
+      "bytes": 8134,
+      "sha256": "c766bac6fa02d653b3c8c802d30d1bd6fdd78e591a213bd05d600ade9d06dfbd"
+    },
+    {
+      "path": "Assets/UI/Circle_Mask.svg",
+      "bytes": 143,
+      "sha256": "fb67e127737d99e8e596ca0fe295a06b04af00ab50c35db39b9ad5b19bd58dcf"
+    },
+    {
+      "path": "Assets/UI/Completed_Check.png",
+      "bytes": 4624,
+      "sha256": "b12c4a67d16c471498fcc4a460a5bc7e6cc47cb8469bbe4f5e15e08a69a5fe14"
+    },
+    {
+      "path": "Assets/UI/Completed_Check.svg",
+      "bytes": 261,
+      "sha256": "812ac19590d7a8944af09a87c051ed7d5b11195015291d3484227c3696ea3407"
+    },
+    {
+      "path": "Assets/UI/Lock.png",
+      "bytes": 8079,
+      "sha256": "64992883e6d4511629fe0288baf64148a80947a915c454e820dd5187ccd84531"
+    },
+    {
+      "path": "Assets/UI/Lock.svg",
+      "bytes": 374,
+      "sha256": "e038e1e67354ef9d497542205808faf7c2aaa59df0fca389a553ad9b43e803fb"
+    },
+    {
+      "path": "Assets/UI/Slider_Thumb.png",
+      "bytes": 3246,
+      "sha256": "1661b776027d814753a70a7c15896f78413ac001eba60fb7f1845cdd1cd958e6"
+    },
+    {
+      "path": "Assets/UI/Slider_Thumb.svg",
+      "bytes": 136,
+      "sha256": "238cf6c3bed6eddd4b0a2ccd3ae4ffed7e1a02492a1a9b9ebb675df90abd8404"
+    },
+    {
+      "path": "Assets/UI/Toggle_Off.png",
+      "bytes": 13183,
+      "sha256": "821af75d3d525b360970b0f7ce667309df5d048e85c2cda438bf668187f86b2b"
+    },
+    {
+      "path": "Assets/UI/Toggle_Off.svg",
+      "bytes": 238,
+      "sha256": "f4a25ea23132bd03b75f302fe41fd70e248cc8be64539734e523595e260c392e"
+    },
+    {
+      "path": "Assets/UI/Toggle_On.png",
+      "bytes": 12871,
+      "sha256": "beb016c62aeb814ed255825570602ff1005eb10ced3701344cef9252961c0f95"
+    },
+    {
+      "path": "Assets/UI/Toggle_On.svg",
+      "bytes": 238,
+      "sha256": "770964fb38455f36219aeb010f187d91fd059b7f5490de66a0066105a9aa405b"
+    },
+    {
+      "path": "Assets/vinyl.png",
+      "bytes": 1905313,
+      "sha256": "f34f8613c275207e273c86b66d9a76d9a87994e9eb58035c6ec3c160d6becf99"
+    },
+    {
+      "path": "Baseline/Cascade_Unity_Prototype_TZ_v1.docx",
+      "bytes": 1638487,
+      "sha256": "917aeed5ff45ce8488805166e91dfc96c643eeda087e7e25d8a0a0ce1b75085e"
+    },
+    {
+      "path": "Baseline/Prototype_TZ_v1_RU.txt",
+      "bytes": 54029,
+      "sha256": "b9eeb4afab83da24c014051422d95b3d6659c5e195ad7481bd242c3cefa34b70"
+    },
+    {
+      "path": "Cascade_Update_TZ_v3.docx",
+      "bytes": 4091872,
+      "sha256": "b45200938475ee04dfa5392440f68e2a91d98f60b9249b6d2d25857834f5ee62"
+    },
+    {
+      "path": "Cascade_Update_TZ_v3_RU.txt",
+      "bytes": 44967,
+      "sha256": "2b4ea5e9599e1d8637e4c9192e96bd473878dd5eb1fdd958eb5182d7e73133b7"
+    },
+    {
+      "path": "CHANGELOG_RU.txt",
+      "bytes": 1200,
+      "sha256": "5b5acf8e5c128f4a4dbd4060555c304891893b98ef40eb0f9b32a22961d57664"
+    },
+    {
+      "path": "Covers/01_disco_funk.png",
+      "bytes": 2266801,
+      "sha256": "4fb4567654cb7e83ff10e029bb9deed2dffb2c1e714f8ba9167b6d942445fc27"
+    },
+    {
+      "path": "Covers/02_synthwave_electro.png",
+      "bytes": 2202921,
+      "sha256": "76ca28bb63c4203ed232582ffbb47b7d7e550f856a8a90f84edf003c301d38c0"
+    },
+    {
+      "path": "Covers/03_electro_swing.png",
+      "bytes": 2202760,
+      "sha256": "e40da12b6070f00ced25d4cbcfcf9e96d721b0b7efe8cc17fa3551f64040015d"
+    },
+    {
+      "path": "Covers/04_electronic_rock.png",
+      "bytes": 2384072,
+      "sha256": "3f85132f3fb1ef4e68ec7eb908e2c67134ccc08711148a8daaa2497185a8422b"
+    },
+    {
+      "path": "Covers/05_melodic_trance.png",
+      "bytes": 2248742,
+      "sha256": "da0d7690c157fc04b396efb83a31da03cc40ad09673ba6b0ac7481b7cb89f9fa"
+    },
+    {
+      "path": "Covers/06_dubstep_bass.png",
+      "bytes": 2305149,
+      "sha256": "7c6705ae42c454ab9246d1d63514ca2607bf5b961d244e35561f246a96c054be"
+    },
+    {
+      "path": "Covers/07_drum_and_bass.png",
+      "bytes": 2290442,
+      "sha256": "032bb74dc09f247be86843a593330bb740f5e31ed78524282c2acd37d62bc9fb"
+    },
+    {
+      "path": "Covers/08_orchestra_electronic.png",
+      "bytes": 2339450,
+      "sha256": "f579912c3f94153320526b3c943fcd2e6c6d538e429f8dbce370e7d214c61722"
+    },
+    {
+      "path": "Data/Content_Catalog_v2.json",
+      "bytes": 13209,
+      "sha256": "ed4b6328251192e88879758a501764301b322f510a5d3364acf449f5c31ccb91"
+    },
+    {
+      "path": "Data/Content_Catalog_v3.json",
+      "bytes": 13209,
+      "sha256": "ed4b6328251192e88879758a501764301b322f510a5d3364acf449f5c31ccb91"
+    },
+    {
+      "path": "Data/Content_Migration_v3.json",
+      "bytes": 1594,
+      "sha256": "c0a9d354245ade5d0f1c599a8f409763e3df806f232f233c2ab4e4bdc17f71a8"
+    },
+    {
+      "path": "Data/Figma_Correction_v3.json",
+      "bytes": 496,
+      "sha256": "345a0cbccf7c8153f59d96ae27f5aa14273517d64a0626f05d547d11f3b4ab4d"
+    },
+    {
+      "path": "Data/Figma_State.json",
+      "bytes": 8694,
+      "sha256": "b378d37ab2c6b09534ba3423e3f8a76ecc3e226898f6bed72897a9ba9c0c12bb"
+    },
+    {
+      "path": "Data/Layout_941x1672.json",
+      "bytes": 170581,
+      "sha256": "c4d40699dadd680f00b2e615da5192a0cb519dbb7cb181299fd5287e8f5ae9dc"
+    },
+    {
+      "path": "Data/Navigation.json",
+      "bytes": 3923,
+      "sha256": "747a763e56f6ddf38ef84d5c68186c58caf452a8e7fd9c635fa0ddb41fdd9998"
+    },
+    {
+      "path": "Data/README_RU.txt",
+      "bytes": 699,
+      "sha256": "1437953a3bdeb6d498cc18af023121e860ae72f71b83b7c038c2f2d4c58a064d"
+    },
+    {
+      "path": "Data/UI_Controls.json",
+      "bytes": 1459,
+      "sha256": "be0dbd4a6b98cbe374ec43c70d21cf859a763759936b9ca0d4976c7e4c6e9656"
+    },
+    {
+      "path": "Data/Unity_Import_Settings.json",
+      "bytes": 1192,
+      "sha256": "e45f243a1165afcaf69f8b7ee160e7fee65a7adfb0df5cb5361047e4815fbb21"
+    },
+    {
+      "path": "Data/Update_Rules_v3.json",
+      "bytes": 1147,
+      "sha256": "4b5e0811a1be9544bdc2497a60d89a73e9fb129f4a624e01168e659bfc19bbfb"
+    },
+    {
+      "path": "Fonts/README_RU.txt",
+      "bytes": 1247,
+      "sha256": "5e791b4a4b2fd9eed371be40bf80081c694e21230db2eaaf65f85783739cab41"
+    },
+    {
+      "path": "Gameplay/Existing_Assets/AssetManifest.json",
+      "bytes": 14446,
+      "sha256": "53bfbbcb30580340abb1490266b7f3ab8b93437eaf177701d9fa403827f7db33"
+    },
+    {
+      "path": "Gameplay/Existing_Assets/Assets/background.png",
+      "bytes": 1382700,
+      "sha256": "6fd12e038e660c58e90423bf49437d21e86a2b9049c50ded0f5897047c8f15b7"
+    },
+    {
+      "path": "Gameplay/Existing_Assets/Assets/empty-board.png",
+      "bytes": 1672627,
+      "sha256": "145aa0fa7771b3b599d9f834fc11f5f71dea97afc0500ad7609da6e7796adfc9"
+    },
+    {
+      "path": "Gameplay/Existing_Assets/Assets/hud-overlay.png",
+      "bytes": 266591,
+      "sha256": "9ba9fc685990ef94bfc86a6cc3b15c111cf69ebbc83e6bba93cbf1e27adbbcc3"
+    },
+    {
+      "path": "Gameplay/Existing_Assets/Assets/logo-cascade.png",
+      "bytes": 1134062,
+      "sha256": "82db674d9b2ff8e4c1268b5091f0db96c029c714054982fe05fca6d1598a309f"
+    },
+    {
+      "path": "Gameplay/Existing_Assets/Assets/pause-button.png",
+      "bytes": 1127332,
+      "sha256": "1aa4a2292ec4694a4ed5a8d6e953dab9e74c2650e98e10eec60b1cdeb4272352"
+    },
+    {
+      "path": "Gameplay/Existing_Assets/Assets/sphere-1-cyan.png",
+      "bytes": 1151557,
+      "sha256": "2d88f729046c9adc3eb55a6502fe19baa9e159391ef41f824f0d381f98f009ed"
+    },
+    {
+      "path": "Gameplay/Existing_Assets/Assets/sphere-2-green.png",
+      "bytes": 1342865,
+      "sha256": "fa63ab3e284ab7ba0b863cbb9d2bcf98face77dfb45f84c1c6d6f0354fefc248"
+    },
+    {
+      "path": "Gameplay/Existing_Assets/Assets/sphere-3-amber.png",
+      "bytes": 1057013,
+      "sha256": "ddf88a35bc4951914b6a513cd68ee6df14502f95c7cc78a16c95831951f2f311"
+    },
+    {
+      "path": "Gameplay/Existing_Assets/Assets/sphere-4-purple.png",
+      "bytes": 1233330,
+      "sha256": "210c7da716a8481be9b9f2dceea836689c0e9d4c68e2a4dda4c0a1e6e5a57c23"
+    },
+    {
+      "path": "Gameplay/Existing_Assets/Cascade_Redrawn_Mockup.png",
+      "bytes": 1872142,
+      "sha256": "a0afdb5b0ee0616913a58b54d71e88be3063806adf45df6233c740fec72f0df2"
+    },
+    {
+      "path": "Gameplay/Existing_Assets/Figma_Asset_Shelf.svg",
+      "bytes": 13469998,
+      "sha256": "7493ef1852aa945e8bafd083620a8ced8eb496150a479a7918d434dedd3ee1e4"
+    },
+    {
+      "path": "Gameplay/Existing_Assets/Figma_Raster_Mockup.svg",
+      "bytes": 32748393,
+      "sha256": "ef3e35f8440fda122aeca7b7e6493b537b88ab4b5a4a8f08a2edd3742d520154"
+    },
+    {
+      "path": "Gameplay/Existing_Assets/Layout_941x1672.json",
+      "bytes": 4934,
+      "sha256": "5c38c1bfd48cb3ea4f28602f4e6788409475c1b53910a143890fc44691151fa9"
+    },
+    {
+      "path": "Gameplay/Existing_Assets/Reference/cascade-3d-concept-v1.png",
+      "bytes": 1748997,
+      "sha256": "9a2b881141435fe1f6437bacdc89085652dacf8c2279953092cf099f4a587117"
+    },
+    {
+      "path": "Gameplay/Existing_Assets/Unity_Visual_Handoff_RU.txt",
+      "bytes": 5420,
+      "sha256": "8463019f0151081bf8089e673fccb9b06e832a33524020525af0626779857805"
+    },
+    {
+      "path": "Gameplay/Existing_Charge_Rule_RU.txt",
+      "bytes": 3485,
+      "sha256": "115f6038c0df3807bf87ab1eb0878bb93ac1d50c69593133344ca61bbb644a8c"
+    },
+    {
+      "path": "Gameplay/Figma_Proof.png",
+      "bytes": 225803,
+      "sha256": "b9dff87021e01928fdcee230ec873fca4528b32239d0316883e7821f905ef0a0"
+    },
+    {
+      "path": "Gameplay/Figma_State.json",
+      "bytes": 1150,
+      "sha256": "a9ceb627730947ffe683423111dd4dac1b7ab7b766e2ac2d75f223df1dec1fab"
+    },
+    {
+      "path": "Gameplay/Lighting_References/00_Base.png",
+      "bytes": 1872142,
+      "sha256": "a0afdb5b0ee0616913a58b54d71e88be3063806adf45df6233c740fec72f0df2"
+    },
+    {
+      "path": "Gameplay/Lighting_References/01_Board_Orbs_Peak.png",
+      "bytes": 1782476,
+      "sha256": "a9a1d1176c38d2ec9bf08c046fc696a7a1b9b51a26c58aeab76c7ad17a3d83ec"
+    },
+    {
+      "path": "Gameplay/Lighting_References/02_Screen_Aura_Peak.png",
+      "bytes": 1798965,
+      "sha256": "41c93fe10a711c4c0e79facf991959b009074f03fa6287832d3b15809ade1488"
+    },
+    {
+      "path": "Gameplay/Rhythm_Lighting_Config.json",
+      "bytes": 3662,
+      "sha256": "d785e933887f676413345a38881be667586fe14148f2139c448ce6a6693384d8"
+    },
+    {
+      "path": "Gameplay/Rhythm_Lighting_TZ_RU.txt",
+      "bytes": 25102,
+      "sha256": "da3e2b306c7772b351389ebce62171635c05638a539626a5c427e745f8505ad2"
+    },
+    {
+      "path": "LINKS_FIGMA_RU.txt",
+      "bytes": 1359,
+      "sha256": "4c24ea0b2f95ab6764be63ab7b9a817491f267f8d3e1f3c29796caa659930eb0"
+    },
+    {
+      "path": "Music/Audio_Inventory.json",
+      "bytes": 6909,
+      "sha256": "010ed9e054a1507d5c76f66d5a23ae1e468b39ee4ff39419c0d552393f9fa113"
+    },
+    {
+      "path": "Music/Originals/Disco Dancer.m4a",
+      "bytes": 2981477,
+      "sha256": "4b0e4a621c72d3c6f9a5d4dc1b1ceada0bad0b5334cdde9bb1c125e0726d3699"
+    },
+    {
+      "path": "Music/Originals/Ethereal Flight.m4a",
+      "bytes": 3353166,
+      "sha256": "d721fd01759d4ab2d9b3d089b1e99a7ffc9d7ed447fa226e5d5ca2ac981b40d2"
+    },
+    {
+      "path": "Music/Originals/Liquid Nitrogen.m4a",
+      "bytes": 3113216,
+      "sha256": "710fa1c0ad7a65b23bb71a7d8c6f236ac4d4bcda3608cfd0c6656835e211f50b"
+    },
+    {
+      "path": "Music/Originals/Neon Overdrive.m4a",
+      "bytes": 3479276,
+      "sha256": "c6b96d77b86c3fa7a9a828412c5f1e2ab4d15e2a52936a45a1de509476ed86ec"
+    },
+    {
+      "path": "Music/Originals/Phantom Limb.m4a",
+      "bytes": 2495083,
+      "sha256": "5f5bfba4e03f8ce7466c6f732d7ecbd2eed39c649b2451c06298762d5a1c28df"
+    },
+    {
+      "path": "Music/Originals/Static Rocker.m4a",
+      "bytes": 3144124,
+      "sha256": "6b150c80b1d4398565cb960b5a78a49102ec638402dd09d1d69bbbbdba43b8a0"
+    },
+    {
+      "path": "Music/Originals/Wasted Potential.m4a",
+      "bytes": 2198583,
+      "sha256": "64f4e6cabb5948153a498fe83652d4392c729c13250925c976390848e132889e"
+    },
+    {
+      "path": "Music/Originals/Неоновый симфоний.m4a",
+      "bytes": 2793035,
+      "sha256": "05a871ff3ea09a6a9ce5eff9fb2588b88b6b2a24d90c363689fb201c50dec044"
+    },
+    {
+      "path": "Package_QA.json",
+      "bytes": 1593,
+      "sha256": "03a1732f62df6186c13349a2637ff029da0606c420677c296807359fbf561124"
+    },
+    {
+      "path": "Previews/Assets_01_Eight_Covers.png",
+      "bytes": 4635251,
+      "sha256": "5c64e37c0394085cf875f343cf25fdbfc5fa5777226daf59f44c7bd24a6d6fcf"
+    },
+    {
+      "path": "Previews/Assets_02_Shared_Graphics.png",
+      "bytes": 1912272,
+      "sha256": "72b27ed82afe22e61598fe5031620c3a26aca0493bba854dcad899ed6f4e2f1c"
+    },
+    {
+      "path": "Previews/Assets_03_Controls.png",
+      "bytes": 62898,
+      "sha256": "3c6939a3c064b0aa59beb1ccd238f948c6dee6e01e26f5eb8ea79b6e81ef5d6e"
+    },
+    {
+      "path": "Previews/Menu_01_disco_funk_completed.png",
+      "bytes": 2388981,
+      "sha256": "43b0621fdef446e5907fbab7d59189d82d4185a03f02ac39d693392598950c03"
+    },
+    {
+      "path": "Previews/Menu_01_disco_funk_open.png",
+      "bytes": 2389004,
+      "sha256": "ed6c37c24e4deaf97464f89db42910a6987fd9d2f4c3d65e20f03b508803819d"
+    },
+    {
+      "path": "Previews/Menu_02_synthwave_electro_locked.png",
+      "bytes": 2250274,
+      "sha256": "eae88def82cf56d4faca3c8d5ed918f35b0e526534a3fdaa204b22de0ef380f6"
+    },
+    {
+      "path": "Previews/Menu_02_synthwave_electro_open.png",
+      "bytes": 2428816,
+      "sha256": "dae92803c85f15bbf668a5bf6d3537685f21e83a5b863a5e3feee305b3b46cea"
+    },
+    {
+      "path": "Previews/Menu_03_electro_swing_open.png",
+      "bytes": 2428134,
+      "sha256": "382f22cdbaa75f1608e3b7e10ffdbefbb4d9927e289b2d82d26e5f5962ff8f84"
+    },
+    {
+      "path": "Previews/Menu_04_electronic_rock_open.png",
+      "bytes": 2439461,
+      "sha256": "3a1df7388ccccbf3313967076567b5a4c79c156046d6d01703a35b77de9158e5"
+    },
+    {
+      "path": "Previews/Menu_05_melodic_trance_open.png",
+      "bytes": 2422044,
+      "sha256": "8b0d648cd6b89023660fd0ecc9cd721e91fe6e4745c5ecb3f4fab00e15c8aa8b"
+    },
+    {
+      "path": "Previews/Menu_06_dubstep_bass_open.png",
+      "bytes": 2433727,
+      "sha256": "380f3cdb4fd8d3665c73963459dcbbee699bf1706ec60b50b88878cc28c7bd33"
+    },
+    {
+      "path": "Previews/Menu_07_drum_and_bass_open.png",
+      "bytes": 2442435,
+      "sha256": "9b711cadca191d6d4954f889a3dac25f17043674295d631e38f97101b1d64c1e"
+    },
+    {
+      "path": "Previews/Menu_08_orchestra_electronic_open.png",
+      "bytes": 2408917,
+      "sha256": "3df557481995e594c7428daa485883441b60109156decec9cb401ae11030eea1"
+    },
+    {
+      "path": "Previews/Settings_Menu.png",
+      "bytes": 1471919,
+      "sha256": "71c9ce5768756c382639ef6958b93da6b6fd2d28e8e7419c5b7e5cbb6dc150d4"
+    },
+    {
+      "path": "Previews/Tracks_01_disco_funk.png",
+      "bytes": 2138824,
+      "sha256": "2388474dc2cfd648c698e5189c9ea97f4c0b6a56040a608e6d86d7d01fd404c9"
+    },
+    {
+      "path": "Previews/Tracks_02_synthwave_electro.png",
+      "bytes": 2138037,
+      "sha256": "a96692455b2a863e76ec8c9261b572fa8569e6bdf0f7d4d4f9fe7bc517b43de2"
+    },
+    {
+      "path": "Previews/Tracks_03_electro_swing.png",
+      "bytes": 2135686,
+      "sha256": "53a65f5adc88dd0a1c49078b168433e431f0c74580cc3d68e4bb46fdb353cc77"
+    },
+    {
+      "path": "Previews/Tracks_04_electronic_rock.png",
+      "bytes": 2142944,
+      "sha256": "ea9df89e2ab7f2a9fbb158c019222c78ac4309a6e91b1aa2d00e496498b7b0b5"
+    },
+    {
+      "path": "Previews/Tracks_05_melodic_trance.png",
+      "bytes": 2134130,
+      "sha256": "401f137a6e9ef9eee62404a86d2568673914492464b1b6fb783d6646462a54d1"
+    },
+    {
+      "path": "Previews/Tracks_06_dubstep_bass.png",
+      "bytes": 2139965,
+      "sha256": "7fd02be798806137b05103565750f466eecec8772f60d987570f13e3a514c654"
+    },
+    {
+      "path": "Previews/Tracks_07_drum_and_bass.png",
+      "bytes": 2141857,
+      "sha256": "5998f493c43e6af2bd9e0ef27c1327e1e9cce4d34e6690fc79c6195dda6fcb6e"
+    },
+    {
+      "path": "Previews/Tracks_08_orchestra_electronic.png",
+      "bytes": 2142283,
+      "sha256": "357a4f9f188a3a1ef9cafca3f8b647b36175965a30338d49ffbd35085d341a51"
+    },
+    {
+      "path": "Proof/Figma_Corrected_Tracks.png",
+      "bytes": 271238,
+      "sha256": "27ee4e3f9564032476256b3a907b95792f67f58f8c1245f94d89e5b903683c8e"
+    },
+    {
+      "path": "Proof/Figma_Eight_Records_Overview.png",
+      "bytes": 282655,
+      "sha256": "b0b6c14d9b1503cb003fb7acbf233e2fd7be6de81b7ba951d16a4dc11a81f8d3"
+    },
+    {
+      "path": "Proof/Figma_Main_Menu.png",
+      "bytes": 285789,
+      "sha256": "75498e7c44159af4fa14e1878ee31fc186e2cba286a82b583243077f7cff8ee0"
+    },
+    {
+      "path": "Sources/Track_Styles_01.jpg",
+      "bytes": 57391,
+      "sha256": "6ac16adb874efef011e5753592a099c52ba9d2274fa0fd2db49237afcb1a9d6f"
+    },
+    {
+      "path": "Sources/Track_Styles_02.jpg",
+      "bytes": 63459,
+      "sha256": "d72e5e9da27284707c5cd966a6bc01128d6bf1b6e3ab818e4496600a9814446c"
+    },
+    {
+      "path": "Sources.json",
+      "bytes": 2015,
+      "sha256": "6124ea7d4c578199a26cdbb4724d2d06f4367d33f44e3a73817d2a09fa784272"
+    },
+    {
+      "path": "START_DEVELOPMENT_RU.txt",
+      "bytes": 1487,
+      "sha256": "e46440eab5246001db22c1c478b98aa89aa8152a0c43d88e409ee8f6704b5d43"
+    },
+    {
+      "path": "START_HERE_RU.txt",
+      "bytes": 3387,
+      "sha256": "e365f76bedb019548f72d39e46d1e7d21d677bd2be15e67e424545a0e307b33c"
+    },
+    {
+      "path": "Unity/Menu_Implementation_RU.txt",
+      "bytes": 15468,
+      "sha256": "402cd4d5a288a14717ad1dbad6f5b391ee83356c597b88500f46f9c812c5c7a9"
+    }
+  ],
+  "manifest_excludes_itself": true
+}

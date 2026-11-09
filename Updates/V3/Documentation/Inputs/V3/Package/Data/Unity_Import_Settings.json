@@ -1,0 +1,41 @@
+{
+  "reference_canvas": [
+    941,
+    1672
+  ],
+  "orientation": "portrait",
+  "separate_ui_objects": true,
+  "sprite_defaults_for_visual_acceptance": {
+    "type": "Sprite (2D and UI)",
+    "sprite_mode": "Single",
+    "mesh": "Full Rect",
+    "keep_transparent_padding": true,
+    "alpha_is_transparency": true,
+    "sRGB": true,
+    "filter": "Bilinear",
+    "mipmaps": false,
+    "compression": "None for acceptance, optimize after visual QA",
+    "max_size_rule": ">= next power of two of largest source dimension; do not resample sources"
+  },
+  "safe_area": {
+    "source": "Screen.safeArea",
+    "ui_fit": "uniform contain",
+    "background_fit": "cover, decorative cropping only",
+    "do_not_double_apply_canvas_scale": true
+  },
+  "font": {
+    "family": "Montserrat",
+    "styles": [
+      "Regular",
+      "Bold"
+    ],
+    "files_bundled": false,
+    "source": "https://github.com/google/fonts/tree/main/ofl/montserrat",
+    "autosize": false,
+    "support": "Latin+Cyrillic+digits+UI punctuation"
+  },
+  "baked_glow": true,
+  "extra_bloom_for_reference_match": false,
+  "unity_scene_supplied": false,
+  "unity_runtime_verified": false
+}

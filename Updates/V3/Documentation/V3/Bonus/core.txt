@@ -1,0 +1,14 @@
+PASS: 6 charging hits +1; next four musical beats +2; no repeat/stack/recharge; second cycle; offsets 0/+142/-80 ms; Miss resets only charging; active miss does not cancel; no-input expiry; 10-second charge timeout; Read-only HUD vs delayed events; early/late bounds; dense beats; exclusions; song-end truncation
+PASS: all x1-x10 thresholds and cap; one multiplier for whole cascade; miss, repeat, timeout and restart; original event time versus display time; window boundaries, tie break and offset; excluded intervals and frozen timeout; map integrity and honest analysis provenance
+PASS: G01, G02, G03, G04, G05, G06, G07, G08, R01, R02, R03, R04, R05, R06, R07, Exclusions, 100 seeded simulations
+{
+    "passed": true,
+    "checks": [
+        "8 primary transitions; saturation; placed orb unaffected",
+        "Cascade impulses +1, secondary explosion, whole-move score, passive auto, invalid input",
+        "×1–×10: every third unique hit; ×10 from hit27; cap through hit40; repeat, miss recovery, exact10s timeout",
+        "All light knots/interpolation/cap; envelopes; 120ms pause fade; soft/local; ≤3Hz subset",
+        "8 exact catalog audio/map pairs; durations, hashes, stereo48k, provisional status",
+        "Atomic/backup save; zero-score win; replay;8 unlocks; multi-track record; song-hash migration"
+    ]
+}

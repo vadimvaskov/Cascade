@@ -1,0 +1,140 @@
+using System;
+using System.IO;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace Cascade.Prototype
+{
+    public sealed partial class CascadeGame
+    {
+        [SerializeField] bool useV3=true;
+        CascadeCatalog catalog;
+        CascadeTrack[] catalogTracks;
+        CascadeProgressStore progressStore;
+        CascadeLightingConfig lightingConfig;
+        CascadeRhythmLighting lighting;
+        CascadeGlowGraphic frameGlow,screenGlow;
+        CascadeGlowGraphic[] cellGlows,orbGlows;
+        Button[] v3TrackButtons;
+        Text[] v3TrackLabels;
+        bool wonAttempt,developerPreview;
+        public bool UsesV3=>useV3;
+        public CascadeCatalog Catalog=>catalog;
+        public CascadeProgressStore ProgressStore=>progressStore;
+        public CascadeRhythmLighting Lighting=>lighting;
+        public string TrackTitle=>useV3?catalogTracks[level].title:trackNames[level];
+        void InitializeV3()
+        {
+            if(!useV3)return;
+            catalog=JsonUtility.FromJson<CascadeCatalog>(Resources.Load<TextAsset>("V3/catalog").text);catalog.Validate();catalogTracks=catalog.Tracks;
+            trackNames=catalogTracks.Select(t=>t.track_id).ToArray();
+            progressStore=new CascadeProgressStore(Path.Combine(Application.persistentDataPath,"V3","progress.json"),catalog,volume,reduced,offsetMs);
+            volume=progressStore.Data.volume;reduced=progressStore.Data.softEffects;offsetMs=progressStore.Data.calibrationMs;
+            lightingConfig=JsonUtility.FromJson<CascadeLightingConfig>(Resources.Load<TextAsset>("V3/lighting").text);
+            BuildV3TrackList();BuildV3Lighting();
+        }
+        public void PreviewV3Track(int index)
+        {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if(!useV3)return;
+            ShowMenu();developerPreview=true;StartLevel(index);
+#endif
+        }
+        void SaveSettings()
+        {
+            if(useV3&&progressStore!=null)
+            {
+                progressStore.Data.volume=volume;progressStore.Data.softEffects=reduced;progressStore.Data.calibrationMs=offsetMs;
+                try{progressStore.Save();}catch(Exception e){Debug.LogError("Cascade settings save: "+e.Message);}
+            }
+            else{PlayerPrefs.SetFloat("cascade.volume",volume);PlayerPrefs.SetInt("cascade.reduced",reduced?1:0);PlayerPrefs.SetInt("cascade.offset",offsetMs);PlayerPrefs.Save();}
+        }
+        void BuildV3TrackList()
+        {
+            var source=menu.transform.Find("Level0").GetComponent<Button>();
+            foreach(Transform t in menu.transform)if(t.name.StartsWith("Level")||t.name.StartsWith("Record"))t.gameObject.SetActive(false);
+            var hint=menu.transform.Find("Menu hint");if(hint!=null)hint.gameObject.SetActive(false);
+            var review=menu.transform.Find("Rhythm review");if(review!=null){review.GetComponent<RectTransform>().anchoredPosition=new Vector2(0,-435);review.GetComponent<Text>().text="V3 · разметка ожидает проверки на слух";}
+            v3TrackButtons=new Button[catalogTracks.Length];v3TrackLabels=new Text[catalogTracks.Length];
+            for(int i=0;i<catalogTracks.Length;i++)
+            {
+                int chosen=i;var b=Instantiate(source,menu.transform);b.name="V3 Track "+catalogTracks[i].track_id;b.gameObject.SetActive(true);
+                var rect=b.GetComponent<RectTransform>();rect.anchorMin=rect.anchorMax=rect.pivot=Vector2.one*.5f;rect.anchoredPosition=new Vector2(0,270-i*91);rect.sizeDelta=new Vector2(620,82);
+                var rim=b.transform.Find("Fine glass rim").GetComponent<RectTransform>();rim.anchoredPosition=Vector2.zero;rim.sizeDelta=rect.sizeDelta;
+                var aura=b.transform.Find("Track colour aura");if(aura!=null)aura.gameObject.SetActive(false);
+                b.onClick.RemoveAllListeners();b.onClick.AddListener(()=>StartLevel(chosen));
+                var texts=b.GetComponentsInChildren<Text>(true);var label=texts[0];foreach(var t in texts.Skip(1))t.gameObject.SetActive(false);
+                label.gameObject.SetActive(true);label.fontSize=20;label.alignment=TextAnchor.MiddleCenter;label.resizeTextForBestFit=false;
+                var lr=label.rectTransform;lr.anchorMin=Vector2.zero;lr.anchorMax=Vector2.one;lr.offsetMin=new Vector2(10,4);lr.offsetMax=new Vector2(-10,-4);
+                v3TrackButtons[i]=b;v3TrackLabels[i]=label;
+            }
+            // Temporary stage-1 selector, using the existing dialog visual language.
+            var effects=Instantiate(modal.transform.Find("Effects").GetComponent<Button>(),menu.transform);effects.name="V3 Soft effects";
+            effects.GetComponent<RectTransform>().anchoredPosition=new Vector2(0,-495);effects.GetComponent<RectTransform>().sizeDelta=new Vector2(540,60);
+            var er=effects.transform.Find("Fine glass rim").GetComponent<RectTransform>();er.anchoredPosition=Vector2.zero;er.sizeDelta=new Vector2(540,60);
+            effects.onClick.RemoveAllListeners();effects.onClick.AddListener(()=>{ToggleEffects();RefreshV3Menu();});effects.gameObject.SetActive(true);
+        }
+        void RefreshV3Menu()
+        {
+            if(!useV3)return;
+            for(int i=0;i<catalogTracks.Length;i++)
+            {
+                var t=catalogTracks[i];var r=catalog.RecordFor(t.track_id);bool open=progressStore.IsOpen(r);var result=progressStore.Result(t);
+                v3TrackButtons[i].interactable=open;
+                string status=open?(result?.completed==true?"✓  "+result.bestScore.ToString("N0",ScoreCulture):Clock(t.runtime_duration_seconds)):"Пройди "+catalog.records.First(p=>p.record_id==r.prerequisite_record_id).display_name;
+                v3TrackLabels[i].color=open?new Color(1,.9f,.65f):new Color(.65f,.57f,.7f);
+                v3TrackLabels[i].text=r.order+" · "+r.display_name+"\n"+t.title+"  ·  "+status;
+            }
+            menu.transform.Find("V3 Soft effects").GetComponentInChildren<Text>().text="МЯГКИЕ ЭФФЕКТЫ: "+(reduced?"ВКЛ":"ВЫКЛ");
+        }
+        void NextRecord()
+        {
+            if(!useV3){StartLevel(level+1);return;}
+            ShowMenu(); // New record is selected explicitly; never auto-start another song.
+        }
+        static CascadeGlowGraphic NewGlow(string name,Transform parent,Vector2 position,Vector2 size,float radius,Color left,Color right,bool circle=false)
+        {
+            var go=new GameObject(name,typeof(RectTransform),typeof(CanvasRenderer),typeof(CascadeGlowGraphic));
+            var rect=go.GetComponent<RectTransform>();rect.SetParent(parent,false);rect.anchorMin=rect.anchorMax=rect.pivot=Vector2.one*.5f;rect.anchoredPosition=position;rect.sizeDelta=size;
+            var g=go.GetComponent<CascadeGlowGraphic>();g.radius=radius;g.color=left;g.rightColor=right;g.circle=circle;g.raycastTarget=false;g.canvasRenderer.SetAlpha(0);return g;
+        }
+        void BuildV3Lighting()
+        {
+            if(rasterRoot==null)return;
+            rasterFramePulse.gameObject.SetActive(false);
+            frameGlow=NewGlow("V3 Board rim",hud.transform,new Vector2(68.54f+802.296f/2-470.5f,836-561.136f-765.864f/2),new Vector2(802.296f,765.864f),48,new Color(1,.72f,.2f),new Color(1,.15f,.85f));
+            frameGlow.transform.SetSiblingIndex(1);frameGlow.softness=10;
+            cellGlows=new CascadeGlowGraphic[views.Length];orbGlows=new CascadeGlowGraphic[views.Length];
+            for(int i=0;i<views.Length;i++)
+            {
+                var orb=views[i].raster;if(orb==null)continue;orb.rim.gameObject.SetActive(false);
+                cellGlows[i]=NewGlow("V3 Cell outline",orb.transform,Vector2.zero,new Vector2(119.4f,113),23,new Color(.8f,.3f,1),new Color(1,.4f,.9f));
+                cellGlows[i].transform.SetAsFirstSibling();cellGlows[i].softness=5;
+                orbGlows[i]=NewGlow("V3 Orb rim",orb.transform,Vector2.zero,new Vector2(92,92),46,Color.white,Color.white,true);
+                orbGlows[i].softness=7;
+            }
+            screenGlow=NewGlow("V3 Physical screen aura",rasterRoot.parent,Vector2.zero,Vector2.one,0,Color.white,Color.white);
+            screenGlow.screenAura=true;var sr=screenGlow.rectTransform;sr.anchorMin=Vector2.zero;sr.anchorMax=Vector2.one;sr.offsetMin=sr.offsetMax=Vector2.zero;
+            screenGlow.transform.SetSiblingIndex(rasterBackground.GetSiblingIndex()+1);
+        }
+        void UpdateV3Lighting(bool active,bool frozenVisuals)
+        {
+            if(frameGlow==null)return;
+            bool allowed=active&&beatMap!=null&&!beatMap.IsExcluded(Position);
+            double clock=Time.unscaledTimeAsDouble;
+            var channels=lighting==null?Vector4.zero:lighting.Tick(Position,clock,Streak,allowed,reduced);
+            lightStrength=channels.x;frameGlow.canvasRenderer.SetAlpha(channels.x);screenGlow.canvasRenderer.SetAlpha(channels.w);
+            for(int i=0;i<views.Length;i++)
+            {
+                views[i].Animate(effectClock,0,0,reduced,frozenVisuals);
+                if(cellGlows[i]==null)continue;
+                cellGlows[i].canvasRenderer.SetAlpha(Mathf.Max(channels.y,lighting?.Local(i,clock,reduced,allowed)??0));
+                var orb=orbGlows[i];Color tint=Palette(Mathf.Clamp(views[i].charge,1,4));
+                if(orb.color!=tint){orb.color=tint;orb.rightColor=tint;orb.SetVerticesDirty();}
+                orb.canvasRenderer.SetAlpha(views[i].charge>0?channels.z:0);
+            }
+            preview.Animate(effectClock,0,0,reduced,frozenVisuals);
+        }
+    }
+}

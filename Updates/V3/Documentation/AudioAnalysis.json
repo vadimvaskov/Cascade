@@ -1,0 +1,1309 @@
+{
+  "method": "per-track; see each track method",
+  "tracks": [
+    {
+      "trackId": "midnight-floor",
+      "name": "Midnight Floor",
+      "audioSha256": "16dcc5d1154b37da11d5584aaa6059ba1b5009a44a1e4a70b9267508331acd26",
+      "duration": 187.2135,
+      "method": "spectral-flux-dp-v1",
+      "trackingBpm": 109.983,
+      "tempoCandidates": [
+        {
+          "bpm": 109.983,
+          "autocorrelation": 0.11638
+        },
+        {
+          "bpm": 73.317,
+          "autocorrelation": 0.04145
+        },
+        {
+          "bpm": 147.571,
+          "autocorrelation": 0.00348
+        },
+        {
+          "bpm": 87.59,
+          "autocorrelation": 0.00029
+        }
+      ],
+      "analysisPassed": true,
+      "metrics": {
+        "beatCount": 342,
+        "scorableBeatCount": 335,
+        "supportedFraction": 0.9795,
+        "excludedFraction": 0.0248,
+        "medianBpm": 109.091,
+        "intervalP05Seconds": 0.54,
+        "intervalP95Seconds": 0.55,
+        "medianScorableOnsetDistanceMs": 0.0,
+        "onsetDistanceP95Ms": 0.0
+      },
+      "blocks": [
+        {
+          "start": 0,
+          "end": 8,
+          "beats": 15,
+          "scorableBeats": 15,
+          "supportedFraction": 1.0,
+          "medianStrength": 0.796,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 111.111
+        },
+        {
+          "start": 8,
+          "end": 16,
+          "beats": 15,
+          "scorableBeats": 15,
+          "supportedFraction": 1.0,
+          "medianStrength": 0.758,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 111.105
+        },
+        {
+          "start": 16,
+          "end": 24,
+          "beats": 14,
+          "scorableBeats": 14,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.914,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 109.091
+        },
+        {
+          "start": 24,
+          "end": 32,
+          "beats": 15,
+          "scorableBeats": 15,
+          "supportedFraction": 1.0,
+          "medianStrength": 2.041,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 111.111
+        },
+        {
+          "start": 32,
+          "end": 40,
+          "beats": 15,
+          "scorableBeats": 15,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.997,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 109.091
+        },
+        {
+          "start": 40,
+          "end": 48,
+          "beats": 14,
+          "scorableBeats": 14,
+          "supportedFraction": 1.0,
+          "medianStrength": 2.054,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 110.092
+        },
+        {
+          "start": 48,
+          "end": 56,
+          "beats": 15,
+          "scorableBeats": 15,
+          "supportedFraction": 1.0,
+          "medianStrength": 0.646,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 109.091
+        },
+        {
+          "start": 56,
+          "end": 64,
+          "beats": 15,
+          "scorableBeats": 15,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.935,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 109.091
+        },
+        {
+          "start": 64,
+          "end": 72,
+          "beats": 14,
+          "scorableBeats": 14,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.939,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 110.092
+        },
+        {
+          "start": 72,
+          "end": 80,
+          "beats": 15,
+          "scorableBeats": 15,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.928,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 109.091
+        },
+        {
+          "start": 80,
+          "end": 88,
+          "beats": 15,
+          "scorableBeats": 14,
+          "supportedFraction": 0.933,
+          "medianStrength": 1.615,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 109.091
+        },
+        {
+          "start": 88,
+          "end": 96,
+          "beats": 14,
+          "scorableBeats": 14,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.89,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 109.091
+        },
+        {
+          "start": 96,
+          "end": 104,
+          "beats": 15,
+          "scorableBeats": 15,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.676,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 109.091
+        },
+        {
+          "start": 104,
+          "end": 112,
+          "beats": 15,
+          "scorableBeats": 15,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.716,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 109.091
+        },
+        {
+          "start": 112,
+          "end": 120,
+          "beats": 14,
+          "scorableBeats": 14,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.919,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 110.092
+        },
+        {
+          "start": 120,
+          "end": 128,
+          "beats": 15,
+          "scorableBeats": 14,
+          "supportedFraction": 0.933,
+          "medianStrength": 0.682,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 109.091
+        },
+        {
+          "start": 128,
+          "end": 136,
+          "beats": 15,
+          "scorableBeats": 15,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.204,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 109.091
+        },
+        {
+          "start": 136,
+          "end": 144,
+          "beats": 14,
+          "scorableBeats": 14,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.461,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 110.092
+        },
+        {
+          "start": 144,
+          "end": 152,
+          "beats": 15,
+          "scorableBeats": 15,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.95,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 109.091
+        },
+        {
+          "start": 152,
+          "end": 160,
+          "beats": 15,
+          "scorableBeats": 15,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.463,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 109.091
+        },
+        {
+          "start": 160,
+          "end": 168,
+          "beats": 14,
+          "scorableBeats": 14,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.929,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 110.092
+        },
+        {
+          "start": 168,
+          "end": 176,
+          "beats": 15,
+          "scorableBeats": 15,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.156,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 109.091
+        },
+        {
+          "start": 176,
+          "end": 184,
+          "beats": 15,
+          "scorableBeats": 14,
+          "supportedFraction": 0.933,
+          "medianStrength": 1.471,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 109.091
+        },
+        {
+          "start": 184,
+          "end": 187.2135,
+          "beats": 4,
+          "scorableBeats": 0,
+          "supportedFraction": 0.0,
+          "medianStrength": 0.0,
+          "medianOnsetDistanceMs": null,
+          "localMedianBpm": 109.091
+        }
+      ],
+      "excluded": [
+        {
+          "start": 0,
+          "end": 0.002667
+        },
+        {
+          "start": 84.3927,
+          "end": 84.9327
+        },
+        {
+          "start": 122.568,
+          "end": 123.113
+        },
+        {
+          "start": 183.658,
+          "end": 187.2135
+        }
+      ],
+      "reviewNotes": "The listening review is pending. Detected onsets and continuity prior were checked automatically.",
+      "independentEnvelopeCheck": {
+        "method": "independent-180Hz-RMS-attack",
+        "matchedBeats": 331,
+        "scorableBeats": 335,
+        "matchedFraction": 0.9881,
+        "medianErrorMs": 2.33,
+        "absoluteErrorP95Ms": 22.3,
+        "windows": [
+          {
+            "start": 0,
+            "end": 30,
+            "matchedBeats": 55,
+            "medianErrorMs": 2.33
+          },
+          {
+            "start": 30,
+            "end": 60,
+            "matchedBeats": 52,
+            "medianErrorMs": 7.3
+          },
+          {
+            "start": 60,
+            "end": 90,
+            "matchedBeats": 53,
+            "medianErrorMs": 2.3
+          },
+          {
+            "start": 90,
+            "end": 120,
+            "matchedBeats": 55,
+            "medianErrorMs": 2.3
+          },
+          {
+            "start": 120,
+            "end": 150,
+            "matchedBeats": 54,
+            "medianErrorMs": 2.0
+          },
+          {
+            "start": 150,
+            "end": 180,
+            "matchedBeats": 55,
+            "medianErrorMs": 12.0
+          },
+          {
+            "start": 180,
+            "end": 187.2135,
+            "matchedBeats": 7,
+            "medianErrorMs": 12.0
+          }
+        ]
+      }
+    },
+    {
+      "trackId": "drop-bass-princess",
+      "name": "Drop Bass Princess",
+      "audioSha256": "655b3b9fd57338bc5a5a8f236664ce084895d41d3935b384445040e270f8cd58",
+      "duration": 181.1335,
+      "method": "spectral-flux-dp-v1",
+      "trackingBpm": 129.808,
+      "tempoCandidates": [
+        {
+          "bpm": 129.808,
+          "autocorrelation": 0.09881
+        },
+        {
+          "bpm": 86.54,
+          "autocorrelation": 0.03034
+        },
+        {
+          "bpm": 173.361,
+          "autocorrelation": -0.01109
+        },
+        {
+          "bpm": 104.361,
+          "autocorrelation": -0.01208
+        },
+        {
+          "bpm": 74.338,
+          "autocorrelation": -0.01242
+        }
+      ],
+      "analysisPassed": true,
+      "metrics": {
+        "beatCount": 390,
+        "scorableBeatCount": 358,
+        "supportedFraction": 0.9179,
+        "excludedFraction": 0.0867,
+        "medianBpm": 130.435,
+        "intervalP05Seconds": 0.45,
+        "intervalP95Seconds": 0.47,
+        "medianScorableOnsetDistanceMs": 0.0,
+        "onsetDistanceP95Ms": 10.0
+      },
+      "blocks": [
+        {
+          "start": 0,
+          "end": 8,
+          "beats": 17,
+          "scorableBeats": 12,
+          "supportedFraction": 0.706,
+          "medianStrength": 0.324,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 127.66
+        },
+        {
+          "start": 8,
+          "end": 16,
+          "beats": 17,
+          "scorableBeats": 17,
+          "supportedFraction": 1.0,
+          "medianStrength": 0.473,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 127.66
+        },
+        {
+          "start": 16,
+          "end": 24,
+          "beats": 17,
+          "scorableBeats": 17,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.692,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 127.66
+        },
+        {
+          "start": 24,
+          "end": 32,
+          "beats": 17,
+          "scorableBeats": 17,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.846,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 127.66
+        },
+        {
+          "start": 32,
+          "end": 40,
+          "beats": 17,
+          "scorableBeats": 17,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.545,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 127.66
+        },
+        {
+          "start": 40,
+          "end": 48,
+          "beats": 17,
+          "scorableBeats": 17,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.468,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 130.435
+        },
+        {
+          "start": 48,
+          "end": 56,
+          "beats": 17,
+          "scorableBeats": 17,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.604,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 127.66
+        },
+        {
+          "start": 56,
+          "end": 64,
+          "beats": 18,
+          "scorableBeats": 18,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.46,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 129.032
+        },
+        {
+          "start": 64,
+          "end": 72,
+          "beats": 17,
+          "scorableBeats": 17,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.701,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 130.435
+        },
+        {
+          "start": 72,
+          "end": 80,
+          "beats": 17,
+          "scorableBeats": 17,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.465,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 130.435
+        },
+        {
+          "start": 80,
+          "end": 88,
+          "beats": 17,
+          "scorableBeats": 17,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.197,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 130.435
+        },
+        {
+          "start": 88,
+          "end": 96,
+          "beats": 18,
+          "scorableBeats": 18,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.451,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 130.435
+        },
+        {
+          "start": 96,
+          "end": 104,
+          "beats": 17,
+          "scorableBeats": 12,
+          "supportedFraction": 0.706,
+          "medianStrength": 1.461,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 130.435
+        },
+        {
+          "start": 104,
+          "end": 112,
+          "beats": 18,
+          "scorableBeats": 10,
+          "supportedFraction": 0.556,
+          "medianStrength": 0.655,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 130.435
+        },
+        {
+          "start": 112,
+          "end": 120,
+          "beats": 17,
+          "scorableBeats": 17,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.387,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 130.435
+        },
+        {
+          "start": 120,
+          "end": 128,
+          "beats": 17,
+          "scorableBeats": 17,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.685,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 130.435
+        },
+        {
+          "start": 128,
+          "end": 136,
+          "beats": 18,
+          "scorableBeats": 18,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.202,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 130.435
+        },
+        {
+          "start": 136,
+          "end": 144,
+          "beats": 17,
+          "scorableBeats": 17,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.548,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 130.435
+        },
+        {
+          "start": 144,
+          "end": 152,
+          "beats": 18,
+          "scorableBeats": 18,
+          "supportedFraction": 1.0,
+          "medianStrength": 0.868,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 130.435
+        },
+        {
+          "start": 152,
+          "end": 160,
+          "beats": 17,
+          "scorableBeats": 17,
+          "supportedFraction": 1.0,
+          "medianStrength": 1.747,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 130.435
+        },
+        {
+          "start": 160,
+          "end": 168,
+          "beats": 18,
+          "scorableBeats": 16,
+          "supportedFraction": 0.889,
+          "medianStrength": 1.454,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 130.435
+        },
+        {
+          "start": 168,
+          "end": 176,
+          "beats": 17,
+          "scorableBeats": 11,
+          "supportedFraction": 0.647,
+          "medianStrength": 0.279,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 133.333
+        },
+        {
+          "start": 176,
+          "end": 181.1335,
+          "beats": 10,
+          "scorableBeats": 4,
+          "supportedFraction": 0.4,
+          "medianStrength": 0.075,
+          "medianOnsetDistanceMs": 0.0,
+          "localMedianBpm": 130.435
+        }
+      ],
+      "excluded": [
+        {
+          "start": 0,
+          "end": 0.302667
+        },
+        {
+          "start": 3.01767,
+          "end": 3.95767
+        },
+        {
+          "start": 4.42767,
+          "end": 4.89767
+        },
+        {
+          "start": 5.36767,
+          "end": 5.83267
+        },
+        {
+          "start": 6.29767,
+          "end": 6.76767
+        },
+        {
+          "start": 101.168,
+          "end": 103.453
+        },
+        {
+          "start": 103.913,
+          "end": 104.373
+        },
+        {
+          "start": 104.833,
+          "end": 108.063
+        },
+        {
+          "start": 167.238,
+          "end": 169.978
+        },
+        {
+          "start": 174.973,
+          "end": 175.883
+        },
+        {
+          "start": 176.343,
+          "end": 176.798
+        },
+        {
+          "start": 178.163,
+          "end": 181.1335
+        }
+      ],
+      "reviewNotes": "The listening review is pending. Detected onsets and continuity prior were checked automatically.",
+      "independentEnvelopeCheck": {
+        "method": "independent-180Hz-RMS-attack",
+        "matchedBeats": 355,
+        "scorableBeats": 358,
+        "matchedFraction": 0.9916,
+        "medianErrorMs": 2.0,
+        "absoluteErrorP95Ms": 22.3,
+        "windows": [
+          {
+            "start": 0,
+            "end": 30,
+            "matchedBeats": 57,
+            "medianErrorMs": 2.3
+          },
+          {
+            "start": 30,
+            "end": 60,
+            "matchedBeats": 64,
+            "medianErrorMs": -7.7
+          },
+          {
+            "start": 60,
+            "end": 90,
+            "matchedBeats": 65,
+            "medianErrorMs": 2.3
+          },
+          {
+            "start": 90,
+            "end": 120,
+            "matchedBeats": 51,
+            "medianErrorMs": 2.0
+          },
+          {
+            "start": 120,
+            "end": 150,
+            "matchedBeats": 65,
+            "medianErrorMs": -8.0
+          },
+          {
+            "start": 150,
+            "end": 180,
+            "matchedBeats": 53,
+            "medianErrorMs": 12.0
+          },
+          {
+            "start": 180,
+            "end": 181.1335,
+            "matchedBeats": 0,
+            "medianErrorMs": null
+          }
+        ]
+      }
+    },
+    {
+      "trackId": "dark-bass-drop",
+      "name": "Dark Bass Drop",
+      "audioSha256": "38910171809015c75e7a591472397d724ad8f3c2e308dbe12eb48abe4f2fc7c2",
+      "duration": 232.7735,
+      "method": "continuous-highband-pulse-v2",
+      "trackingBpm": 176.0,
+      "analysisPassed": true,
+      "metrics": {
+        "beatCount": 683,
+        "scorableBeatCount": 683,
+        "supportedFraction": 0.9956,
+        "excludedFraction": 0.0,
+        "medianBpm": 176.0,
+        "intervalP05Seconds": 0.340909,
+        "intervalP95Seconds": 0.340909,
+        "medianScorableOnsetDistanceMs": 6.364,
+        "onsetDistanceP95Ms": 22.636,
+        "supportDetector": "independent high-pass RMS; phase-window validation is the acceptance criterion"
+      },
+      "blocks": [
+        {
+          "start": 0,
+          "end": 8,
+          "beats": 23,
+          "scorableBeats": 23,
+          "supportedFraction": 0.957,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 20.0,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 8,
+          "end": 16,
+          "beats": 24,
+          "scorableBeats": 24,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 8.182,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 16,
+          "end": 24,
+          "beats": 23,
+          "scorableBeats": 23,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 5.455,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 24,
+          "end": 32,
+          "beats": 24,
+          "scorableBeats": 24,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 4.545,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 32,
+          "end": 40,
+          "beats": 23,
+          "scorableBeats": 23,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 5.455,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 40,
+          "end": 48,
+          "beats": 24,
+          "scorableBeats": 24,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 5.91,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 48,
+          "end": 56,
+          "beats": 23,
+          "scorableBeats": 23,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 4.545,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 56,
+          "end": 64,
+          "beats": 23,
+          "scorableBeats": 23,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 5.455,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 64,
+          "end": 72,
+          "beats": 24,
+          "scorableBeats": 24,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 5.455,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 72,
+          "end": 80,
+          "beats": 23,
+          "scorableBeats": 23,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 5.455,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 80,
+          "end": 88,
+          "beats": 24,
+          "scorableBeats": 24,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 6.364,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 88,
+          "end": 96,
+          "beats": 23,
+          "scorableBeats": 23,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 4.545,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 96,
+          "end": 104,
+          "beats": 24,
+          "scorableBeats": 24,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 4.545,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 104,
+          "end": 112,
+          "beats": 23,
+          "scorableBeats": 23,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 4.545,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 112,
+          "end": 120,
+          "beats": 24,
+          "scorableBeats": 24,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 3.182,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 120,
+          "end": 128,
+          "beats": 23,
+          "scorableBeats": 23,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 6.364,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 128,
+          "end": 136,
+          "beats": 24,
+          "scorableBeats": 24,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 5.0,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 136,
+          "end": 144,
+          "beats": 23,
+          "scorableBeats": 23,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 4.545,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 144,
+          "end": 152,
+          "beats": 24,
+          "scorableBeats": 24,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 6.364,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 152,
+          "end": 160,
+          "beats": 23,
+          "scorableBeats": 23,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 13.636,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 160,
+          "end": 168,
+          "beats": 24,
+          "scorableBeats": 24,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 8.182,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 168,
+          "end": 176,
+          "beats": 23,
+          "scorableBeats": 23,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 8.182,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 176,
+          "end": 184,
+          "beats": 23,
+          "scorableBeats": 23,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 5.455,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 184,
+          "end": 192,
+          "beats": 24,
+          "scorableBeats": 24,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 7.273,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 192,
+          "end": 200,
+          "beats": 23,
+          "scorableBeats": 23,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 7.273,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 200,
+          "end": 208,
+          "beats": 24,
+          "scorableBeats": 24,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 6.364,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 208,
+          "end": 216,
+          "beats": 23,
+          "scorableBeats": 23,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 8.182,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 216,
+          "end": 224,
+          "beats": 24,
+          "scorableBeats": 24,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 11.818,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 224,
+          "end": 232,
+          "beats": 23,
+          "scorableBeats": 23,
+          "supportedFraction": 1.0,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 18.182,
+          "localMedianBpm": 176.0
+        },
+        {
+          "start": 232,
+          "end": 232.7735,
+          "beats": 3,
+          "scorableBeats": 3,
+          "supportedFraction": 0.333,
+          "medianStrength": null,
+          "medianOnsetDistanceMs": 40.909,
+          "localMedianBpm": 176.0
+        }
+      ],
+      "excluded": [],
+      "reviewNotes": "Audio-derived continuous 176 BPM carrier. Both alternating pulses are present in the percussion. No device taps or calibration offsets were used to construct the grid. Listening/device confirmation remains pending.",
+      "fit": {
+        "input": "high_flux FFT features only; 16 <= time < 224 seconds",
+        "fittedBpm": 175.992,
+        "chosenBpm": 176.0,
+        "wholeSongDifferenceFromFittedTempoMs": 10.581,
+        "foldedAttackPhaseSeconds": 0.254428,
+        "chosenPhaseSeconds": 0.255,
+        "phaseSelection": "spectral folded peak rounded to nearest 5 ms; PCM validator not used to fit phase",
+        "tempoCandidates": [
+          {
+            "bpm": 88.0,
+            "highBandCoherence": 0.006242
+          },
+          {
+            "bpm": 117.333333333,
+            "highBandCoherence": 0.006015
+          },
+          {
+            "bpm": 176.0,
+            "highBandCoherence": 0.142109
+          }
+        ]
+      },
+      "independentPulseCheck": {
+        "passed": true,
+        "method": "independent-PCM-highpass1500Hz-12kHz-RMS10ms",
+        "phaseWindows": [
+          {
+            "start": 0,
+            "end": 16,
+            "phaseSeconds": 0.271975,
+            "errorMs": 16.975,
+            "attackCount": 227
+          },
+          {
+            "start": 16,
+            "end": 32,
+            "phaseSeconds": 0.259442,
+            "errorMs": 4.442,
+            "attackCount": 261
+          },
+          {
+            "start": 32,
+            "end": 48,
+            "phaseSeconds": 0.261949,
+            "errorMs": 6.949,
+            "attackCount": 342
+          },
+          {
+            "start": 48,
+            "end": 64,
+            "phaseSeconds": 0.261949,
+            "errorMs": 6.949,
+            "attackCount": 362
+          },
+          {
+            "start": 64,
+            "end": 80,
+            "phaseSeconds": 0.259442,
+            "errorMs": 4.442,
+            "attackCount": 425
+          },
+          {
+            "start": 80,
+            "end": 96,
+            "phaseSeconds": 0.261949,
+            "errorMs": 6.949,
+            "attackCount": 372
+          },
+          {
+            "start": 96,
+            "end": 112,
+            "phaseSeconds": 0.261949,
+            "errorMs": 6.949,
+            "attackCount": 421
+          },
+          {
+            "start": 112,
+            "end": 128,
+            "phaseSeconds": 0.261949,
+            "errorMs": 6.949,
+            "attackCount": 446
+          },
+          {
+            "start": 128,
+            "end": 144,
+            "phaseSeconds": 0.259442,
+            "errorMs": 4.442,
+            "attackCount": 383
+          },
+          {
+            "start": 144,
+            "end": 160,
+            "phaseSeconds": 0.264455,
+            "errorMs": 9.455,
+            "attackCount": 361
+          },
+          {
+            "start": 160,
+            "end": 176,
+            "phaseSeconds": 0.264455,
+            "errorMs": 9.455,
+            "attackCount": 359
+          },
+          {
+            "start": 176,
+            "end": 192,
+            "phaseSeconds": 0.261949,
+            "errorMs": 6.949,
+            "attackCount": 406
+          },
+          {
+            "start": 192,
+            "end": 208,
+            "phaseSeconds": 0.261949,
+            "errorMs": 6.949,
+            "attackCount": 324
+          },
+          {
+            "start": 208,
+            "end": 224,
+            "phaseSeconds": 0.264455,
+            "errorMs": 9.455,
+            "attackCount": 308
+          },
+          {
+            "start": 224,
+            "end": 232.7735,
+            "phaseSeconds": 0.274482,
+            "errorMs": 19.482,
+            "attackCount": 155
+          }
+        ],
+        "maximumWindowPhaseErrorMs": 19.482,
+        "medianWindowPhaseErrorMs": 6.949,
+        "incorrectHalfPulsePhaseMinimumErrorMs": 150.973,
+        "maximumGridErrorMicroseconds": 0.455,
+        "audioSha256Matches": true,
+        "note": "Separate PCM detector validates phase continuity, not listening approval or device latency."
+      },
+      "independentPcmAnchors": [
+        {
+          "time": 20.375,
+          "rmsAttack": 0.015781
+        },
+        {
+          "time": 20.715,
+          "rmsAttack": 0.029516
+        },
+        {
+          "time": 21.055,
+          "rmsAttack": 0.043753
+        },
+        {
+          "time": 21.395,
+          "rmsAttack": 0.035694
+        },
+        {
+          "time": 21.735,
+          "rmsAttack": 0.115457
+        },
+        {
+          "time": 22.075,
+          "rmsAttack": 0.062426
+        },
+        {
+          "time": 22.415,
+          "rmsAttack": 0.022312
+        },
+        {
+          "time": 22.755,
+          "rmsAttack": 0.080801
+        },
+        {
+          "time": 23.105,
+          "rmsAttack": 0.069725
+        },
+        {
+          "time": 23.445,
+          "rmsAttack": 0.063166
+        },
+        {
+          "time": 23.775,
+          "rmsAttack": 0.050889
+        },
+        {
+          "time": 24.125,
+          "rmsAttack": 0.075035
+        },
+        {
+          "time": 24.465,
+          "rmsAttack": 0.07258
+        },
+        {
+          "time": 24.805,
+          "rmsAttack": 0.10135
+        },
+        {
+          "time": 25.145,
+          "rmsAttack": 0.031651
+        },
+        {
+          "time": 25.485,
+          "rmsAttack": 0.104993
+        },
+        {
+          "time": 25.825,
+          "rmsAttack": 0.039499
+        },
+        {
+          "time": 26.165,
+          "rmsAttack": 0.051326
+        },
+        {
+          "time": 26.505,
+          "rmsAttack": 0.082141
+        },
+        {
+          "time": 26.845,
+          "rmsAttack": 0.065581
+        },
+        {
+          "time": 27.195,
+          "rmsAttack": 0.058134
+        },
+        {
+          "time": 27.535,
+          "rmsAttack": 0.039269
+        },
+        {
+          "time": 27.875,
+          "rmsAttack": 0.050187
+        },
+        {
+          "time": 28.215,
+          "rmsAttack": 0.097285
+        }
+      ],
+      "metricalDecision": {
+        "choice": "176 BPM continuous percussion carrier",
+        "evidence": "Both 88 BPM parities have independently visible high-frequency PCM attacks; 117 BPM lacks stable high-band phase. An 88 BPM subset discards alternate audible pulses.",
+        "noDeviceFit": true,
+        "noCalibrationOffsetInMap": true,
+        "requiredReview": "Listen and play the complete track; automated phase evidence is not subjective meter approval."
+      },
+      "exclusionPolicy": {
+        "minimumBroadbandRms": 0.006,
+        "minimumQuietDurationSeconds": 1.0,
+        "reason": "Exclude only sustained low-energy sections, never a single weak/missing bass onset."
+      }
+    }
+  ],
+  "validationNote": "Both detectors are automatic. Their agreement tests timing support, not the musical choice of metrical level or perceptual latency. A listening and device calibration review remains required."
+}

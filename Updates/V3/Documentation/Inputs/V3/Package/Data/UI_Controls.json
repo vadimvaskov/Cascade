@@ -1,0 +1,74 @@
+{
+  "Arrow_Left": {
+    "file": "Assets/UI/Arrow_Left.png",
+    "svg": "Assets/UI/Arrow_Left.svg",
+    "reference_size": [
+      100,
+      100
+    ],
+    "png_scale": 4
+  },
+  "Arrow_Right": {
+    "file": "Assets/UI/Arrow_Right.png",
+    "svg": "Assets/UI/Arrow_Right.svg",
+    "reference_size": [
+      100,
+      100
+    ],
+    "png_scale": 4
+  },
+  "Lock": {
+    "file": "Assets/UI/Lock.png",
+    "svg": "Assets/UI/Lock.svg",
+    "reference_size": [
+      100,
+      100
+    ],
+    "png_scale": 4
+  },
+  "Completed_Check": {
+    "file": "Assets/UI/Completed_Check.png",
+    "svg": "Assets/UI/Completed_Check.svg",
+    "reference_size": [
+      60,
+      60
+    ],
+    "png_scale": 4
+  },
+  "Toggle_Off": {
+    "file": "Assets/UI/Toggle_Off.png",
+    "svg": "Assets/UI/Toggle_Off.svg",
+    "reference_size": [
+      120,
+      62
+    ],
+    "png_scale": 4
+  },
+  "Toggle_On": {
+    "file": "Assets/UI/Toggle_On.png",
+    "svg": "Assets/UI/Toggle_On.svg",
+    "reference_size": [
+      120,
+      62
+    ],
+    "png_scale": 4
+  },
+  "Slider_Thumb": {
+    "file": "Assets/UI/Slider_Thumb.png",
+    "svg": "Assets/UI/Slider_Thumb.svg",
+    "reference_size": [
+      48,
+      48
+    ],
+    "png_scale": 4
+  },
+  "Circle_Mask": {
+    "file": "Assets/UI/Circle_Mask.png",
+    "svg": "Assets/UI/Circle_Mask.svg",
+    "reference_size": [
+      512,
+      512
+    ],
+    "png_scale": 1
+  }
+}

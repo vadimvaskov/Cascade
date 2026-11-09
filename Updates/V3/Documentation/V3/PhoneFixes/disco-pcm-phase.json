@@ -1,0 +1,107 @@
+{
+  "method": "independent PCM lowpass180Hz RMS5ms attack within +/-90ms",
+  "audioSha256": "c04c08a803dae09094f2572586d45bdd0f027aa7335cbc09df1fbf8f9b325266",
+  "beats": 358,
+  "supported": 358,
+  "medianMapMinusAttackMs": -17.1665,
+  "medianAbsoluteMs": 19.8,
+  "first16": [
+    {
+      "beat": 0.152667,
+      "pcmAttack": 0.1675,
+      "mapMinusAttackMs": -14.833,
+      "strength": 0.1325308309450186
+    },
+    {
+      "beat": 0.652667,
+      "pcmAttack": 0.6725,
+      "mapMinusAttackMs": -19.833,
+      "strength": 0.17366702801282163
+    },
+    {
+      "beat": 1.15267,
+      "pcmAttack": 1.2075,
+      "mapMinusAttackMs": -54.83,
+      "strength": 0.22180843636962624
+    },
+    {
+      "beat": 1.65267,
+      "pcmAttack": 1.6775,
+      "mapMinusAttackMs": -24.83,
+      "strength": 0.2303708320244282
+    },
+    {
+      "beat": 2.15267,
+      "pcmAttack": 2.2075,
+      "mapMinusAttackMs": -54.83,
+      "strength": 0.20230920505008113
+    },
+    {
+      "beat": 2.65267,
+      "pcmAttack": 2.6725,
+      "mapMinusAttackMs": -19.83,
+      "strength": 0.2118966457945015
+    },
+    {
+      "beat": 3.14267,
+      "pcmAttack": 3.2075,
+      "mapMinusAttackMs": -64.83,
+      "strength": 0.16017494086833206
+    },
+    {
+      "beat": 3.63267,
+      "pcmAttack": 3.6625,
+      "mapMinusAttackMs": -29.83,
+      "strength": 0.2037846915482484
+    },
+    {
+      "beat": 4.13267,
+      "pcmAttack": 4.1775,
+      "mapMinusAttackMs": -44.83,
+      "strength": 0.15722998743694927
+    },
+    {
+      "beat": 4.63267,
+      "pcmAttack": 4.6425,
+      "mapMinusAttackMs": -9.83,
+      "strength": 0.19246204310871212
+    },
+    {
+      "beat": 5.11267,
+      "pcmAttack": 5.152500000000001,
+      "mapMinusAttackMs": -39.83,
+      "strength": 0.1766350903148358
+    },
+    {
+      "beat": 5.61267,
+      "pcmAttack": 5.6275,
+      "mapMinusAttackMs": -14.83,
+      "strength": 0.15767520702017412
+    },
+    {
+      "beat": 6.10267,
+      "pcmAttack": 6.152500000000001,
+      "mapMinusAttackMs": -49.83,
+      "strength": 0.20646905553329675
+    },
+    {
+      "beat": 6.59267,
+      "pcmAttack": 6.612500000000001,
+      "mapMinusAttackMs": -19.83,
+      "strength": 0.2631354318477558
+    },
+    {
+      "beat": 7.08267,
+      "pcmAttack": 7.0975,
+      "mapMinusAttackMs": -14.83,
+      "strength": 0.22534133682125676
+    },
+    {
+      "beat": 7.57267,
+      "pcmAttack": 7.5925,
+      "mapMinusAttackMs": -19.83,
+      "strength": 0.2627942740786678
+    }
+  ],
+  "note": "Phase evidence only; no listening claim, no map or touch calibration changes."
+}

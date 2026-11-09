@@ -1,0 +1,466 @@
+{
+  "schema_version": 1,
+  "snapshot_utc": "2026-11-06T19:49:04.247722+00:00",
+  "title_ru": "CASCADE — отдельные растровые ассеты",
+  "generated": true,
+  "exact": false,
+  "fidelity_ru": "Новая перерисовка по утверждённому изображению; не извлечение исходных слоёв и не пиксельно точная копия.",
+  "representation_ru": "Отдельные PNG. Объём, блики, стекло, кристаллы и свечение запечены в статическое изображение; 3D mesh и динамические эффекты не входят.",
+  "original_project_modified": false,
+  "reference": {
+    "file": "Reference/cascade-3d-concept-v1.png",
+    "role_ru": "Утверждённый исходный эталон, скопированный без изменений",
+    "size_px": [
+      941,
+      1672
+    ],
+    "mode": "RGB",
+    "has_alpha_channel": false,
+    "alpha_min_max": [
+      255,
+      255
+    ],
+    "alpha_gt_8_bounds_xyxy_exclusive": [
+      0,
+      0,
+      941,
+      1672
+    ],
+    "alpha_gt_8_size_px": [
+      941,
+      1672
+    ],
+    "edge_alpha_max": 255,
+    "sha256": "9a2b881141435fe1f6437bacdc89085652dacf8c2279953092cf099f4a587117",
+    "bytes": 1748997
+  },
+  "figma": {
+    "url": "https://www.figma.com/design/A8q1xOkIWPO4AIvRxYLaKr?node-id=14-12",
+    "page_node_id": "14:2",
+    "asset_shelf_node_id": "14:3",
+    "asset_shelf_verified_image_layers": 8,
+    "layout_positions_status": "verified_imported_and_saved",
+    "mockup_node_id": "14:12",
+    "mockup_verified_image_layers": 21,
+    "reload_verified": true,
+    "sphere_move_test": {
+      "node_id": "14:18",
+      "original_x": 80.443,
+      "moved_x": 90.443,
+      "restored_x": 80.443,
+      "method": "Shift+Right, then Undo"
+    }
+  },
+  "control_mockup": {
+    "file": "Cascade_Redrawn_Mockup.png",
+    "expected_size_px": [
+      941,
+      1672
+    ],
+    "status": "exported_from_figma_and_visually_reviewed",
+    "size_px": [
+      941,
+      1672
+    ],
+    "sha256": "a0afdb5b0ee0616913a58b54d71e88be3063806adf45df6233c740fec72f0df2",
+    "bytes": 1872142
+  },
+  "asset_shelf": {
+    "file": "Figma_Asset_Shelf.svg",
+    "role_ru": "Контейнер со встроенными растровыми PNG для переноса в Figma; изображения не являются нативными векторными перерисовками."
+  },
+  "layout_handoff": {
+    "positions_file": "Layout_941x1672.json",
+    "mockup_container_file": "Figma_Raster_Mockup.svg",
+    "expected_layer_count": 21,
+    "status": "complete_21_raster_layers_verified",
+    "note_ru": "SVG — только обёртка размещения растровых слоёв; не нативная векторная перерисовка."
+  },
+  "hud_status_ru": "Статический HUD для контрольного макета. Позиции зафиксированы; динамический счёт и прогресс в Unity не реализованы. Слабый полупрозрачный ореол вокруг части текста сохранён.",
+  "bounds_convention": {
+    "origin": "top_left",
+    "axis_x": "right",
+    "axis_y": "down",
+    "alpha_test": "alpha > 8, строгое сравнение для 8-битного alpha",
+    "xyxy": "left, top, right, bottom; right и bottom не включены",
+    "source_xywh": "x, y, width, height; координаты исходного эталона 941×1672",
+    "note_ru": "Alpha bounds вычислены чтением готовых файлов. PNG не изменялись. Очень слабое свечение с alpha≤8 не включено; у части изображений на границе есть остаточный alpha=1."
+  },
+  "assets": [
+    {
+      "file": "Assets/background.png",
+      "role_ru": "Фон",
+      "generated": true,
+      "exact": false,
+      "asset_kind": "raster_png",
+      "effects": "baked_static",
+      "size_px": [
+        941,
+        1672
+      ],
+      "mode": "RGB",
+      "has_alpha_channel": false,
+      "alpha_min_max": [
+        255,
+        255
+      ],
+      "alpha_gt_8_bounds_xyxy_exclusive": [
+        0,
+        0,
+        941,
+        1672
+      ],
+      "alpha_gt_8_size_px": [
+        941,
+        1672
+      ],
+      "edge_alpha_max": 255,
+      "sha256": "6fd12e038e660c58e90423bf49437d21e86a2b9049c50ded0f5897047c8f15b7",
+      "bytes": 1382700,
+      "source_reference_bounds": {
+        "px_xywh": [
+          0,
+          0,
+          941,
+          1672
+        ],
+        "exact": true
+      }
+    },
+    {
+      "file": "Assets/empty-board.png",
+      "role_ru": "Пустое поле 6×6",
+      "generated": true,
+      "exact": false,
+      "asset_kind": "raster_png",
+      "effects": "baked_static",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "has_alpha_channel": true,
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "alpha_gt_8_bounds_xyxy_exclusive": [
+        87,
+        125,
+        1166,
+        1179
+      ],
+      "alpha_gt_8_size_px": [
+        1079,
+        1054
+      ],
+      "edge_alpha_max": 1,
+      "sha256": "145aa0fa7771b3b599d9f834fc11f5f71dea97afc0500ad7609da6e7796adfc9",
+      "bytes": 1672627,
+      "source_reference_bounds": {
+        "px_xywh": [
+          67,
+          561,
+          808,
+          787
+        ],
+        "exact": false,
+        "uncertainty_px": 4,
+        "note": "Визуальная оценка на исходном эталоне; рассеянное свечение исключено. Это не итоговая позиция нового слоя."
+      }
+    },
+    {
+      "file": "Assets/hud-overlay.png",
+      "role_ru": "Статический HUD для контрольной композиции",
+      "generated": true,
+      "exact": false,
+      "asset_kind": "raster_png",
+      "effects": "baked_static",
+      "size_px": [
+        941,
+        1672
+      ],
+      "mode": "RGBA",
+      "has_alpha_channel": true,
+      "alpha_min_max": [
+        0,
+        253
+      ],
+      "alpha_gt_8_bounds_xyxy_exclusive": [
+        103,
+        357,
+        844,
+        1419
+      ],
+      "alpha_gt_8_size_px": [
+        741,
+        1062
+      ],
+      "edge_alpha_max": 0,
+      "sha256": "9ba9fc685990ef94bfc86a6cc3b15c111cf69ebbc83e6bba93cbf1e27adbbcc3",
+      "bytes": 266591,
+      "revision_status": "final_static_reference; cleanup_candidate_rejected_for_geometry_drift"
+    },
+    {
+      "file": "Assets/logo-cascade.png",
+      "role_ru": "Логотип CASCADE",
+      "generated": true,
+      "exact": false,
+      "asset_kind": "raster_png",
+      "effects": "baked_static",
+      "size_px": [
+        1907,
+        825
+      ],
+      "mode": "RGBA",
+      "has_alpha_channel": true,
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "alpha_gt_8_bounds_xyxy_exclusive": [
+        166,
+        157,
+        1775,
+        665
+      ],
+      "alpha_gt_8_size_px": [
+        1609,
+        508
+      ],
+      "edge_alpha_max": 1,
+      "sha256": "82db674d9b2ff8e4c1268b5091f0db96c029c714054982fe05fca6d1598a309f",
+      "bytes": 1134062,
+      "source_reference_bounds": {
+        "px_xywh": [
+          285,
+          248,
+          381,
+          114
+        ],
+        "exact": false,
+        "uncertainty_px": 5,
+        "note": "Визуальная оценка на исходном эталоне; рассеянное свечение исключено. Это не итоговая позиция нового слоя."
+      }
+    },
+    {
+      "file": "Assets/pause-button.png",
+      "role_ru": "Кнопка паузы",
+      "generated": true,
+      "exact": false,
+      "asset_kind": "raster_png",
+      "effects": "baked_static",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "has_alpha_channel": true,
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "alpha_gt_8_bounds_xyxy_exclusive": [
+        232,
+        240,
+        1011,
+        1009
+      ],
+      "alpha_gt_8_size_px": [
+        779,
+        769
+      ],
+      "edge_alpha_max": 1,
+      "sha256": "1aa4a2292ec4694a4ed5a8d6e953dab9e74c2650e98e10eec60b1cdeb4272352",
+      "bytes": 1127332,
+      "source_reference_bounds": {
+        "px_xywh": [
+          836,
+          261,
+          61,
+          60
+        ],
+        "exact": false,
+        "uncertainty_px": 2,
+        "note": "Визуальная оценка на исходном эталоне; рассеянное свечение исключено. Это не итоговая позиция нового слоя."
+      }
+    },
+    {
+      "file": "Assets/sphere-1-cyan.png",
+      "role_ru": "Сфера заряда 1: голубая, одна нота",
+      "generated": true,
+      "exact": false,
+      "asset_kind": "raster_png",
+      "effects": "baked_static",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "has_alpha_channel": true,
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "alpha_gt_8_bounds_xyxy_exclusive": [
+        140,
+        148,
+        1097,
+        1097
+      ],
+      "alpha_gt_8_size_px": [
+        957,
+        949
+      ],
+      "edge_alpha_max": 1,
+      "sha256": "2d88f729046c9adc3eb55a6502fe19baa9e159391ef41f824f0d381f98f009ed",
+      "bytes": 1151557,
+      "source_reference_bounds": {
+        "px_xywh": [
+          105.0,
+          590.0,
+          100,
+          100
+        ],
+        "exact": false,
+        "note": "Приблизительный квадрат вокруг одного примера сферы на исходном эталоне. Не инструкция для обрезки PNG и не итоговая позиция нового слоя."
+      }
+    },
+    {
+      "file": "Assets/sphere-2-green.png",
+      "role_ru": "Сфера заряда 2: зелёная, одна нота",
+      "generated": true,
+      "exact": false,
+      "asset_kind": "raster_png",
+      "effects": "baked_static",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "has_alpha_channel": true,
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "alpha_gt_8_bounds_xyxy_exclusive": [
+        120,
+        114,
+        1121,
+        1120
+      ],
+      "alpha_gt_8_size_px": [
+        1001,
+        1006
+      ],
+      "edge_alpha_max": 1,
+      "sha256": "fa63ab3e284ab7ba0b863cbb9d2bcf98face77dfb45f84c1c6d6f0354fefc248",
+      "bytes": 1342865,
+      "source_reference_bounds": {
+        "px_xywh": [
+          485.0,
+          590.0,
+          100,
+          100
+        ],
+        "exact": false,
+        "note": "Приблизительный квадрат вокруг одного примера сферы на исходном эталоне. Не инструкция для обрезки PNG и не итоговая позиция нового слоя."
+      }
+    },
+    {
+      "file": "Assets/sphere-3-amber.png",
+      "role_ru": "Сфера заряда 3: янтарная, две соединённые ноты",
+      "generated": true,
+      "exact": false,
+      "asset_kind": "raster_png",
+      "effects": "baked_static",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "has_alpha_channel": true,
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "alpha_gt_8_bounds_xyxy_exclusive": [
+        182,
+        180,
+        1060,
+        1063
+      ],
+      "alpha_gt_8_size_px": [
+        878,
+        883
+      ],
+      "edge_alpha_max": 1,
+      "sha256": "ddf88a35bc4951914b6a513cd68ee6df14502f95c7cc78a16c95831951f2f311",
+      "bytes": 1057013,
+      "source_reference_bounds": {
+        "px_xywh": [
+          737.0,
+          590.0,
+          100,
+          100
+        ],
+        "exact": false,
+        "note": "Приблизительный квадрат вокруг одного примера сферы на исходном эталоне. Не инструкция для обрезки PNG и не итоговая позиция нового слоя."
+      }
+    },
+    {
+      "file": "Assets/sphere-4-purple.png",
+      "role_ru": "Сфера заряда 4: фиолетовая, скрипичный ключ и кристаллы",
+      "generated": true,
+      "exact": false,
+      "asset_kind": "raster_png",
+      "effects": "baked_static",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "has_alpha_channel": true,
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "alpha_gt_8_bounds_xyxy_exclusive": [
+        123,
+        101,
+        1117,
+        1129
+      ],
+      "alpha_gt_8_size_px": [
+        994,
+        1028
+      ],
+      "edge_alpha_max": 1,
+      "sha256": "210c7da716a8481be9b9f2dceea836689c0e9d4c68e2a4dda4c0a1e6e5a57c23",
+      "bytes": 1233330,
+      "source_reference_bounds": {
+        "px_xywh": [
+          478.0,
+          823.0,
+          114,
+          114
+        ],
+        "exact": false,
+        "note": "Приблизительный квадрат вокруг одного примера сферы на исходном эталоне. Не инструкция для обрезки PNG и не итоговая позиция нового слоя."
+      }
+    }
+  ],
+  "prompts_directory": "Prompts/",
+  "own_generation_prompts": "Prompts/spheres-3-4-prompts.txt",
+  "checks": {
+    "grid_cells": 36,
+    "mockup_spheres_on_grid": 15,
+    "next_spheres": 1,
+    "png_source_files_modified_after_generation": false,
+    "unity_editor_run": false,
+    "iphone_run": false,
+    "exact_source_match": false,
+    "figma_screenshot": "Figma_Raster_Proof.jpg",
+    "single_sphere_screenshot": "Figma_Separate_Sphere_Proof.jpg"
+  }
+}

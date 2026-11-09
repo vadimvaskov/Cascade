@@ -1,0 +1,126 @@
+{
+  "images": [
+    {
+      "path": "Covers/06_dubstep_bass.png",
+      "bytes": 2305149,
+      "sha256": "7c6705ae42c454ab9246d1d63514ca2607bf5b961d244e35561f246a96c054be"
+    },
+    {
+      "path": "Covers/04_electronic_rock.png",
+      "bytes": 2384072,
+      "sha256": "3f85132f3fb1ef4e68ec7eb908e2c67134ccc08711148a8daaa2497185a8422b"
+    },
+    {
+      "path": "Covers/01_disco_funk.png",
+      "bytes": 2266801,
+      "sha256": "4fb4567654cb7e83ff10e029bb9deed2dffb2c1e714f8ba9167b6d942445fc27"
+    },
+    {
+      "path": "Covers/03_electro_swing.png",
+      "bytes": 2202760,
+      "sha256": "e40da12b6070f00ced25d4cbcfcf9e96d721b0b7efe8cc17fa3551f64040015d"
+    },
+    {
+      "path": "Covers/02_synthwave_electro.png",
+      "bytes": 2202921,
+      "sha256": "76ca28bb63c4203ed232582ffbb47b7d7e550f856a8a90f84edf003c301d38c0"
+    },
+    {
+      "path": "Covers/05_melodic_trance.png",
+      "bytes": 2248742,
+      "sha256": "da0d7690c157fc04b396efb83a31da03cc40ad09673ba6b0ac7481b7cb89f9fa"
+    },
+    {
+      "path": "Covers/08_orchestra_electronic.png",
+      "bytes": 2339450,
+      "sha256": "f579912c3f94153320526b3c943fcd2e6c6d538e429f8dbce370e7d214c61722"
+    },
+    {
+      "path": "Covers/07_drum_and_bass.png",
+      "bytes": 2290442,
+      "sha256": "032bb74dc09f247be86843a593330bb740f5e31ed78524282c2acd37d62bc9fb"
+    },
+    {
+      "path": "Assets/track-selected.png",
+      "bytes": 953682,
+      "sha256": "e4d54db80bec0daa395736a65aa29dd6c9b781a505ce1d8945d67f2d036d0fbc"
+    },
+    {
+      "path": "Assets/stand.png",
+      "bytes": 870035,
+      "sha256": "0f57da4d5f9513f4c635d896f44e57d6f7764b8298f6227f77ca6ebc8351d473"
+    },
+    {
+      "path": "Assets/background.png",
+      "bytes": 1631847,
+      "sha256": "eec7d253a08b77d2ec47a411cdf1033e462a90436781a367532f486737dcaac2"
+    },
+    {
+      "path": "Assets/settings-button.png",
+      "bytes": 947347,
+      "sha256": "66c0829283f8e196531338e2cf7e4f0b33c850725992fd6683ea04aa1016d2dc"
+    },
+    {
+      "path": "Assets/logo-cascade.png",
+      "bytes": 1134062,
+      "sha256": "82db674d9b2ff8e4c1268b5091f0db96c029c714054982fe05fca6d1598a309f"
+    },
+    {
+      "path": "Assets/track-normal.png",
+      "bytes": 741310,
+      "sha256": "296825d4deb0f52352e8ffd98046d1898f955cf7abf168e9b35ea04bc4ee7c01"
+    },
+    {
+      "path": "Assets/vinyl.png",
+      "bytes": 1905313,
+      "sha256": "f34f8613c275207e273c86b66d9a76d9a87994e9eb58035c6ec3c160d6becf99"
+    },
+    {
+      "path": "Assets/play-button.png",
+      "bytes": 1376207,
+      "sha256": "7261a1f634e9403ef9970edb3fe527a9e7ebf359c8e9c5f553f46c978ccd2f60"
+    },
+    {
+      "path": "Assets/UI/Completed_Check.png",
+      "bytes": 4624,
+      "sha256": "b12c4a67d16c471498fcc4a460a5bc7e6cc47cb8469bbe4f5e15e08a69a5fe14"
+    },
+    {
+      "path": "Assets/UI/Arrow_Right.png",
+      "bytes": 10354,
+      "sha256": "2eaf7898527d04aa90bd84e1c3061714845b807248f536057ab0cf400e6735e1"
+    },
+    {
+      "path": "Assets/UI/Arrow_Left.png",
+      "bytes": 10428,
+      "sha256": "9c95b4d9d9f7b2ba4c00b9d932b47c5ac0eca8a19ae43879b9ad804ee285b6c0"
+    },
+    {
+      "path": "Assets/UI/Lock.png",
+      "bytes": 8079,
+      "sha256": "64992883e6d4511629fe0288baf64148a80947a915c454e820dd5187ccd84531"
+    },
+    {
+      "path": "Assets/UI/Toggle_Off.png",
+      "bytes": 13183,
+      "sha256": "821af75d3d525b360970b0f7ce667309df5d048e85c2cda438bf668187f86b2b"
+    },
+    {
+      "path": "Assets/UI/Circle_Mask.png",
+      "bytes": 8134,
+      "sha256": "c766bac6fa02d653b3c8c802d30d1bd6fdd78e591a213bd05d600ade9d06dfbd"
+    },
+    {
+      "path": "Assets/UI/Slider_Thumb.png",
+      "bytes": 3246,
+      "sha256": "1661b776027d814753a70a7c15896f78413ac001eba60fb7f1845cdd1cd958e6"
+    },
+    {
+      "path": "Assets/UI/Toggle_On.png",
+      "bytes": 12871,
+      "sha256": "beb016c62aeb814ed255825570602ff1005eb10ced3701344cef9252961c0f95"
+    }
+  ],
+  "fontsSource": "https://github.com/JulietaUla/Montserrat/tree/master/fonts/ttf",
+  "fontLicense": "OFL-1.1"
+}

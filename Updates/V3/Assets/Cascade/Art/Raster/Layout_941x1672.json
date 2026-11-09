@@ -1,0 +1,246 @@
+{
+  "canvas": [
+    941,
+    1672
+  ],
+  "coordinate_system": "top-left origin; pixel units",
+  "source_pixel_identity": false,
+  "png_pixels_unmodified": true,
+  "layers_back_to_front": [
+    {
+      "name": "01 Background",
+      "file": "Assets/background.png",
+      "x": 0,
+      "y": 0,
+      "width": 941,
+      "height": 1672
+    },
+    {
+      "name": "02 Empty board 6x6",
+      "file": "Assets/empty-board.png",
+      "x": -26.5,
+      "y": 436,
+      "width": 993.168,
+      "height": 993.168
+    },
+    {
+      "name": "03 CASCADE logo",
+      "file": "Assets/logo-cascade.png",
+      "x": 228.089,
+      "y": 201.503,
+      "width": 480.216,
+      "height": 207.75
+    },
+    {
+      "name": "04 Pause button",
+      "file": "Assets/pause-button.png",
+      "x": 806.651,
+      "y": 231.774,
+      "width": 120.274,
+      "height": 120.274
+    },
+    {
+      "name": "05 Static HUD preview",
+      "file": "Assets/hud-overlay.png",
+      "x": 0,
+      "y": 0,
+      "width": 941,
+      "height": 1672
+    },
+    {
+      "name": "R1 C1 Sphere 1",
+      "file": "Assets/sphere-1-cyan.png",
+      "x": 80.443,
+      "y": 565.868,
+      "width": 149.532,
+      "height": 149.532
+    },
+    {
+      "name": "R1 C4 Sphere 2",
+      "file": "Assets/sphere-2-green.png",
+      "x": 466.271,
+      "y": 571.468,
+      "width": 139.179,
+      "height": 139.179
+    },
+    {
+      "name": "R1 C6 Sphere 3",
+      "file": "Assets/sphere-3-amber.png",
+      "x": 712.631,
+      "y": 564.972,
+      "width": 152.184,
+      "height": 152.184
+    },
+    {
+      "name": "R2 C3 Sphere 3",
+      "file": "Assets/sphere-3-amber.png",
+      "x": 333.461,
+      "y": 685.752,
+      "width": 152.184,
+      "height": 152.184
+    },
+    {
+      "name": "R2 C4 Sphere 1",
+      "file": "Assets/sphere-1-cyan.png",
+      "x": 461.395,
+      "y": 686.648,
+      "width": 149.532,
+      "height": 149.532
+    },
+    {
+      "name": "R3 C1 Sphere 2",
+      "file": "Assets/sphere-2-green.png",
+      "x": 85.319,
+      "y": 812.83,
+      "width": 139.179,
+      "height": 139.179
+    },
+    {
+      "name": "R3 C3 Sphere 1",
+      "file": "Assets/sphere-1-cyan.png",
+      "x": 335.071,
+      "y": 807.23,
+      "width": 149.532,
+      "height": 149.532
+    },
+    {
+      "name": "R3 C4 Sphere 4",
+      "file": "Assets/sphere-4-purple.png",
+      "x": 466.005,
+      "y": 809.231,
+      "width": 139.605,
+      "height": 139.605
+    },
+    {
+      "name": "R4 C4 Sphere 2",
+      "file": "Assets/sphere-2-green.png",
+      "x": 466.271,
+      "y": 934.6,
+      "width": 139.179,
+      "height": 139.179
+    },
+    {
+      "name": "R4 C5 Sphere 3",
+      "file": "Assets/sphere-3-amber.png",
+      "x": 586.109,
+      "y": 928.104,
+      "width": 152.184,
+      "height": 152.184
+    },
+    {
+      "name": "R5 C1 Sphere 3",
+      "file": "Assets/sphere-3-amber.png",
+      "x": 78.833,
+      "y": 1048.092,
+      "width": 152.184,
+      "height": 152.184
+    },
+    {
+      "name": "R5 C2 Sphere 4",
+      "file": "Assets/sphere-4-purple.png",
+      "x": 212.961,
+      "y": 1050.989,
+      "width": 139.605,
+      "height": 139.605
+    },
+    {
+      "name": "R5 C6 Sphere 1",
+      "file": "Assets/sphere-1-cyan.png",
+      "x": 714.241,
+      "y": 1048.988,
+      "width": 149.532,
+      "height": 149.532
+    },
+    {
+      "name": "R6 C2 Sphere 1",
+      "file": "Assets/sphere-1-cyan.png",
+      "x": 208.351,
+      "y": 1168.778,
+      "width": 149.532,
+      "height": 149.532
+    },
+    {
+      "name": "R6 C5 Sphere 2",
+      "file": "Assets/sphere-2-green.png",
+      "x": 592.595,
+      "y": 1174.378,
+      "width": 139.179,
+      "height": 139.179
+    },
+    {
+      "name": "Next sphere cyan",
+      "file": "Assets/sphere-1-cyan.png",
+      "x": 386.931,
+      "y": 1393.472,
+      "width": 171.74,
+      "height": 171.74
+    }
+  ],
+  "grid_centers_x": [
+    154.07600000000002,
+    281.98400000000004,
+    408.704,
+    535.028,
+    661.3520000000001,
+    787.874
+  ],
+  "grid_centers_y": [
+    640.336,
+    761.116,
+    881.6980000000001,
+    1003.4680000000001,
+    1123.4560000000001,
+    1243.246
+  ],
+  "matrix": [
+    [
+      1,
+      0,
+      0,
+      2,
+      0,
+      3
+    ],
+    [
+      0,
+      0,
+      3,
+      1,
+      0,
+      0
+    ],
+    [
+      2,
+      0,
+      1,
+      4,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      2,
+      3,
+      0
+    ],
+    [
+      3,
+      4,
+      0,
+      0,
+      0,
+      1
+    ],
+    [
+      0,
+      1,
+      0,
+      0,
+      2,
+      0
+    ]
+  ],
+  "unity_note": "Coordinates describe complete PNG quads including transparent margin; do not auto-trim without compensating pivots. HUD is static reference only."
+}

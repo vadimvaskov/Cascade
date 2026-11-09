@@ -1,0 +1,82 @@
+[
+  {
+    "trackId": "disco_funk_01",
+    "originalSourceSha256": "4b0e4a621c72d3c6f9a5d4dc1b1ceada0bad0b5334cdde9bb1c125e0726d3699",
+    "previousRuntimeSha256": "c04c08a803dae09094f2572586d45bdd0f027aa7335cbc09df1fbf8f9b325266",
+    "previousDuration": 176.5735,
+    "runtimeSha256": "0d7d1d6e53ac3e49d734d990208706dff826c9147bb10e0c1caf307f50128fe1",
+    "duration": 90.0,
+    "unchangedFirst89Seconds": true,
+    "beats": 183
+  },
+  {
+    "trackId": "synthwave_electro_01",
+    "originalSourceSha256": "c6b96d77b86c3fa7a9a828412c5f1e2ab4d15e2a52936a45a1de509476ed86ec",
+    "previousRuntimeSha256": "bdefdcc9ec357ff62292f10faa1183db2066c746ed5a25257cb18e85ef28bb93",
+    "previousDuration": 207.3735,
+    "runtimeSha256": "0146a56119a887ce5d4262cd47d86d802e186fd5cf923bfc23a7adb5dde25c7e",
+    "duration": 90.0,
+    "unchangedFirst89Seconds": true,
+    "beats": 156
+  },
+  {
+    "trackId": "electro_swing_01",
+    "originalSourceSha256": "5f5bfba4e03f8ce7466c6f732d7ecbd2eed39c649b2451c06298762d5a1c28df",
+    "previousRuntimeSha256": "3f3470cfc5d1af087a4ce51e7ba287dc658ed1eed0827077d0105158b89c218f",
+    "previousDuration": 142.5335,
+    "runtimeSha256": "d470bcf4d24b3b4573e196ce6974fefb10afcf0085a174827f9e4a1bb45993c5",
+    "duration": 90.0,
+    "unchangedFirst89Seconds": true,
+    "beats": 186
+  },
+  {
+    "trackId": "electronic_rock_01",
+    "originalSourceSha256": "6b150c80b1d4398565cb960b5a78a49102ec638402dd09d1d69bbbbdba43b8a0",
+    "previousRuntimeSha256": "0a3e96ceb8621f6426ebba78975ec66d0952df3b11e10b6508aa570ccf775699",
+    "previousDuration": 188.1335,
+    "runtimeSha256": "e0a1ad48d396e6f883d068f2fa06550878ccf939497b5a2022d16b9953282381",
+    "duration": 90.0,
+    "unchangedFirst89Seconds": true,
+    "beats": 136
+  },
+  {
+    "trackId": "melodic_trance_01",
+    "originalSourceSha256": "d721fd01759d4ab2d9b3d089b1e99a7ffc9d7ed447fa226e5d5ca2ac981b40d2",
+    "previousRuntimeSha256": "867753dbf602549f9f3b6975c61f2dbc000ca769cb06d113cd30296e122ad4ce",
+    "previousDuration": 187.9735,
+    "runtimeSha256": "defd4b1aa0c3e1d61203827e4d955f551a7be85d828b4c5f0ad307b20fd862f5",
+    "duration": 90.0,
+    "unchangedFirst89Seconds": true,
+    "beats": 203
+  },
+  {
+    "trackId": "dubstep_bass_01",
+    "originalSourceSha256": "64f4e6cabb5948153a498fe83652d4392c729c13250925c976390848e132889e",
+    "previousRuntimeSha256": "4e078c346fbe00fbf3fb227ac370511ba82fd7a933ad139752d907538730103d",
+    "previousDuration": 133.0535,
+    "runtimeSha256": "1c92d317a2b2d88d241a9699688502564dbb95932c41a1869065c9d13980ca87",
+    "duration": 90.0,
+    "unchangedFirst89Seconds": true,
+    "beats": 110
+  },
+  {
+    "trackId": "drum_and_bass_01",
+    "originalSourceSha256": "710fa1c0ad7a65b23bb71a7d8c6f236ac4d4bcda3608cfd0c6656835e211f50b",
+    "previousRuntimeSha256": "7e96c918f0be96018b58471261fc22000ac36879aae612d83dfc9589a6bb5118",
+    "previousDuration": 177.7335,
+    "runtimeSha256": "894e4b3ed4f3fefef638245e6370f0f1913f53abf75b4378fda99987d0f2ff31",
+    "duration": 90.0,
+    "unchangedFirst89Seconds": true,
+    "beats": 263
+  },
+  {
+    "trackId": "orchestra_electronic_01",
+    "originalSourceSha256": "05a871ff3ea09a6a9ce5eff9fb2588b88b6b2a24d90c363689fb201c50dec044",
+    "previousRuntimeSha256": "76e5f298e0d5fd93c41a779c9822e40309d7c195bf5bb6ad056cf1e34fae934d",
+    "previousDuration": 169.7335,
+    "runtimeSha256": "ac5ff87e235aafacd53c8ee727566ce88ab6e4183c25d45d3c405671ee54add9",
+    "duration": 90.0,
+    "unchangedFirst89Seconds": true,
+    "beats": 155
+  }
+]

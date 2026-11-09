@@ -1,0 +1,14 @@
+PASS: G01, G02, G03, G04, G05, G06, G07, G08, R01, R02, R03, R04, R05, R06, R07, Exclusions, 100 seeded simulations
+PASS: all x1-x10 thresholds and cap; one multiplier for whole cascade; miss, repeat, timeout and restart; original event time versus display time; window boundaries, tie break and offset; excluded intervals and frozen timeout; map integrity and honest analysis provenance
+PASS: signed calibration, jitter/outlier robustness, unique beats, warmup, limits, invalid/insufficient taps, random rhythm, tempo drift and custom interval
+{
+    "passed": true,
+    "checks": [
+        "8 primary transitions; saturation; placed orb unaffected",
+        "Cascade impulses +1, secondary explosion, whole-move score, passive auto, invalid input",
+        "×1/×2/×3, repeat, miss recovery, exact10s timeout",
+        "All light knots/interpolation/cap; envelopes; 120ms pause fade; soft/local; ≤3Hz subset",
+        "8 exact catalog audio/map pairs; durations, hashes, stereo48k, provisional status",
+        "Atomic/backup save; zero-score win; replay;8 unlocks; multi-track record; song-hash migration"
+    ]
+}

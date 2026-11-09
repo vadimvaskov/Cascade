@@ -1,0 +1,83 @@
+Guessed Channel Layout for Input Stream #0.0 : stereo
+Input #0, wav, from '/Users/anastasiavaskova/Projects/Cascade/Cascade/Updates/V3/Assets/Cascade/Resources/V3/Audio/melodic_trance_01.wav':
+  Metadata:
+    comment         : made with suno; created=2026-11-08T09:57:57Z; id=bc101bb7-d991-486d-b00e-70843afcfe7a
+    encoder         : Lavf60.3.100
+  Duration: 00:03:07.97, bitrate: 1536 kb/s
+  Stream #0:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 48000 Hz, 2 channels, s16, 1536 kb/s
+Stream mapping:
+  Stream #0:0 -> #0:0 (pcm_s16le (native) -> pcm_s16le (native))
+Press [q] to stop, [?] for help
+Output #0, null, to 'pipe:':
+  Metadata:
+    comment         : made with suno; created=2026-11-08T09:57:57Z; id=bc101bb7-d991-486d-b00e-70843afcfe7a
+    encoder         : Lavf60.3.100
+  Stream #0:0: Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s
+    Metadata:
+      encoder         : Lavc60.3.100 pcm_s16le
+size=       0kB time=00:00:00.00 bitrate=N/A speed=N/A    
+size=N/A time=00:03:07.96 bitrate=N/A speed= 548x    
+video:0kB audio:35245kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: unknown
+[Parsed_astats_0 @ 0x11da0afa0] Channel: 1
+[Parsed_astats_0 @ 0x11da0afa0] DC offset: -0.000027
+[Parsed_astats_0 @ 0x11da0afa0] Min level: -19689.000000
+[Parsed_astats_0 @ 0x11da0afa0] Max level: 19134.000000
+[Parsed_astats_0 @ 0x11da0afa0] Min difference: 0.000000
+[Parsed_astats_0 @ 0x11da0afa0] Max difference: 11094.000000
+[Parsed_astats_0 @ 0x11da0afa0] Mean difference: 652.526141
+[Parsed_astats_0 @ 0x11da0afa0] RMS difference: 1011.570882
+[Parsed_astats_0 @ 0x11da0afa0] Peak level dB: -4.424260
+[Parsed_astats_0 @ 0x11da0afa0] RMS level dB: -17.027372
+[Parsed_astats_0 @ 0x11da0afa0] RMS peak dB: -11.191949
+[Parsed_astats_0 @ 0x11da0afa0] RMS trough dB: -69.064927
+[Parsed_astats_0 @ 0x11da0afa0] Crest factor: 4.267324
+[Parsed_astats_0 @ 0x11da0afa0] Flat factor: 0.000000
+[Parsed_astats_0 @ 0x11da0afa0] Peak count: 2
+[Parsed_astats_0 @ 0x11da0afa0] Noise floor dB: -68.724313
+[Parsed_astats_0 @ 0x11da0afa0] Noise floor count: 1
+[Parsed_astats_0 @ 0x11da0afa0] Entropy: 0.861767
+[Parsed_astats_0 @ 0x11da0afa0] Bit depth: 16/16
+[Parsed_astats_0 @ 0x11da0afa0] Dynamic range: 91.905073
+[Parsed_astats_0 @ 0x11da0afa0] Zero crossings: 512470
+[Parsed_astats_0 @ 0x11da0afa0] Zero crossings rate: 0.056798
+[Parsed_astats_0 @ 0x11da0afa0] Channel: 2
+[Parsed_astats_0 @ 0x11da0afa0] DC offset: 0.000005
+[Parsed_astats_0 @ 0x11da0afa0] Min level: -20129.000000
+[Parsed_astats_0 @ 0x11da0afa0] Max level: 20329.000000
+[Parsed_astats_0 @ 0x11da0afa0] Min difference: 0.000000
+[Parsed_astats_0 @ 0x11da0afa0] Max difference: 11647.000000
+[Parsed_astats_0 @ 0x11da0afa0] Mean difference: 649.488578
+[Parsed_astats_0 @ 0x11da0afa0] RMS difference: 1014.343128
+[Parsed_astats_0 @ 0x11da0afa0] Peak level dB: -4.146413
+[Parsed_astats_0 @ 0x11da0afa0] RMS level dB: -16.931954
+[Parsed_astats_0 @ 0x11da0afa0] RMS peak dB: -10.807718
+[Parsed_astats_0 @ 0x11da0afa0] RMS trough dB: -69.817166
+[Parsed_astats_0 @ 0x11da0afa0] Crest factor: 4.357898
+[Parsed_astats_0 @ 0x11da0afa0] Flat factor: 0.000000
+[Parsed_astats_0 @ 0x11da0afa0] Peak count: 2
+[Parsed_astats_0 @ 0x11da0afa0] Noise floor dB: -66.225539
+[Parsed_astats_0 @ 0x11da0afa0] Noise floor count: 397
+[Parsed_astats_0 @ 0x11da0afa0] Entropy: 0.862796
+[Parsed_astats_0 @ 0x11da0afa0] Bit depth: 16/16
+[Parsed_astats_0 @ 0x11da0afa0] Dynamic range: 92.182920
+[Parsed_astats_0 @ 0x11da0afa0] Zero crossings: 503800
+[Parsed_astats_0 @ 0x11da0afa0] Zero crossings rate: 0.055837
+[Parsed_astats_0 @ 0x11da0afa0] Overall
+[Parsed_astats_0 @ 0x11da0afa0] DC offset: -0.000027
+[Parsed_astats_0 @ 0x11da0afa0] Min level: -20129.000000
+[Parsed_astats_0 @ 0x11da0afa0] Max level: 20329.000000
+[Parsed_astats_0 @ 0x11da0afa0] Min difference: 0.000000
+[Parsed_astats_0 @ 0x11da0afa0] Max difference: 11647.000000
+[Parsed_astats_0 @ 0x11da0afa0] Mean difference: 651.007359
+[Parsed_astats_0 @ 0x11da0afa0] RMS difference: 1012.957953
+[Parsed_astats_0 @ 0x11da0afa0] Peak level dB: -4.146413
+[Parsed_astats_0 @ 0x11da0afa0] RMS level dB: -16.979401
+[Parsed_astats_0 @ 0x11da0afa0] RMS peak dB: -10.807718
+[Parsed_astats_0 @ 0x11da0afa0] RMS trough dB: -69.817166
+[Parsed_astats_0 @ 0x11da0afa0] Flat factor: 0.000000
+[Parsed_astats_0 @ 0x11da0afa0] Peak count: 2.000000
+[Parsed_astats_0 @ 0x11da0afa0] Noise floor dB: -66.225539
+[Parsed_astats_0 @ 0x11da0afa0] Noise floor count: 199.000000
+[Parsed_astats_0 @ 0x11da0afa0] Entropy: 0.862281
+[Parsed_astats_0 @ 0x11da0afa0] Bit depth: 16/16
+[Parsed_astats_0 @ 0x11da0afa0] Number of samples: 9022728

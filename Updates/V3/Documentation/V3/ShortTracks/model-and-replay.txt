@@ -1,0 +1,13 @@
+PASS: 3 legacy + 8 V3 audio SHA-256 signatures, imported durations, stereo48k and beat-map structures
+{
+    "passed": true,
+    "checks": [
+        "8 primary transitions; saturation; placed orb unaffected",
+        "Cascade impulses +1, secondary explosion, whole-move score, passive auto, invalid input",
+        "×1–×10: every third unique hit; ×10 from hit27; cap through hit40; repeat, miss recovery, exact10s timeout",
+        "All light knots/interpolation/cap; envelopes; 120ms pause fade; soft/local; ≤3Hz subset",
+        "8 exact catalog audio/map pairs; durations, hashes, stereo48k, provisional status",
+        "Reversible all-eight testing access without fake wins; atomic/backup save; zero-score win; replay;8 unlocks; multi-track record; song-hash migration"
+    ]
+}
+PASS actual device replay: old hits=17, misses=37, max=×1; corrected hits=55, misses=2, excluded=0, max=×10; unchanged +142 ms / ±120 ms. This is replay, not a new physical-device test.

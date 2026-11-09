@@ -1,0 +1,1 @@
+Native final cell26 with build11-style immediate buttons: press=Result, release=Result, resolution=941x1672

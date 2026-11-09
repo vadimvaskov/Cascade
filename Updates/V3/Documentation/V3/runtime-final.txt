@@ -1,0 +1,3 @@
+PASS: native 36-byte TOUC first placement, secondary Ended/Canceled, held primary, rapid same-update taps and cancellation recovery
+PASS: 36 native 36-byte touches at JSON coordinates; 4 separate sphere states and next preview; live HUD; 8 track titles; V3 balance, screen aura/hit testing, pause, cascade and restart
+PASS: locked launch; zero-move win; persisted/idempotent unlock; next navigation; last-move full priority; loss result; pause/resume; actual renderer independent of touch offset; soft mode

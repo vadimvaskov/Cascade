@@ -1,0 +1,50 @@
+{
+  "schema_version": 2,
+  "status": "requirements_not_a_ready_Unity_component",
+  "board_rows": 6,
+  "board_columns": 6,
+  "start_orb_count": 6,
+  "spawn_charge_weights": {
+    "1": 60,
+    "2": 30,
+    "3": 10
+  },
+  "passive_auto_orbs_per_manual_move": 1,
+  "initial_impulse": {
+    "normal": 1,
+    "unique_rhythm_success": 2,
+    "cap_at": 4,
+    "already_4_explodes": true,
+    "duplicate_beat_bonus": false
+  },
+  "cascade_impulse": 1,
+  "cascade_explosion_threshold": 5,
+  "score": {
+    "placement": 10,
+    "per_destroyed_orb": 50,
+    "streak_multiplier_knots": [
+      [
+        0,
+        1
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        8,
+        3
+      ]
+    ]
+  },
+  "progression": {
+    "first_record_open": true,
+    "unlock_on": "successful_track_end_after_resolving_last_valid_move",
+    "minimum_score": null,
+    "minimum_hits": null,
+    "unlocked_record_ids_are_monotonic": true,
+    "legacy_records_unlock_new_content": false,
+    "adding_tracks_must_not_relock_earned_records": true
+  },
+  "lighting_config": "../Gameplay/Rhythm_Lighting_Config.json"
+}

@@ -1,0 +1,33 @@
+{
+  "from_content_id": "cascade_eight_styles_v2",
+  "to_content_id": "cascade_eight_styles_v3",
+  "changes": [
+    {
+      "record_id": "melodic_trance",
+      "track_id": "melodic_trance_01",
+      "style": "Melodic Trance",
+      "old_title": "Wasted Potential",
+      "new_title": "Ethereal Flight",
+      "old_audio_sha256": "64f4e6cabb5948153a498fe83652d4392c729c13250925c976390848e132889e",
+      "new_audio_sha256": "d721fd01759d4ab2d9b3d089b1e99a7ffc9d7ed447fa226e5d5ca2ac981b40d2",
+      "old_duration_seconds": 133.04,
+      "new_duration_seconds": 187.96
+    },
+    {
+      "record_id": "dubstep_bass",
+      "track_id": "dubstep_bass_01",
+      "style": "Dubstep / Bass Music",
+      "old_title": "Midnight Drop",
+      "new_title": "Wasted Potential",
+      "old_audio_sha256": "c4d98fc40b3bccdb29728468aa9382c8724894abdec2973720eb3398c2a38e61",
+      "new_audio_sha256": "64f4e6cabb5948153a498fe83652d4392c729c13250925c976390848e132889e",
+      "old_duration_seconds": 149.96,
+      "new_duration_seconds": 133.04
+    }
+  ],
+  "preserve_unlocked_record_ids": true,
+  "preserve_unaffected_track_results": true,
+  "affected_results_rule": "If v2 results exist, archive them under old audio hash. Start fresh score/completion for the two corrected track slots; never transfer a result to another song. Keep already-earned record unlocks.",
+  "affected_cache_rule": "Reimport corrected audio and invalidate cached beatmaps tied to old hash/track slot. Runtime audio and validated beatmap hashes must match before play.",
+  "migration_executed": false
+}

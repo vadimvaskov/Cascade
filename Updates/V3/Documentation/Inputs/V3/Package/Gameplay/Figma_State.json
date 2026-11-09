@@ -1,0 +1,25 @@
+{
+  "file_key": "A8q1xOkIWPO4AIvRxYLaKr",
+  "session_id": "4a73975b-d3f2-461f-ab8d-b90e49853560",
+  "file_url": "https://www.figma.com/design/A8q1xOkIWPO4AIvRxYLaKr?node-id=36-2",
+  "page": {"id":"36:2", "name":"04 · Поле · Ритмическое свечение"},
+  "frames": [
+    {"id":"36:3", "name":"00 · Базовый свет", "x":0,"y":0,"width":941,"height":1792},
+    {"id":"36:8", "name":"01 · Поле и сферы · пик пульса", "x":1100,"y":0,"width":941,"height":1792},
+    {"id":"36:13", "name":"02 · Ореол экрана · длинная серия", "x":2200,"y":0,"width":941,"height":1792}
+  ],
+  "gameplay_raster_size": [941,1672],
+  "caption_height": 120,
+  "reference_node_type": "raster_image",
+  "captions_editable": true,
+  "native_spec_created": false,
+  "local_spec": "Rhythm_Lighting_TZ_RU.txt",
+  "method": "Browser editor SVG import after Figma MCP quota error",
+  "saved_after_reload": true,
+  "proof": "Figma_Proof.png",
+  "verified_date": "2026-11-08",
+  "figma_motion_implemented": false,
+  "unity_implemented": false,
+  "real_device_tested": false,
+  "previous_pages_preserved": true
+}

@@ -1,0 +1,36 @@
+{
+  "tempoCandidates": [
+    {
+      "bpm": 105.242,
+      "autocorrelation": 0.08224
+    },
+    {
+      "bpm": 140.307,
+      "autocorrelation": 0.03529
+    },
+    {
+      "bpm": 70.073,
+      "autocorrelation": 0.03207
+    },
+    {
+      "bpm": 84.014,
+      "autocorrelation": 0.02918
+    }
+  ],
+  "chosenBpm": 105.242,
+  "beats": 156,
+  "attackSupport": 0.9807692307692307,
+  "minInterval": 0.5,
+  "maxInterval": 0.5800000000000054,
+  "excluded": [
+    {
+      "start": 0,
+      "end": 1.275
+    },
+    {
+      "start": 89.815,
+      "end": 90.0
+    }
+  ],
+  "listeningVerified": false
+}

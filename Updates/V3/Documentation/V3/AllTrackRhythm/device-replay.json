@@ -1,0 +1,28 @@
+{
+  "track": "electronic_rock_01",
+  "offsetMs": 142,
+  "acceptedMoves": 65,
+  "before": {
+    "maxMultiplier": 1,
+    "hits": 23,
+    "misses": 40,
+    "bestStreak": 2,
+    "kinds": {
+      "miss": 40,
+      "hit": 23,
+      "excluded": 2
+    }
+  },
+  "after": {
+    "maxMultiplier": 10,
+    "hits": 62,
+    "misses": 3,
+    "bestStreak": 39,
+    "kinds": {
+      "hit": 62,
+      "miss": 3
+    }
+  },
+  "exactBeforeReplay": true,
+  "newPhysicalDeviceTest": false
+}

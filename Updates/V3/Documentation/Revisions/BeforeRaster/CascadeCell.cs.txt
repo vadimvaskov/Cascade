@@ -1,0 +1,26 @@
+using UnityEngine;
+namespace Cascade.Prototype
+{
+ public sealed class CascadeCell:MonoBehaviour
+ {
+  public int index,charge;public Transform orb;public Renderer shell;public GameObject[] symbols;public LineRenderer border,burst;public ParticleSystem sparks;public float orbSize=.86f;
+  MaterialPropertyBlock block;double popAt=-100,burstAt=-100;Color burstColor;
+  public void SetCharge(int n,Material[] materials,double clock,bool animate=true)
+  {
+   n=Mathf.Clamp(n,0,4);if(n==charge)return;charge=n;orb.gameObject.SetActive(n>0);if(n==0)return;
+   shell.sharedMaterial=materials[n-1];for(int i=0;i<symbols.Length;i++)symbols[i].SetActive(i==n-1);if(animate)popAt=clock;
+  }
+  public void Explode(double clock,bool reduced)
+  {
+   burstAt=clock;burstColor=CascadeGame.Palette(Mathf.Max(1,charge));if(burst!=null)burst.gameObject.SetActive(true);
+   if(sparks!=null&&!reduced){var m=sparks.main;m.startColor=burstColor;sparks.Emit(12);}
+  }
+  public void Animate(double clock,float beat,float light,bool reduced,bool paused)
+  {
+   if(charge>0){float age=(float)(clock-popAt);float pop=age>=0&&age<.18f?Mathf.Sin(age/.18f*Mathf.PI)*.12f:0;orb.localScale=Vector3.one*orbSize*(1+(reduced?0:pop+beat*.018f));if(block==null)block=new MaterialPropertyBlock();block.SetFloat("_Pulse",reduced?0:beat*(.3f+.7f*light));shell.SetPropertyBlock(block);}
+   if(border!=null){var c=Color.Lerp(new Color(.26f,.07f,.35f),new Color(.76f,.25f,.85f),light*(reduced?.15f:.65f)+(reduced?0:beat*.12f));border.startColor=border.endColor=c;}
+   if(burst!=null&&burst.gameObject.activeSelf){float t=(float)(clock-burstAt)/.24f;if(t>=1)burst.gameObject.SetActive(false);else{burst.transform.localScale=Vector3.one*Mathf.Lerp(.5f,1.08f,t);burstColor.a=(1-t)*(reduced?.35f:.9f);burst.startColor=burst.endColor=burstColor;}}
+   if(sparks!=null){if(paused&&sparks.isPlaying)sparks.Pause();else if(!paused&&sparks.isPaused)sparks.Play();}
+  }
+ }
+}

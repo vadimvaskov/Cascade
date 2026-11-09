@@ -1,0 +1,7 @@
+{
+  "model": "PASS: G01, G02, G03, G04, G05, G06, G07, G08, R01, R02, R03, R04, R05, R06, R07, Exclusions, 100 seeded simulations",
+  "rhythm": "PASS: all x1-x10 thresholds and cap; one multiplier for whole cascade; miss, repeat, timeout and restart; original event time versus display time; window boundaries, tie break and offset; excluded intervals and frozen timeout; map integrity and honest analysis provenance",
+  "calibration": "PASS: signed calibration, jitter/outlier robustness, unique beats, warmup, limits, invalid/insufficient taps, random rhythm, tempo drift and custom interval",
+  "audio": "PASS: 3 audio SHA-256 signatures, imported clip durations and beat-map structures",
+  "recovery": "PASS: miss/repeat/stale/timeout recovery and calibrated exclusion boundaries; Dark 0 ms: 682 recoveries, 0 exclusion exits; 142 ms: 681 recoveries, 0 exclusion exits; -80 ms: 682 recoveries, 0 exclusion exits. This checks model recovery, not audible map accuracy or device input."
+}

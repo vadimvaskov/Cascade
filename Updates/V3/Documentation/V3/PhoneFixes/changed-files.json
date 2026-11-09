@@ -1,0 +1,17 @@
+[
+  "Assets/Plugins.meta",
+  "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
+  "Assets/Plugins/iOS.meta",
+  "Assets/Cascade/Scripts/CascadeGame.Results.cs.meta",
+  "Assets/Cascade/Scripts/CascadeGame.V3.cs",
+  "Assets/Cascade/Scripts/CascadeAudioOutputTiming.cs.meta",
+  "Assets/Cascade/Scripts/CascadeAudioOutputTiming.cs",
+  "Assets/Cascade/Scripts/CascadeGame.cs",
+  "Assets/Cascade/Scripts/CascadeGame.Results.cs",
+  "Assets/Cascade/Editor/CascadeV3RuntimeChecks.cs",
+  "Assets/Cascade/Editor/CascadePhoneFixChecks.cs.meta",
+  "Assets/Cascade/Editor/CascadePhoneFixChecks.cs",
+  "Assets/Plugins/iOS/CascadeAudioOutputTiming.mm.meta",
+  "Assets/Plugins/iOS/CascadeAudioOutputTiming.mm",
+  "ProjectSettings/ProjectSettings.asset"
+]

@@ -1,0 +1,970 @@
+{
+  "scope": "Read-only visual and pixel QA. No supplied or generated PNG modified, resized, cropped or saved again.",
+  "reference_canvas_px": [
+    941,
+    1672
+  ],
+  "rectangle_convention": "xyxy is exclusive right/bottom; xywh is x,y,width,height. Origin top left.",
+  "precision": "Alpha masks exact for current PNGs; bright grid-center measurements approximately ±1–2 asset px. Placement and dense object boundaries are visual estimates, not recovered original design.",
+  "board": {
+    "filename": "empty-board.png",
+    "asset_size_px": [
+      1254,
+      1254
+    ],
+    "verified_rows": 6,
+    "verified_columns": 6,
+    "verified_cell_count": 36,
+    "outer_bright_rim_approx_xyxy": [
+      120,
+      158,
+      1133,
+      1125
+    ],
+    "dense_solid_board_with_base_approx_xyxy": [
+      113,
+      148,
+      1141,
+      1154
+    ],
+    "glow_bbox_alpha_gt_4_xyxy": [
+      83,
+      119,
+      1170,
+      1182
+    ],
+    "grid_cell_rim_approx_xyxy": [
+      151,
+      186,
+      1105,
+      1092
+    ],
+    "column_centers_asset_px": [
+      228,
+      389.5,
+      549.5,
+      709,
+      868.5,
+      1028.25
+    ],
+    "row_centers_asset_px": [
+      258,
+      410.5,
+      562.75,
+      716.5,
+      868,
+      1019.25
+    ],
+    "approx_cell_sizes_asset_px": {
+      "width_range": [
+        150,
+        154
+      ],
+      "height_range": [
+        142,
+        146
+      ]
+    },
+    "recommended_whole_png_xywh": [
+      -26.5,
+      436,
+      993.168,
+      993.168
+    ],
+    "recommended_uniform_scale": 0.792,
+    "column_centers_composition_px": [
+      154.076,
+      281.984,
+      408.704,
+      535.028,
+      661.352,
+      787.874
+    ],
+    "row_centers_composition_px": [
+      640.336,
+      761.116,
+      881.698,
+      1003.468,
+      1123.456,
+      1243.246
+    ],
+    "rendered_bright_rim_xyxy": [
+      68.54,
+      561.136,
+      870.836,
+      1327.0
+    ],
+    "cell_centers_all": [
+      {
+        "row": 0,
+        "column": 0,
+        "asset_px": [
+          228,
+          258
+        ],
+        "composition_px": [
+          154.076,
+          640.336
+        ]
+      },
+      {
+        "row": 0,
+        "column": 1,
+        "asset_px": [
+          389.5,
+          258
+        ],
+        "composition_px": [
+          281.984,
+          640.336
+        ]
+      },
+      {
+        "row": 0,
+        "column": 2,
+        "asset_px": [
+          549.5,
+          258
+        ],
+        "composition_px": [
+          408.704,
+          640.336
+        ]
+      },
+      {
+        "row": 0,
+        "column": 3,
+        "asset_px": [
+          709,
+          258
+        ],
+        "composition_px": [
+          535.028,
+          640.336
+        ]
+      },
+      {
+        "row": 0,
+        "column": 4,
+        "asset_px": [
+          868.5,
+          258
+        ],
+        "composition_px": [
+          661.352,
+          640.336
+        ]
+      },
+      {
+        "row": 0,
+        "column": 5,
+        "asset_px": [
+          1028.25,
+          258
+        ],
+        "composition_px": [
+          787.874,
+          640.336
+        ]
+      },
+      {
+        "row": 1,
+        "column": 0,
+        "asset_px": [
+          228,
+          410.5
+        ],
+        "composition_px": [
+          154.076,
+          761.116
+        ]
+      },
+      {
+        "row": 1,
+        "column": 1,
+        "asset_px": [
+          389.5,
+          410.5
+        ],
+        "composition_px": [
+          281.984,
+          761.116
+        ]
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "asset_px": [
+          549.5,
+          410.5
+        ],
+        "composition_px": [
+          408.704,
+          761.116
+        ]
+      },
+      {
+        "row": 1,
+        "column": 3,
+        "asset_px": [
+          709,
+          410.5
+        ],
+        "composition_px": [
+          535.028,
+          761.116
+        ]
+      },
+      {
+        "row": 1,
+        "column": 4,
+        "asset_px": [
+          868.5,
+          410.5
+        ],
+        "composition_px": [
+          661.352,
+          761.116
+        ]
+      },
+      {
+        "row": 1,
+        "column": 5,
+        "asset_px": [
+          1028.25,
+          410.5
+        ],
+        "composition_px": [
+          787.874,
+          761.116
+        ]
+      },
+      {
+        "row": 2,
+        "column": 0,
+        "asset_px": [
+          228,
+          562.75
+        ],
+        "composition_px": [
+          154.076,
+          881.698
+        ]
+      },
+      {
+        "row": 2,
+        "column": 1,
+        "asset_px": [
+          389.5,
+          562.75
+        ],
+        "composition_px": [
+          281.984,
+          881.698
+        ]
+      },
+      {
+        "row": 2,
+        "column": 2,
+        "asset_px": [
+          549.5,
+          562.75
+        ],
+        "composition_px": [
+          408.704,
+          881.698
+        ]
+      },
+      {
+        "row": 2,
+        "column": 3,
+        "asset_px": [
+          709,
+          562.75
+        ],
+        "composition_px": [
+          535.028,
+          881.698
+        ]
+      },
+      {
+        "row": 2,
+        "column": 4,
+        "asset_px": [
+          868.5,
+          562.75
+        ],
+        "composition_px": [
+          661.352,
+          881.698
+        ]
+      },
+      {
+        "row": 2,
+        "column": 5,
+        "asset_px": [
+          1028.25,
+          562.75
+        ],
+        "composition_px": [
+          787.874,
+          881.698
+        ]
+      },
+      {
+        "row": 3,
+        "column": 0,
+        "asset_px": [
+          228,
+          716.5
+        ],
+        "composition_px": [
+          154.076,
+          1003.468
+        ]
+      },
+      {
+        "row": 3,
+        "column": 1,
+        "asset_px": [
+          389.5,
+          716.5
+        ],
+        "composition_px": [
+          281.984,
+          1003.468
+        ]
+      },
+      {
+        "row": 3,
+        "column": 2,
+        "asset_px": [
+          549.5,
+          716.5
+        ],
+        "composition_px": [
+          408.704,
+          1003.468
+        ]
+      },
+      {
+        "row": 3,
+        "column": 3,
+        "asset_px": [
+          709,
+          716.5
+        ],
+        "composition_px": [
+          535.028,
+          1003.468
+        ]
+      },
+      {
+        "row": 3,
+        "column": 4,
+        "asset_px": [
+          868.5,
+          716.5
+        ],
+        "composition_px": [
+          661.352,
+          1003.468
+        ]
+      },
+      {
+        "row": 3,
+        "column": 5,
+        "asset_px": [
+          1028.25,
+          716.5
+        ],
+        "composition_px": [
+          787.874,
+          1003.468
+        ]
+      },
+      {
+        "row": 4,
+        "column": 0,
+        "asset_px": [
+          228,
+          868
+        ],
+        "composition_px": [
+          154.076,
+          1123.456
+        ]
+      },
+      {
+        "row": 4,
+        "column": 1,
+        "asset_px": [
+          389.5,
+          868
+        ],
+        "composition_px": [
+          281.984,
+          1123.456
+        ]
+      },
+      {
+        "row": 4,
+        "column": 2,
+        "asset_px": [
+          549.5,
+          868
+        ],
+        "composition_px": [
+          408.704,
+          1123.456
+        ]
+      },
+      {
+        "row": 4,
+        "column": 3,
+        "asset_px": [
+          709,
+          868
+        ],
+        "composition_px": [
+          535.028,
+          1123.456
+        ]
+      },
+      {
+        "row": 4,
+        "column": 4,
+        "asset_px": [
+          868.5,
+          868
+        ],
+        "composition_px": [
+          661.352,
+          1123.456
+        ]
+      },
+      {
+        "row": 4,
+        "column": 5,
+        "asset_px": [
+          1028.25,
+          868
+        ],
+        "composition_px": [
+          787.874,
+          1123.456
+        ]
+      },
+      {
+        "row": 5,
+        "column": 0,
+        "asset_px": [
+          228,
+          1019.25
+        ],
+        "composition_px": [
+          154.076,
+          1243.246
+        ]
+      },
+      {
+        "row": 5,
+        "column": 1,
+        "asset_px": [
+          389.5,
+          1019.25
+        ],
+        "composition_px": [
+          281.984,
+          1243.246
+        ]
+      },
+      {
+        "row": 5,
+        "column": 2,
+        "asset_px": [
+          549.5,
+          1019.25
+        ],
+        "composition_px": [
+          408.704,
+          1243.246
+        ]
+      },
+      {
+        "row": 5,
+        "column": 3,
+        "asset_px": [
+          709,
+          1019.25
+        ],
+        "composition_px": [
+          535.028,
+          1243.246
+        ]
+      },
+      {
+        "row": 5,
+        "column": 4,
+        "asset_px": [
+          868.5,
+          1019.25
+        ],
+        "composition_px": [
+          661.352,
+          1243.246
+        ]
+      },
+      {
+        "row": 5,
+        "column": 5,
+        "asset_px": [
+          1028.25,
+          1019.25
+        ],
+        "composition_px": [
+          787.874,
+          1243.246
+        ]
+      }
+    ],
+    "placement_note": "The whole PNG starts at x=-26.5 because of transparent padding. The visible board remains inside the 941px composition. This scale places the rim near the source board and keeps the artwork undistorted. Use these new centers to place new sphere art; source centers differ by up to about 2.6px.",
+    "source_board_bounds_xywh": [
+      67,
+      561,
+      808,
+      787
+    ],
+    "visual_differences": [
+      "Cell count and proportions match the 6×6 reference closely.",
+      "New frame has a broader diffuse orange/magenta glow and more uniform, brighter pink cell outlines.",
+      "Lower support/bevel looks slightly thicker and softer; reflections and edge flares are redrawn, not identical."
+    ]
+  },
+  "logo": {
+    "measurement_basis": "alpha > 224/255 dense bounding rectangle; approximate visual object bounds",
+    "dense_bounds_xyxy": [
+      226,
+      191,
+      1739,
+      631
+    ],
+    "dense_center_asset_px": [
+      982.5,
+      411.0
+    ],
+    "target_center_px": [
+      475.5,
+      305
+    ],
+    "uniform_scale": 0.251817581,
+    "rendered_whole_png_xywh": [
+      228.089,
+      201.503,
+      480.216,
+      207.75
+    ],
+    "rendered_dense_size": [
+      381.0,
+      110.8
+    ],
+    "note": "Use whole PNG with preserved alpha; do not crop or stretch."
+  },
+  "pause": {
+    "measurement_basis": "alpha > 224/255 dense bounding rectangle; approximate visual object bounds",
+    "dense_bounds_xyxy": [
+      306,
+      323,
+      942,
+      912
+    ],
+    "dense_center_asset_px": [
+      624.0,
+      617.5
+    ],
+    "target_center_px": [
+      866.5,
+      291
+    ],
+    "uniform_scale": 0.09591195,
+    "rendered_whole_png_xywh": [
+      806.651,
+      231.774,
+      120.274,
+      120.274
+    ],
+    "rendered_dense_size": [
+      61.0,
+      56.492
+    ],
+    "note": "Use whole PNG with preserved alpha; do not crop or stretch."
+  },
+  "spheres": {
+    "1": {
+      "filename": "sphere-1-cyan.png",
+      "measurement_basis": "alpha > 224/255 dense bounding rectangle; approximate visual object bounds",
+      "dense_bounds_xyxy": [
+        194,
+        209,
+        1041,
+        1040
+      ],
+      "dense_center_asset_px": [
+        617.5,
+        624.5
+      ],
+      "uniform_scale": 0.119244392,
+      "rendered_dense_size": [
+        101.0,
+        99.092
+      ],
+      "note": "Use whole PNG with preserved alpha; do not crop or stretch.",
+      "rendered_whole_png_offset_xywh_from_desired_content_center": [
+        -73.633,
+        -74.468,
+        149.532,
+        149.532
+      ],
+      "cell_center_y_adjust_px": 0
+    },
+    "2": {
+      "filename": "sphere-2-green.png",
+      "measurement_basis": "alpha > 224/255 dense bounding rectangle; approximate visual object bounds",
+      "dense_bounds_xyxy": [
+        169,
+        172,
+        1070,
+        1069
+      ],
+      "dense_center_asset_px": [
+        619.5,
+        620.5
+      ],
+      "uniform_scale": 0.110987791,
+      "rendered_dense_size": [
+        100.0,
+        99.556
+      ],
+      "note": "Use whole PNG with preserved alpha; do not crop or stretch.",
+      "rendered_whole_png_offset_xywh_from_desired_content_center": [
+        -68.757,
+        -68.868,
+        139.179,
+        139.179
+      ],
+      "cell_center_y_adjust_px": 0
+    },
+    "3": {
+      "filename": "sphere-3-amber.png",
+      "measurement_basis": "alpha > 224/255 dense bounding rectangle; approximate visual object bounds",
+      "dense_bounds_xyxy": [
+        209,
+        209,
+        1031,
+        1033
+      ],
+      "dense_center_asset_px": [
+        620.0,
+        621.0
+      ],
+      "uniform_scale": 0.121359223,
+      "rendered_dense_size": [
+        99.757,
+        100.0
+      ],
+      "note": "Use whole PNG with preserved alpha; do not crop or stretch.",
+      "rendered_whole_png_offset_xywh_from_desired_content_center": [
+        -75.243,
+        -75.364,
+        152.184,
+        152.184
+      ],
+      "cell_center_y_adjust_px": 0
+    },
+    "4": {
+      "filename": "sphere-4-purple.png",
+      "measurement_basis": "alpha > 224/255 dense bounding rectangle; approximate visual object bounds",
+      "dense_bounds_xyxy": [
+        124,
+        103,
+        1116,
+        1127
+      ],
+      "dense_center_asset_px": [
+        620.0,
+        615.0
+      ],
+      "uniform_scale": 0.111328125,
+      "rendered_dense_size": [
+        110.438,
+        114.0
+      ],
+      "note": "Use whole PNG with preserved alpha; do not crop or stretch.",
+      "rendered_whole_png_offset_xywh_from_desired_content_center": [
+        -69.023,
+        -68.467,
+        139.605,
+        139.605
+      ],
+      "cell_center_y_adjust_px": -4
+    }
+  },
+  "next_sphere": {
+    "measurement_basis": "alpha > 224/255 dense bounding rectangle; approximate visual object bounds",
+    "dense_bounds_xyxy": [
+      194,
+      209,
+      1041,
+      1040
+    ],
+    "dense_center_asset_px": [
+      617.5,
+      624.5
+    ],
+    "target_center_px": [
+      471.5,
+      1479
+    ],
+    "uniform_scale": 0.136953955,
+    "rendered_whole_png_xywh": [
+      386.931,
+      1393.472,
+      171.74,
+      171.74
+    ],
+    "rendered_dense_size": [
+      116.0,
+      113.809
+    ],
+    "note": "Use whole PNG with preserved alpha; do not crop or stretch."
+  },
+  "reference_occupancy_zero_indexed": [
+    [
+      1,
+      0,
+      0,
+      2,
+      0,
+      3
+    ],
+    [
+      0,
+      0,
+      3,
+      1,
+      0,
+      0
+    ],
+    [
+      2,
+      0,
+      1,
+      4,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      2,
+      3,
+      0
+    ],
+    [
+      3,
+      4,
+      0,
+      0,
+      0,
+      1
+    ],
+    [
+      0,
+      1,
+      0,
+      0,
+      2,
+      0
+    ]
+  ],
+  "reference_instances": [
+    {
+      "row": 0,
+      "column": 0,
+      "state": 1,
+      "whole_png_xywh": [
+        80.443,
+        565.868,
+        149.532,
+        149.532
+      ]
+    },
+    {
+      "row": 0,
+      "column": 3,
+      "state": 2,
+      "whole_png_xywh": [
+        466.271,
+        571.468,
+        139.179,
+        139.179
+      ]
+    },
+    {
+      "row": 0,
+      "column": 5,
+      "state": 3,
+      "whole_png_xywh": [
+        712.631,
+        564.972,
+        152.184,
+        152.184
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "state": 3,
+      "whole_png_xywh": [
+        333.461,
+        685.752,
+        152.184,
+        152.184
+      ]
+    },
+    {
+      "row": 1,
+      "column": 3,
+      "state": 1,
+      "whole_png_xywh": [
+        461.395,
+        686.648,
+        149.532,
+        149.532
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "state": 2,
+      "whole_png_xywh": [
+        85.319,
+        812.83,
+        139.179,
+        139.179
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "state": 1,
+      "whole_png_xywh": [
+        335.071,
+        807.23,
+        149.532,
+        149.532
+      ]
+    },
+    {
+      "row": 2,
+      "column": 3,
+      "state": 4,
+      "whole_png_xywh": [
+        466.005,
+        809.231,
+        139.605,
+        139.605
+      ]
+    },
+    {
+      "row": 3,
+      "column": 3,
+      "state": 2,
+      "whole_png_xywh": [
+        466.271,
+        934.6,
+        139.179,
+        139.179
+      ]
+    },
+    {
+      "row": 3,
+      "column": 4,
+      "state": 3,
+      "whole_png_xywh": [
+        586.109,
+        928.104,
+        152.184,
+        152.184
+      ]
+    },
+    {
+      "row": 4,
+      "column": 0,
+      "state": 3,
+      "whole_png_xywh": [
+        78.833,
+        1048.092,
+        152.184,
+        152.184
+      ]
+    },
+    {
+      "row": 4,
+      "column": 1,
+      "state": 4,
+      "whole_png_xywh": [
+        212.961,
+        1050.989,
+        139.605,
+        139.605
+      ]
+    },
+    {
+      "row": 4,
+      "column": 5,
+      "state": 1,
+      "whole_png_xywh": [
+        714.241,
+        1048.988,
+        149.532,
+        149.532
+      ]
+    },
+    {
+      "row": 5,
+      "column": 1,
+      "state": 1,
+      "whole_png_xywh": [
+        208.351,
+        1168.778,
+        149.532,
+        149.532
+      ]
+    },
+    {
+      "row": 5,
+      "column": 4,
+      "state": 2,
+      "whole_png_xywh": [
+        592.595,
+        1174.378,
+        139.179,
+        139.179
+      ]
+    }
+  ],
+  "reference_state_note": "The 15 occupied cells reproduce the visual reference only; this is not a gameplay starting-state rule.",
+  "specific_visual_differences": {
+    "logo": "Readable CASCADE, italic serif, note and flourish preserved. The redrawn C, glyph contours, tiny stars, gradient and broad glow differ; it is raster artwork rather than live editable text.",
+    "pause": "Symbol and plum rounded button preserved. Redrawn body is about 8% wider than tall; uniform fit to 61px width produces roughly 56.5px height, so center it vertically. Its neon glow and rim are stronger than the source.",
+    "sphere1": "Correct cyan glass and single note. Highlight/edge facets and note contour differ; outer cyan halo is broader.",
+    "sphere2": "Correct green glass and single note. More conspicuous facet pattern and broad lime halo; its raw PNG body is larger than cyan, so use per-asset scaling.",
+    "sphere3": "Correct amber glass and paired note. Facet reflections and note weight differ. Raw body is smaller than green in the same-size PNG, so equal image widths would create inconsistent sphere sizes.",
+    "sphere4": "Correct violet crystal crown and gold treble clef. Crown has more pronounced long top/bottom points and a larger central clef; preserve its own proportions. At a 114px bounding height it is about 110.4px wide.",
+    "transparency": "All isolated assets have alpha. Soft glows are semitransparent, some images have alpha 1 edge noise; avoid bounding by any alpha>0 because it includes nearly invisible pixels."
+  },
+  "no_image_mutations": true,
+  "alpha_measurements_file": "work/artifacts/raster-alpha-measurements.json"
+}

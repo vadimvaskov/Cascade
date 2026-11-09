@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "menu_design_version": "Cascade_Vinyl_Menu_Unity_v1",
+  "initial_record_id": "disco_funk",
+  "record_order": [
+    "disco_funk",
+    "synthwave_electro",
+    "electro_swing",
+    "electronic_rock",
+    "melodic_trance",
+    "dubstep_bass",
+    "drum_and_bass",
+    "orchestra_electronic"
+  ],
+  "initial_unlocked_record_ids": [
+    "disco_funk"
+  ],
+  "initial_completed_track_ids": [],
+  "unlocked_records_remain_unlocked": true,
+  "carousel_wrap": false,
+  "carousel": {
+    "transition_ms": 280,
+    "easing": "ease_out",
+    "swipe_direction_left": "next",
+    "swipe_direction_right": "previous",
+    "drag_start_reference_px": 12,
+    "commit_distance_reference_px": 80,
+    "commit_velocity_reference_px_s": 600,
+    "step_per_gesture": 1,
+    "parameters_require_device_tuning": true
+  },
+  "button_feedback": {
+    "pressed_scale": 0.97,
+    "press_ms": 80,
+    "release_ms": 120,
+    "disabled_arrow_opacity": 0.28
+  },
+  "states": {
+    "locked": {
+      "can_browse": true,
+      "can_open_tracks": false,
+      "primary_label": "ПЛАСТИНКА ЗАКРЫТА",
+      "central_vinyl_opacity": 0.58,
+      "shade_color": "#110A2B",
+      "shade_opacity": 0.62,
+      "primary_art_opacity": 0.33,
+      "requirement": "Сначала пройди {previous_record_display_name}"
+    },
+    "open": {
+      "can_browse": true,
+      "can_open_tracks": true,
+      "primary_label": "ОТКРЫТЬ ТРЕКИ",
+      "progress_label": "Пройдено {completed} из {total}"
+    },
+    "completed": {
+      "can_browse": true,
+      "can_open_tracks": true,
+      "replay": true,
+      "primary_label": "ОТКРЫТЬ ТРЕКИ",
+      "show_completed_check": true
+    },
+    "loading": {
+      "primary_label": "ЗАГРУЗКА…",
+      "allow_double_launch": false
+    },
+    "load_failed": {
+      "restore_selection": true,
+      "allow_retry": true,
+      "message": "Не удалось загрузить трек. Попробуй ещё раз."
+    }
+  },
+  "transitions": [
+    {
+      "from": "records",
+      "action": "tap_open_record_or_primary",
+      "to": "tracks",
+      "guard": "selected_record_unlocked"
+    },
+    {
+      "from": "records",
+      "action": "swipe_or_arrow",
+      "to": "records",
+      "effect": "select_adjacent_record_within_0_7"
+    },
+    {
+      "from": "tracks",
+      "action": "back",
+      "to": "records",
+      "effect": "restore_previous_record"
+    },
+    {
+      "from": "records_or_tracks",
+      "action": "settings",
+      "to": "settings",
+      "effect": "remember_origin"
+    },
+    {
+      "from": "settings",
+      "action": "back_or_done",
+      "to": "remembered_origin",
+      "effect": "persist_settings"
+    },
+    {
+      "from": "tracks",
+      "action": "play",
+      "to": "loading",
+      "guard": "selected_track_is_available"
+    },
+    {
+      "from": "loading",
+      "action": "audio_and_game_loaded",
+      "to": "existing_countdown_and_gameplay"
+    },
+    {
+      "from": "loading",
+      "action": "load_error",
+      "to": "tracks",
+      "effect": "restore_selection_and_show_retry"
+    },
+    {
+      "from": "gameplay",
+      "action": "win",
+      "to": "existing_results",
+      "effect": "persist_completion_and_unlock_next_required_record"
+    },
+    {
+      "from": "gameplay",
+      "action": "loss",
+      "to": "existing_results",
+      "effect": "do_not_unlock_next"
+    }
+  ],
+  "save_fields": [
+    "selected_record_id",
+    "unlocked_record_ids",
+    "completed_track_ids",
+    "best_score_by_track_id",
+    "music_volume",
+    "reduced_effects"
+  ],
+  "design_examples_are_not_save_data": true,
+  "figma_prototype_links_created": false,
+  "content_id": "cascade_eight_styles_v3",
+  "content_migration": "Content_Migration_v3.json"
+}

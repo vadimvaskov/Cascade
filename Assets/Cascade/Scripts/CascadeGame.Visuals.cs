@@ -1,0 +1,250 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+#if UNITY_EDITOR
+using UnityEditor;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+#endif
+
+namespace Cascade.Prototype
+{
+    public sealed partial class CascadeGame
+    {
+        [SerializeField] Text trackText;
+#if UNITY_EDITOR
+        Font uiFont, logoFont;
+        Material ribbonMat, frameMat, glowMat;
+        Color cream = new Color(1f,.87f,.67f), lavender = new Color(.69f,.53f,.81f);
+        const string ArtFolder="Assets/Cascade/Art/";
+
+        T ArtAsset<T>(string filename,T source) where T:UnityEngine.Object
+        {
+            string path=ArtFolder+filename;
+            var existing=AssetDatabase.LoadAssetAtPath<T>(path);
+            if(existing==null){AssetDatabase.CreateAsset(source,path);return source;}
+            EditorUtility.CopySerialized(source,existing);DestroyImmediate(source);EditorUtility.SetDirty(existing);return existing;
+        }
+        Material ArtMaterial(string name,string shader,Color color,float glow=1)
+        {
+            var m=new Material(Shader.Find(shader)){name=name};
+            if(m.HasProperty("_BaseColor"))m.SetColor("_BaseColor",color);
+            if(m.HasProperty("_Glow"))m.SetFloat("_Glow",glow);
+            if(m.HasProperty("_Gain"))m.SetFloat("_Gain",glow);
+            return ArtAsset(name+".mat",m);
+        }
+        GameObject MeshObject(string name,Transform parent,Mesh mesh,Material material,Vector3 pos,Vector3 scale)
+        {
+            var obj=new GameObject(name,typeof(MeshFilter),typeof(MeshRenderer));obj.transform.SetParent(parent,false);obj.transform.localPosition=pos;obj.transform.localScale=scale;
+            obj.GetComponent<MeshFilter>().sharedMesh=mesh;obj.GetComponent<MeshRenderer>().sharedMaterial=material;return obj;
+        }
+        GameObject Quad(string name,Transform parent,Vector3 pos,Vector2 size,Material material)
+        {
+            var q=GameObject.CreatePrimitive(PrimitiveType.Quad);q.name=name;q.transform.SetParent(parent,false);q.transform.localPosition=pos;q.transform.localScale=new Vector3(size.x,size.y,1);
+            DestroyImmediate(q.GetComponent<Collider>());q.GetComponent<MeshRenderer>().sharedMaterial=material;return q;
+        }
+        Vector3[] RoundedPath(float width,float height,float radius,float z,int segments=12)
+        {
+            var p=new List<Vector3>();for(int c=0;c<4;c++)for(int k=0;k<=segments;k++)
+            {float a=(c*90+k*90f/segments)*Mathf.Deg2Rad;float x=(c==0||c==3?1:-1)*(width*.5f-radius),y=(c<2?1:-1)*(height*.5f-radius);p.Add(new Vector3(x+Mathf.Cos(a)*radius,y+Mathf.Sin(a)*radius,z));}return p.ToArray();
+        }
+        LineRenderer ArtLine(string name,Transform parent,Vector3[] path,float width,Color color,Material material,bool loop=true)
+        {
+            var obj=new GameObject(name,typeof(LineRenderer));obj.transform.SetParent(parent,false);var line=obj.GetComponent<LineRenderer>();line.useWorldSpace=false;line.loop=loop;line.positionCount=path.Length;line.SetPositions(path);line.startWidth=line.endWidth=width;line.startColor=line.endColor=color;line.sharedMaterial=material;line.numCapVertices=0;line.numCornerVertices=0;line.alignment=LineAlignment.TransformZ;line.textureMode=LineTextureMode.Stretch;line.shadowCastingMode=ShadowCastingMode.Off;line.receiveShadows=false;return line;
+        }
+        Vector3[] Circle(float radius,float z,int count=64)
+        {var p=new Vector3[count];for(int i=0;i<count;i++){float a=i*Mathf.PI*2/count;p[i]=new Vector3(Mathf.Cos(a)*radius,Mathf.Sin(a)*radius,z);}return p;}
+        void MakeSparks(CascadeCell cell,Material material)
+        {
+            var obj=new GameObject("Pooled musical sparks",typeof(ParticleSystem));obj.transform.SetParent(cell.transform,false);obj.transform.localPosition=new Vector3(0,0,-.5f);
+            var ps=obj.GetComponent<ParticleSystem>();var m=ps.main;m.playOnAwake=false;m.loop=false;m.duration=.3f;m.startLifetime=new ParticleSystem.MinMaxCurve(.16f,.3f);m.startSpeed=new ParticleSystem.MinMaxCurve(.7f,1.8f);m.startSize=new ParticleSystem.MinMaxCurve(.025f,.065f);m.maxParticles=24;m.simulationSpace=ParticleSystemSimulationSpace.World;m.gravityModifier=0;m.useUnscaledTime=true;
+            var emission=ps.emission;emission.enabled=false;var shape=ps.shape;shape.enabled=true;shape.shapeType=ParticleSystemShapeType.Circle;shape.radius=.15f;
+            var velocity=ps.velocityOverLifetime;velocity.enabled=true;velocity.z=new ParticleSystem.MinMaxCurve(-.2f,-.05f);
+            var fade=ps.colorOverLifetime;fade.enabled=true;var gradient=new Gradient();gradient.SetKeys(new[]{new GradientColorKey(Color.white,0),new GradientColorKey(Color.white,1)},new[]{new GradientAlphaKey(.9f,0),new GradientAlphaKey(0,1)});fade.color=gradient;
+            var size=ps.sizeOverLifetime;size.enabled=true;size.size=new ParticleSystem.MinMaxCurve(1,AnimationCurve.EaseInOut(0,1,1,0));
+            var renderer=ps.GetComponent<ParticleSystemRenderer>();renderer.sharedMaterial=material;renderer.renderMode=ParticleSystemRenderMode.Billboard;renderer.sortMode=ParticleSystemSortMode.Distance;ps.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear);cell.sparks=ps;
+        }
+        public void BuildVisuals()
+        {
+            if(!AssetDatabase.IsValidFolder("Assets/Cascade/Art"))AssetDatabase.CreateFolder("Assets/Cascade","Art");
+            uiFont=Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");logoFont=AssetDatabase.LoadAssetAtPath<Font>(ArtFolder+"Fonts/CormorantGaramond-Italic.ttf")??uiFont;
+            var bodyMat=ArtMaterial("Board velvet enamel","Cascade/VelvetEnamel",new Color(.034f,.006f,.064f),.24f);bodyMat.SetColor("_EdgeColor",new Color(.19f,.025f,.18f));
+            var lowerMat=ArtMaterial("Board plum underside","Cascade/VelvetEnamel",new Color(.055f,.008f,.054f),.2f);lowerMat.SetColor("_EdgeColor",new Color(.24f,.04f,.18f));
+            var cavityMat=ArtMaterial("Recessed violet glass","Cascade/VelvetEnamel",new Color(.04f,.008f,.075f),.32f);cavityMat.SetColor("_EdgeColor",new Color(.25f,.045f,.29f));
+            ribbonMat=ArtMaterial("Soft luminous contours","Cascade/LuminousRibbon",Color.white,1.5f);
+            frameMat=ArtMaterial("Golden magenta perimeter","Cascade/LuminousRibbon",Color.white,4.5f);frameMat.SetFloat("_Gradient",1);
+            glowMat=ArtMaterial("White soft spark","Cascade/SoftGlow",Color.white,1);
+            var backdrop=ArtMaterial("Violet atmospheric backdrop","Cascade/Backdrop",Color.white);
+            var auraMat=ArtMaterial("Violet light pool","Cascade/SoftGlow",new Color(.30f,.008f,.65f,.28f));
+            var previewAura=ArtMaterial("Next sphere glow","Cascade/SoftGlow",new Color(.68f,.025f,1,.75f));
+            orbMaterials=new Material[4];Material[] symbols=new Material[4];
+            for(int c=1;c<=4;c++)
+            {
+                orbMaterials[c-1]=ArtMaterial("Musical glass "+c,"Cascade/MusicalGlass",Palette(c),1.15f);orbMaterials[c-1].SetFloat("_Charge",c);
+                Color note=c==1?new Color(.35f,.95f,1):c==2?new Color(.73f,1,.22f):new Color(1,.72f,.16f);
+                symbols[c-1]=ArtMaterial("Luminous musical symbol "+c,"Universal Render Pipeline/Unlit",new Color(note.r*3.2f,note.g*3.2f,note.b*3.2f,1));
+            }
+            var crystalMat=ArtMaterial("Amethyst crystal facets","Cascade/FacetedCrystal",new Color(.56f,.055f,.85f),1.1f);
+            var noteMesh=ArtAsset("Single note.asset",CascadeMeshFactory.Note());var pairMesh=ArtAsset("Double note.asset",CascadeMeshFactory.Note(true));var trebleMesh=ArtAsset("Treble clef.asset",CascadeMeshFactory.Treble());var diamondMesh=ArtAsset("Crystal diamond.asset",CascadeMeshFactory.Diamond());
+            var slabMesh=ArtAsset("Bevelled board.asset",CascadeMeshFactory.RoundedBox(6.45f,6.45f,.24f,.32f,.065f,12));
+            var lowerMesh=ArtAsset("Board underside.asset",CascadeMeshFactory.RoundedBox(6.5f,6.5f,.23f,.34f,.05f,12));
+            var recessMesh=ArtAsset("Cell recess.asset",CascadeMeshFactory.Recess(.98f,.98f,.18f,.12f,.055f,10));
+
+            var camObj=new GameObject("Game Camera",typeof(Camera),typeof(AudioListener));camObj.transform.SetParent(transform,false);camObj.tag="MainCamera";gameCamera=camObj.GetComponent<Camera>();gameCamera.orthographic=true;gameCamera.orthographicSize=6.75f;gameCamera.transform.position=new Vector3(0,-3,-18);gameCamera.transform.LookAt(Vector3.zero);gameCamera.clearFlags=CameraClearFlags.SolidColor;gameCamera.backgroundColor=new Color(.012f,.001f,.029f);gameCamera.allowHDR=true;gameCamera.nearClipPlane=.1f;gameCamera.farClipPlane=50;
+            var cameraData=camObj.AddComponent<UniversalAdditionalCameraData>();cameraData.renderPostProcessing=true;cameraData.volumeLayerMask=1<<8;cameraData.antialiasing=AntialiasingMode.SubpixelMorphologicalAntiAliasing;cameraData.antialiasingQuality=AntialiasingQuality.High;
+            music=gameObject.AddComponent<AudioSource>();music.playOnAwake=false;music.spatialBlend=0;
+            Quad("Atmospheric violet background",transform,new Vector3(0,0,4),new Vector2(24,28),backdrop);
+            Quad("Soft glow around the board",transform,new Vector3(0,-1,1.5f),new Vector2(10,11),auraMat);
+            var keyObj=new GameObject("Warm studio key",typeof(Light));keyObj.transform.SetParent(transform,false);var key=keyObj.GetComponent<Light>();key.type=LightType.Directional;key.intensity=1.5f;key.color=new Color(1,.82f,.64f);keyObj.transform.rotation=Quaternion.Euler(32,-25,0);
+            var fillObj=new GameObject("Cool studio rim",typeof(Light));fillObj.transform.SetParent(transform,false);var fill=fillObj.GetComponent<Light>();fill.type=LightType.Directional;fill.intensity=.8f;fill.color=new Color(.38f,.48f,1);fillObj.transform.rotation=Quaternion.Euler(-20,145,0);
+            RenderSettings.ambientMode=AmbientMode.Flat;RenderSettings.ambientLight=new Color(.13f,.075f,.21f);
+            var volumeObj=new GameObject("Restrained musical bloom",typeof(Volume));volumeObj.transform.SetParent(transform,false);var volumeComponent=volumeObj.GetComponent<Volume>();volumeComponent.isGlobal=true;
+            var profile=AssetDatabase.LoadAssetAtPath<VolumeProfile>(ArtFolder+"CascadeVolume.asset");
+            if(profile==null){profile=ScriptableObject.CreateInstance<VolumeProfile>();AssetDatabase.CreateAsset(profile,ArtFolder+"CascadeVolume.asset");}
+            if(!profile.TryGet<Bloom>(out var bloom)){bloom=profile.Add<Bloom>();AssetDatabase.AddObjectToAsset(bloom,profile);}
+            bloom.intensity.Override(.65f);bloom.threshold.Override(.8f);bloom.scatter.Override(.6f);bloom.clamp.Override(8);EditorUtility.SetDirty(profile);EditorUtility.SetDirty(bloom);volumeComponent.sharedProfile=profile;
+
+            boardRoot=new GameObject("Board · 6 by 6").transform;boardRoot.SetParent(transform,false);boardRoot.localPosition=new Vector3(0,-.92f,0);
+            MeshObject("Plum underside",boardRoot,lowerMesh,lowerMat,new Vector3(0,-.07f,.43f),Vector3.one);
+            MeshObject("Bevelled enamel body",boardRoot,slabMesh,bodyMat,new Vector3(0,0,.36f),Vector3.one);
+            ArtLine("Perimeter soft halo",boardRoot,RoundedPath(6.4f,6.4f,.31f,.07f),.13f,new Color(1,.72f,.5f,.22f),frameMat);
+            perimeter=ArtLine("Musical perimeter",boardRoot,RoundedPath(6.4f,6.4f,.31f,.052f),.032f,new Color(1,.74f,.39f,1),frameMat);
+            ArtLine("Inner gold hairline",boardRoot,RoundedPath(6.28f,6.28f,.255f,.035f),.011f,new Color(1,.55f,.27f,.8f),ribbonMat);
+            views=new CascadeCell[36];
+            for(int index=0;index<36;index++)
+            {
+                var cellObj=new GameObject("Cell "+index/6+","+index%6,typeof(CascadeCell),typeof(BoxCollider));cellObj.transform.SetParent(boardRoot,false);cellObj.transform.localPosition=new Vector3((index%6-2.5f)*1.015f,(2.5f-index/6)*1.015f,0);
+                var cell=cellObj.GetComponent<CascadeCell>();cell.index=index;cell.orbSize=.86f;views[index]=cell;var collider=cellObj.GetComponent<BoxCollider>();collider.center=new Vector3(0,0,.04f);collider.size=new Vector3(1.01f,1.01f,.16f);
+                MeshObject("Sculpted recessed cell",cellObj.transform,recessMesh,cavityMat,Vector3.zero,Vector3.one);
+                ArtLine("Cell edge ambient glow",cellObj.transform,RoundedPath(.98f,.98f,.18f,-.008f),.065f,new Color(.6f,.14f,.69f,.14f),ribbonMat);
+                cell.border=ArtLine("Cell contour",cellObj.transform,RoundedPath(.98f,.98f,.18f,-.012f),.011f,new Color(.41f,.12f,.47f,.9f),ribbonMat);
+                var orb=GameObject.CreatePrimitive(PrimitiveType.Sphere);orb.name="Musical glass sphere";orb.transform.SetParent(cellObj.transform,false);orb.transform.localPosition=new Vector3(0,0,-.29f);orb.transform.localScale=Vector3.one*.86f;DestroyImmediate(orb.GetComponent<Collider>());cell.orb=orb.transform;cell.shell=orb.GetComponent<Renderer>();cell.shell.sharedMaterial=orbMaterials[0];cell.shell.shadowCastingMode=ShadowCastingMode.Off;
+                cell.symbols=new GameObject[4];
+                for(int c=1;c<=4;c++)
+                {
+                    var symbolRoot=new GameObject("Charge "+c+" symbol");symbolRoot.transform.SetParent(orb.transform,false);cell.symbols[c-1]=symbolRoot;
+                    var symbol=MeshObject(c==4?"Golden treble clef":c==3?"Paired golden note":"Luminous single note",symbolRoot.transform,c==4?trebleMesh:c==3?pairMesh:noteMesh,symbols[c-1],new Vector3(0,c==4?-.01f:0,-.535f),Vector3.one*(c==4?.73f:1.0f));symbol.GetComponent<Renderer>().shadowCastingMode=ShadowCastingMode.Off;
+                    if(c==4)for(int k=0;k<10;k++)
+                    {
+                        float a=(k*36+18)*Mathf.Deg2Rad;var crystal=MeshObject("Amethyst crown crystal",symbolRoot.transform,diamondMesh,crystalMat,new Vector3(Mathf.Cos(a)*.51f,Mathf.Sin(a)*.51f,-.06f),new Vector3(.22f,.32f,.20f));crystal.transform.localRotation=Quaternion.Euler(12,-10,k*36+18-90);
+                    }
+                    symbolRoot.SetActive(c==1);
+                }
+                cell.burst=ArtLine("Pooled expanding pulse",cellObj.transform,Circle(.46f,-.68f),.035f,new Color(.4f,.8f,1,0),ribbonMat);cell.burst.gameObject.SetActive(false);MakeSparks(cell,glowMat);
+                cell.charge=0;orb.SetActive(false);
+            }
+            preview=Instantiate(views[0],boardRoot);preview.name="Next sphere preview";preview.transform.localPosition=new Vector3(0,-4.32f,0);preview.orbSize=.98f;preview.orb.localScale=Vector3.one*.98f;DestroyImmediate(preview.GetComponent<BoxCollider>());
+            preview.transform.Find("Sculpted recessed cell").gameObject.SetActive(false);preview.transform.Find("Cell edge ambient glow").gameObject.SetActive(false);preview.border.gameObject.SetActive(false);preview.burst.gameObject.SetActive(false);preview.sparks.gameObject.SetActive(false);
+            Quad("Next sphere violet halo",boardRoot,new Vector3(0,-4.93f,.05f),new Vector2(2.3f,.34f),previewAura);
+            Quad("Next sphere soft ground light",boardRoot,new Vector3(0,-4.93f,.04f),new Vector2(1.25f,.16f),previewAura);
+            BuildVisualUI();
+            if(System.IO.File.Exists(RasterArtFolder+"Layout_941x1672.json"))BuildRasterVisuals();
+        }
+        RectTransform UIObject(string name,Transform parent,Vector2 position,Vector2 size)
+        {
+            var obj=new GameObject(name,typeof(RectTransform));var rt=obj.GetComponent<RectTransform>();rt.SetParent(parent,false);rt.anchorMin=rt.anchorMax=new Vector2(.5f,.5f);rt.anchoredPosition=position;rt.sizeDelta=size;return rt;
+        }
+        GameObject UIGroup(string name,Transform parent)
+        {return UIObject(name,parent,Vector2.zero,new Vector2(720,1280)).gameObject;}
+        CascadePanelGraphic Panel(string name,Transform parent,Vector2 position,Vector2 size,Color left,Color right,float radius=12,CascadePanelGraphic.Shape shape=CascadePanelGraphic.Shape.Panel,float border=1)
+        {
+            var p=UIObject(name,parent,position,size).gameObject.AddComponent<CascadePanelGraphic>();p.color=left;p.rightColor=right;p.radius=radius;p.shape=shape;p.border=border;p.raycastTarget=false;return p;
+        }
+        Text UIText(string name,Transform parent,string value,Vector2 pos,Vector2 size,int fontSize,Color color,Font font=null,FontStyle style=FontStyle.Normal)
+        {
+            var label=UIObject(name,parent,pos,size).gameObject.AddComponent<Text>();label.font=font??uiFont;label.text=value;label.fontSize=fontSize;label.color=color;label.alignment=TextAnchor.MiddleCenter;label.fontStyle=style;label.raycastTarget=false;label.supportRichText=true;label.horizontalOverflow=HorizontalWrapMode.Overflow;label.verticalOverflow=VerticalWrapMode.Overflow;return label;
+        }
+        void UISwoosh(string name,Transform parent,Vector2 pos,Vector2[] points,float width,Color begin,Color end)
+        {
+            var r=UIObject(name,parent,pos,new Vector2(420,40)).gameObject.AddComponent<CascadeRibbonGraphic>();r.points=points;r.thickness=width;r.color=begin;r.endColor=end;r.raycastTarget=false;
+        }
+        void UIHairline(Transform parent,string name,Vector2 pos,float width,bool reversed=false)
+        {
+            Color clear=new Color(1,.6f,.22f,0),gold=new Color(1,.67f,.3f,.8f);
+            UISwoosh(name,parent,pos,new[]{new Vector2(-width/2,0),new Vector2(width/2,0)},1,reversed?gold:clear,reversed?clear:gold);
+        }
+        void Logo(Transform parent,Vector2 position,float scale=1)
+        {
+            var group=UIObject("Cascade logotype",parent,position,new Vector2(480,130));group.localScale=Vector3.one*scale;
+            Panel("Warm logo haze",group,new Vector2(-70,0),new Vector2(300,90),new Color(1,.24f,.02f,.10f),Color.clear,0,CascadePanelGraphic.Shape.Halo);
+            Panel("Violet logo haze",group,new Vector2(100,-8),new Vector2(260,70),new Color(.65f,.04f,1,.14f),Color.clear,0,CascadePanelGraphic.Shape.Halo);
+            var shadow=UIText("Golden halo lettering",group,"<size=88>C</size><size=63>ASCADE</size>",new Vector2(0,-1),new Vector2(440,115),83,new Color(1,.40f,.10f,.28f),logoFont);var outline=shadow.gameObject.AddComponent<Outline>();outline.effectColor=new Color(1,.18f,.015f,.14f);outline.effectDistance=new Vector2(2,-2);
+            UIText("Golden serif lettering",group,"<size=88>C</size><size=63>ASCADE</size>",Vector2.zero,new Vector2(440,115),83,new Color(1,.89f,.68f),logoFont,FontStyle.Bold);
+            var curve=new Vector2[48];for(int i=0;i<curve.Length;i++){float t=i/(float)(curve.Length-1);curve[i]=new Vector2(-170+t*340,-23+Mathf.Sin(t*Mathf.PI*1.25f)*5);}
+            UISwoosh("Golden musical flourish",group,Vector2.zero,curve,1.7f,new Color(1,.49f,.13f,.02f),new Color(1,.55f,.24f,.95f));
+            var tail=new Vector2[24];for(int i=0;i<tail.Length;i++){float t=i/(float)(tail.Length-1);tail[i]=new Vector2(108+70*t,-29+Mathf.Sin(t*Mathf.PI*.65f)*15);}
+            UISwoosh("Violet flourish",group,Vector2.zero,tail,2,new Color(1,.21f,.7f,.8f),new Color(.7f,.15f,1,0));
+            UIText("Floating musical note",group,"♪",new Vector2(16,40),new Vector2(50,55),35,new Color(.9f,.4f,1));
+            Panel("Musical note aura",group,new Vector2(13,38),new Vector2(70,55),new Color(.66f,.05f,1,.2f),Color.clear,0,CascadePanelGraphic.Shape.Halo);
+        }
+        Button UIButton(string name,Transform parent,string label,Vector2 pos,Vector2 size,int fontSize=23)
+        {
+            var rt=UIObject(name,parent,pos,size);var fill=rt.gameObject.AddComponent<CascadePanelGraphic>();fill.color=new Color(.13f,.027f,.20f,.98f);fill.rightColor=new Color(.075f,.012f,.13f,.98f);fill.radius=13;fill.raycastTarget=true;
+            var b=rt.gameObject.AddComponent<Button>();b.targetGraphic=fill;var colors=b.colors;colors.normalColor=Color.white;colors.highlightedColor=new Color(1.15f,1.08f,1.15f);colors.pressedColor=new Color(.73f,.65f,.83f);colors.fadeDuration=.08f;b.colors=colors;var nav=b.navigation;nav.mode=Navigation.Mode.None;b.navigation=nav;
+            Panel("Fine glass rim",rt,Vector2.zero,size,new Color(.62f,.24f,.61f,.9f),new Color(.8f,.42f,.36f,.75f),13,CascadePanelGraphic.Shape.Border,1.2f);
+            UIText("Label",rt,label,Vector2.zero,size-Vector2.one*12,fontSize,cream);return b;
+        }
+        void BuildVisualUI()
+        {
+            var canvasObj=new GameObject("Cascade UI",typeof(RectTransform),typeof(Canvas),typeof(CanvasScaler),typeof(GraphicRaycaster));canvasObj.transform.SetParent(transform,false);var canvas=canvasObj.GetComponent<Canvas>();canvas.renderMode=RenderMode.ScreenSpaceOverlay;canvas.sortingOrder=10;
+            var scaler=canvasObj.GetComponent<CanvasScaler>();scaler.uiScaleMode=CanvasScaler.ScaleMode.ConstantPixelSize;scaler.scaleFactor=1;scaler.referencePixelsPerUnit=100;
+            safeRoot=UIObject("Safe area",canvasObj.transform,Vector2.zero,new Vector2(720,1280));menu=UIGroup("Menu",safeRoot);hud=UIGroup("HUD",safeRoot);modal=UIGroup("Modal",safeRoot);
+            Logo(menu.transform,new Vector2(0,420),1.14f);UIText("Menu subtitle",menu.transform,"МУЗЫКА. СФЕРЫ. ЦЕПНАЯ РЕАКЦИЯ.",new Vector2(0,324),new Vector2(650,42),19,lavender);
+            recordTexts=new Text[3];string[] durations={"3:07","3:01","3:53"};
+            for(int i=0;i<3;i++)
+            {
+                var b=UIButton("Level"+i,menu.transform,"",new Vector2(0,160-i*185),new Vector2(600,150));
+                Panel("Track colour aura",b.transform,new Vector2(-220,0),new Vector2(140,130),new Color(Palette(i+1).r,Palette(i+1).g,Palette(i+1).b,.10f),Color.clear,0,CascadePanelGraphic.Shape.Halo);
+                UIText("Number",b.transform,"0"+(i+1),new Vector2(-230,5),new Vector2(80,70),40,Palette(i+1),logoFont);
+                UIText("Track",b.transform,trackNames[i],new Vector2(20,24),new Vector2(410,50),29,cream,uiFont,FontStyle.Italic);
+                recordTexts[i]=UIText("Best",b.transform,"ЛУЧШИЙ РЕЗУЛЬТАТ  0",new Vector2(2,-33),new Vector2(400,35),15,lavender);
+                UIText("Duration",b.transform,durations[i],new Vector2(245,-32),new Vector2(70,35),19,lavender);
+            }
+            UIText("Menu hint",menu.transform,"Касайся свободных клеток в такт музыке.\nСоздавай каскады и сохраняй серию.",new Vector2(0,-445),new Vector2(620,90),22,lavender);
+            UIText("Rhythm review",menu.transform,"Тестовая разметка ритма",new Vector2(0,-510),new Vector2(600,35),16,lavender);
+            UIHairline(menu.transform,"Menu lower line",new Vector2(0,-550),280);
+
+            Logo(hud.transform,new Vector2(-4,399));
+            levelText=UIText("Level",hud.transform,"УРОВЕНЬ 1",new Vector2(0,346),new Vector2(245,36),23,cream,uiFont,FontStyle.Normal);
+            trackText=UIText("Track",hud.transform,"Midnight Floor",new Vector2(0,317),new Vector2(390,36),22,lavender,uiFont,FontStyle.Italic);
+            UIHairline(hud.transform,"Left level divider",new Vector2(-148,346),58);UIHairline(hud.transform,"Right level divider",new Vector2(148,346),58,true);
+            var pause=UIButton("Pause",hud.transform,"Ⅱ",new Vector2(302,416),new Vector2(48,48),26);pause.GetComponent<CascadePanelGraphic>().radius=12;
+            UIText("Score caption",hud.transform,"ОЧКИ",new Vector2(-164,285),new Vector2(110,44),22,cream);
+            scoreText=UIText("Score",hud.transform,"0",new Vector2(-63,285),new Vector2(175,52),33,cream);
+            UIHairline(hud.transform,"Score divider",new Vector2(65,285),1);var divider=Panel("Score gold divider",hud.transform,new Vector2(65,285),new Vector2(1,29),new Color(1,.6f,.22f,.55f),new Color(1,.6f,.22f,.55f),0);
+            multiplierText=UIText("Multiplier",hud.transform,"×1",new Vector2(173,286),new Vector2(135,70),55,new Color(1,.83f,.45f),logoFont);
+            var multiplierCurve=new Vector2[32];for(int i=0;i<32;i++){float t=i/31f;multiplierCurve[i]=new Vector2(-50+t*100,-18+Mathf.Sin(t*Mathf.PI)*-8);}
+            UISwoosh("Multiplier violet arc",hud.transform,new Vector2(173,286),multiplierCurve,1.7f,new Color(.7f,.08f,1,0),new Color(.9f,.1f,1,.8f));
+            streakText=UIText("Streak",hud.transform,"",new Vector2(264,290),new Vector2(110,35),13,lavender);
+            Panel("Progress shadow",hud.transform,new Vector2(-50,245),new Vector2(447,18),new Color(.2f,.015f,.30f,.4f),new Color(.2f,.015f,.30f,.4f),9);
+            Panel("Progress capsule",hud.transform,new Vector2(-50,245),new Vector2(442,12),new Color(.11f,.02f,.19f),new Color(.11f,.02f,.19f),6);
+            Panel("Progress border",hud.transform,new Vector2(-50,245),new Vector2(444,14),new Color(.65f,.28f,.6f,.85f),new Color(.48f,.18f,.65f,.85f),7,CascadePanelGraphic.Shape.Border,1);
+            progress=UIObject("Progress",hud.transform,new Vector2(-50,245),new Vector2(440,9)).gameObject.AddComponent<Image>();progress.sprite=AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UISprite.psd");progress.type=Image.Type.Filled;progress.fillMethod=Image.FillMethod.Horizontal;progress.color=new Color(1,.66f,.26f);progress.raycastTarget=false;progress.fillAmount=0;progress.color=Color.clear;
+            var progressGlow=UIObject("Luminous song progress",hud.transform,new Vector2(-50,245),new Vector2(440,9)).gameObject.AddComponent<CascadeProgressGraphic>();progressGlow.source=progress;progressGlow.raycastTarget=false;
+            timeText=UIText("Time",hud.transform,"0:00 / 3:07",new Vector2(231,245),new Vector2(155,35),19,new Color(.88f,.77f,.94f));
+            nextText=UIText("Next",hud.transform,"СЛЕДУЮЩАЯ",new Vector2(0,-430),new Vector2(330,45),21,cream,uiFont,FontStyle.Normal);
+            UIHairline(hud.transform,"Left next divider",new Vector2(-165,-430),60);UIHairline(hud.transform,"Right next divider",new Vector2(165,-430),60,true);
+            statusText=UIText("Feedback",hud.transform,"",new Vector2(0,-586),new Vector2(650,35),19,lavender);
+            countdownText=UIText("Countdown",hud.transform,"",new Vector2(0,-80),new Vector2(500,280),150,cream,logoFont);
+
+            var shade=Panel("Shade",modal.transform,Vector2.zero,new Vector2(2200,3000),new Color(.018f,.003f,.036f,.96f),new Color(.018f,.003f,.036f,.96f),0);shade.raycastTarget=true;
+            Panel("Modal violet atmosphere",modal.transform,new Vector2(0,50),new Vector2(900,1000),new Color(.15f,.02f,.3f,.25f),Color.clear,0,CascadePanelGraphic.Shape.Halo);
+            modalTitle=UIText("Title",modal.transform,"ПАУЗА",new Vector2(0,365),new Vector2(660,100),43,cream);
+            UIHairline(modal.transform,"Modal divider",new Vector2(0,299),260);
+            modalBody=UIText("Body",modal.transform,"Музыка и поле ждут тебя",new Vector2(0,150),new Vector2(620,260),22,lavender);
+            UIButton("Continue",modal.transform,"ПРОДОЛЖИТЬ",new Vector2(0,-45),new Vector2(540,76));
+            UIButton("Restart",modal.transform,"НАЧАТЬ ЗАНОВО",new Vector2(0,-140),new Vector2(540,76));
+            UIButton("Next",modal.transform,"СЛЕДУЮЩИЙ УРОВЕНЬ",new Vector2(0,-45),new Vector2(540,76));
+            UIButton("Menu",modal.transform,"В МЕНЮ",new Vector2(0,-235),new Vector2(540,76));
+            UIButton("Settings",modal.transform,"ГРОМКОСТЬ",new Vector2(-140,-350),new Vector2(260,65),20);
+            UIButton("Effects",modal.transform,"ЭФФЕКТЫ",new Vector2(140,-350),new Vector2(260,65),20);
+            UIButton("Cancel",modal.transform,"ОТМЕНА",new Vector2(0,-445),new Vector2(540,65));
+            var eventSystem=new GameObject("Event System",typeof(EventSystem),typeof(InputSystemUIInputModule));eventSystem.transform.SetParent(transform,false);
+            menu.SetActive(true);hud.SetActive(false);modal.SetActive(false);boardRoot.gameObject.SetActive(false);
+        }
+#endif
+    }
+}

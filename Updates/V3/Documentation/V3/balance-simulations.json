@@ -1,0 +1,48 @@
+{
+  "policy": "uniform random free cell; no rhythm/audio simulation or human play",
+  "seedsPerCase": 40,
+  "capMoves": 400,
+  "platform": "macOS Unity Editor, not iPhone performance",
+  "cases": [
+    {
+      "size": 6,
+      "precise": false,
+      "medianMoves": 16,
+      "minMoves": 15,
+      "maxMoves": 68,
+      "destroyed": 474,
+      "logicP95Ms": 0.011,
+      "logicMaxMs": 0.0352
+    },
+    {
+      "size": 6,
+      "precise": true,
+      "medianMoves": 283,
+      "minMoves": 16,
+      "maxMoves": 400,
+      "destroyed": 17305,
+      "logicP95Ms": 0.0149,
+      "logicMaxMs": 3.0755
+    },
+    {
+      "size": 7,
+      "precise": false,
+      "medianMoves": 24,
+      "minMoves": 22,
+      "maxMoves": 157,
+      "destroyed": 1060,
+      "logicP95Ms": 0.0177,
+      "logicMaxMs": 3.0442
+    },
+    {
+      "size": 7,
+      "precise": true,
+      "medianMoves": 400,
+      "minMoves": 25,
+      "maxMoves": 400,
+      "destroyed": 23848,
+      "logicP95Ms": 0.0146,
+      "logicMaxMs": 3.0973
+    }
+  ]
+}

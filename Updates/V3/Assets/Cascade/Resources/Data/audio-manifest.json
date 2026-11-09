@@ -1,0 +1,29 @@
+{
+  "version": "audio-manifest-1",
+  "tracks": [
+    {
+      "trackId": "midnight-floor",
+      "resourceName": "Midnight Floor",
+      "audioSha256": "16dcc5d1154b37da11d5584aaa6059ba1b5009a44a1e4a70b9267508331acd26",
+      "duration": 187.2135,
+      "sampleRate": 48000,
+      "samples": 8986248
+    },
+    {
+      "trackId": "drop-bass-princess",
+      "resourceName": "Drop Bass Princess",
+      "audioSha256": "655b3b9fd57338bc5a5a8f236664ce084895d41d3935b384445040e270f8cd58",
+      "duration": 181.1335,
+      "sampleRate": 48000,
+      "samples": 8694408
+    },
+    {
+      "trackId": "dark-bass-drop",
+      "resourceName": "Dark Bass Drop",
+      "audioSha256": "38910171809015c75e7a591472397d724ad8f3c2e308dbe12eb48abe4f2fc7c2",
+      "duration": 232.7735,
+      "sampleRate": 48000,
+      "samples": 11173128
+    }
+  ]
+}

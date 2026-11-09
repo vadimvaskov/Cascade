@@ -1,0 +1,289 @@
+{
+  "schema_version": 2,
+  "content_id": "cascade_eight_styles_v3",
+  "record_count": 8,
+  "style_order_source": "User-selected sequence from chat Придумать стили музыки для игры «Каскад», 2026-11-08",
+  "audio_assignment_status": "confirmed_from_user_supplied_style_screenshots; exact file variants matched by container duration",
+  "playability_status": "requires_import_and_validated_beatmaps",
+  "display_record_names_are_styles_only": true,
+  "records": [
+    {
+      "record_id": "disco_funk",
+      "order": 1,
+      "display_name": "Disco / Funk",
+      "initially_unlocked": true,
+      "prerequisite_record_id": null,
+      "unlock_next_requires_track_ids": [
+        "disco_funk_01"
+      ],
+      "music_goal_ru": "Тёплый и понятный вход. Упругий бас, ясная основная доля; удобно освоить точную постановку.",
+      "cover_art_brief_ru": "Золото и коралл; виниловые канавки и солнечный музыкальный остров.",
+      "tracks": [
+        {
+          "track_id": "disco_funk_01",
+          "order": 1,
+          "title": "Disco Dancer",
+          "source_audio_path": "Music/Originals/Disco Dancer.m4a",
+          "source_audio_sha256": "4b0e4a621c72d3c6f9a5d4dc1b1ceada0bad0b5334cdde9bb1c125e0726d3699",
+          "container_duration_seconds": 176.56,
+          "recommended_import_filename": "disco_funk_01.wav",
+          "runtime_audio_path": "V3/Audio/disco_funk_01",
+          "runtime_audio_sha256": "c04c08a803dae09094f2572586d45bdd0f027aa7335cbc09df1fbf8f9b325266",
+          "runtime_duration_seconds": 176.5735,
+          "beatmap_path": "V3/Beatmaps/disco_funk_01",
+          "beatmap_status": "automated-review-pending-listen",
+          "record_assignment": "confirmed_from_user_style_screenshot",
+          "source_file_received": "Disco Dancer (2).m4a",
+          "source_style_evidence": "Sources/Track_Styles_01.jpg",
+          "content_revision": 1,
+          "level_settings_path": "V3/balance"
+        }
+      ],
+      "cover_file": "Covers/01_disco_funk.png"
+    },
+    {
+      "record_id": "synthwave_electro",
+      "order": 2,
+      "display_name": "Synthwave / Electro",
+      "initially_unlocked": false,
+      "prerequisite_record_id": "disco_funk",
+      "unlock_next_requires_track_ids": [
+        "synthwave_electro_01"
+      ],
+      "music_goal_ru": "Ощущение движения. Синтезаторный пульс и неон; сохранять узнаваемую опорную сетку.",
+      "cover_art_brief_ru": "Индиго и бирюза; светящиеся мосты и ночной город.",
+      "tracks": [
+        {
+          "track_id": "synthwave_electro_01",
+          "order": 1,
+          "title": "Neon Overdrive",
+          "source_audio_path": "Music/Originals/Neon Overdrive.m4a",
+          "source_audio_sha256": "c6b96d77b86c3fa7a9a828412c5f1e2ab4d15e2a52936a45a1de509476ed86ec",
+          "container_duration_seconds": 207.36,
+          "recommended_import_filename": "synthwave_electro_01.wav",
+          "runtime_audio_path": "V3/Audio/synthwave_electro_01",
+          "runtime_audio_sha256": "bdefdcc9ec357ff62292f10faa1183db2066c746ed5a25257cb18e85ef28bb93",
+          "runtime_duration_seconds": 207.3735,
+          "beatmap_path": "V3/Beatmaps/synthwave_electro_01",
+          "beatmap_status": "automated-review-pending-listen",
+          "record_assignment": "confirmed_from_user_style_screenshot",
+          "source_file_received": "Neon Overdrive (2).m4a",
+          "source_style_evidence": "Sources/Track_Styles_01.jpg",
+          "content_revision": 1,
+          "level_settings_path": "V3/balance"
+        }
+      ],
+      "cover_file": "Covers/02_synthwave_electro.png"
+    },
+    {
+      "record_id": "electro_swing",
+      "order": 3,
+      "display_name": "Electro Swing",
+      "initially_unlocked": false,
+      "prerequisite_record_id": "synthwave_electro",
+      "unlock_next_requires_track_ids": [
+        "electro_swing_01"
+      ],
+      "music_goal_ru": "Игривость и синкопы. Размечать воспринимаемые опорные доли, не каждый духовой акцент.",
+      "cover_art_brief_ru": "Медь и тёплый пурпур; музыкальные автоматы и трубы.",
+      "tracks": [
+        {
+          "track_id": "electro_swing_01",
+          "order": 1,
+          "title": "Phantom Limb",
+          "source_audio_path": "Music/Originals/Phantom Limb.m4a",
+          "source_audio_sha256": "5f5bfba4e03f8ce7466c6f732d7ecbd2eed39c649b2451c06298762d5a1c28df",
+          "container_duration_seconds": 142.52,
+          "recommended_import_filename": "electro_swing_01.wav",
+          "runtime_audio_path": "V3/Audio/electro_swing_01",
+          "runtime_audio_sha256": "3f3470cfc5d1af087a4ce51e7ba287dc658ed1eed0827077d0105158b89c218f",
+          "runtime_duration_seconds": 142.5335,
+          "beatmap_path": "V3/Beatmaps/electro_swing_01",
+          "beatmap_status": "automated-review-pending-listen",
+          "record_assignment": "confirmed_from_user_style_screenshot",
+          "source_file_received": "Phantom Limb (2).m4a",
+          "source_style_evidence": "Sources/Track_Styles_01.jpg",
+          "content_revision": 1,
+          "level_settings_path": "V3/balance"
+        }
+      ],
+      "cover_file": "Covers/03_electro_swing.png"
+    },
+    {
+      "record_id": "electronic_rock",
+      "order": 4,
+      "display_name": "Rock / Electronic Rock",
+      "initially_unlocked": false,
+      "prerequisite_record_id": "electro_swing",
+      "unlock_next_requires_track_ids": [
+        "electronic_rock_01"
+      ],
+      "music_goal_ru": "Вес и мощь каскадов. Риффы и барабаны; гитарный акцент сам по себе не является долей.",
+      "cover_art_brief_ru": "Янтарь и графит; скалы, струны и усилители.",
+      "tracks": [
+        {
+          "track_id": "electronic_rock_01",
+          "order": 1,
+          "title": "Static Rocker",
+          "source_audio_path": "Music/Originals/Static Rocker.m4a",
+          "source_audio_sha256": "6b150c80b1d4398565cb960b5a78a49102ec638402dd09d1d69bbbbdba43b8a0",
+          "container_duration_seconds": 188.12,
+          "recommended_import_filename": "electronic_rock_01.wav",
+          "runtime_audio_path": "V3/Audio/electronic_rock_01",
+          "runtime_audio_sha256": "0a3e96ceb8621f6426ebba78975ec66d0952df3b11e10b6508aa570ccf775699",
+          "runtime_duration_seconds": 188.1335,
+          "beatmap_path": "V3/Beatmaps/electronic_rock_01",
+          "beatmap_status": "automated-review-pending-listen",
+          "record_assignment": "confirmed_from_user_style_screenshot",
+          "source_file_received": "Static Rocker (2).m4a",
+          "source_style_evidence": "Sources/Track_Styles_01.jpg",
+          "content_revision": 1,
+          "level_settings_path": "V3/balance"
+        }
+      ],
+      "cover_file": "Covers/04_electronic_rock.png"
+    },
+    {
+      "record_id": "melodic_trance",
+      "order": 5,
+      "display_name": "Melodic Trance",
+      "initially_unlocked": false,
+      "prerequisite_record_id": "electronic_rock",
+      "unlock_next_requires_track_ids": [
+        "melodic_trance_01"
+      ],
+      "music_goal_ru": "Простор после рока. Мелодические подъёмы; явно отмечать вступления и паузы без пульса.",
+      "cover_art_brief_ru": "Лазурь и лиловый; воздушные потоки и парящие храмы.",
+      "tracks": [
+        {
+          "track_id": "melodic_trance_01",
+          "order": 1,
+          "title": "Ethereal Flight",
+          "source_audio_path": "Music/Originals/Ethereal Flight.m4a",
+          "source_audio_sha256": "d721fd01759d4ab2d9b3d089b1e99a7ffc9d7ed447fa226e5d5ca2ac981b40d2",
+          "container_duration_seconds": 187.96,
+          "recommended_import_filename": "melodic_trance_01.wav",
+          "runtime_audio_path": "V3/Audio/melodic_trance_01",
+          "runtime_audio_sha256": "867753dbf602549f9f3b6975c61f2dbc000ca769cb06d113cd30296e122ad4ce",
+          "runtime_duration_seconds": 187.9735,
+          "beatmap_path": "V3/Beatmaps/melodic_trance_01",
+          "beatmap_status": "automated-review-pending-listen",
+          "record_assignment": "confirmed_from_user_style_screenshot",
+          "source_file_received": "Ethereal Flight.m4a",
+          "source_style_evidence": "Sources/Track_Styles_02.jpg",
+          "content_revision": 2,
+          "level_settings_path": "V3/balance"
+        }
+      ],
+      "cover_file": "Covers/05_melodic_trance.png"
+    },
+    {
+      "record_id": "dubstep_bass",
+      "order": 6,
+      "display_name": "Dubstep / Bass Music",
+      "initially_unlocked": false,
+      "prerequisite_record_id": "melodic_trance",
+      "unlock_next_requires_track_ids": [
+        "dubstep_bass_01"
+      ],
+      "music_goal_ru": "Контраст тишины и дропа. Выбрать устойчивый основной пульс, включая half-time при необходимости.",
+      "cover_art_brief_ru": "Глубокий фиолетовый и фуксия; вода и басовые волны.",
+      "tracks": [
+        {
+          "track_id": "dubstep_bass_01",
+          "order": 1,
+          "title": "Wasted Potential",
+          "source_audio_path": "Music/Originals/Wasted Potential.m4a",
+          "source_audio_sha256": "64f4e6cabb5948153a498fe83652d4392c729c13250925c976390848e132889e",
+          "container_duration_seconds": 133.04,
+          "recommended_import_filename": "dubstep_bass_01.wav",
+          "runtime_audio_path": "V3/Audio/dubstep_bass_01",
+          "runtime_audio_sha256": "4e078c346fbe00fbf3fb227ac370511ba82fd7a933ad139752d907538730103d",
+          "runtime_duration_seconds": 133.0535,
+          "beatmap_path": "V3/Beatmaps/dubstep_bass_01",
+          "beatmap_status": "automated-review-pending-listen",
+          "record_assignment": "confirmed_from_user_style_screenshot",
+          "source_file_received": "Wasted Potential (2).m4a",
+          "source_style_evidence": "Sources/Track_Styles_02.jpg",
+          "content_revision": 2,
+          "level_settings_path": "V3/balance"
+        }
+      ],
+      "cover_file": "Covers/06_dubstep_bass.png"
+    },
+    {
+      "record_id": "drum_and_bass",
+      "order": 7,
+      "display_name": "Drum & Bass",
+      "initially_unlocked": false,
+      "prerequisite_record_id": "dubstep_bass",
+      "unlock_next_requires_track_ids": [
+        "drum_and_bass_01"
+      ],
+      "music_goal_ru": "Скорость и энергия. Оставить комфортные опорные удары; не требовать касаний на каждой дроби.",
+      "cover_art_brief_ru": "Синий и электрические акценты; молнии и музыкальные механизмы.",
+      "tracks": [
+        {
+          "track_id": "drum_and_bass_01",
+          "order": 1,
+          "title": "Liquid Nitrogen",
+          "source_audio_path": "Music/Originals/Liquid Nitrogen.m4a",
+          "source_audio_sha256": "710fa1c0ad7a65b23bb71a7d8c6f236ac4d4bcda3608cfd0c6656835e211f50b",
+          "container_duration_seconds": 177.72,
+          "recommended_import_filename": "drum_and_bass_01.wav",
+          "runtime_audio_path": "V3/Audio/drum_and_bass_01",
+          "runtime_audio_sha256": "7e96c918f0be96018b58471261fc22000ac36879aae612d83dfc9589a6bb5118",
+          "runtime_duration_seconds": 177.7335,
+          "beatmap_path": "V3/Beatmaps/drum_and_bass_01",
+          "beatmap_status": "automated-review-pending-listen",
+          "record_assignment": "confirmed_from_user_style_screenshot",
+          "source_file_received": "Liquid Nitrogen (2).m4a",
+          "source_style_evidence": "Sources/Track_Styles_02.jpg",
+          "content_revision": 1,
+          "level_settings_path": "V3/balance"
+        }
+      ],
+      "cover_file": "Covers/07_drum_and_bass.png"
+    },
+    {
+      "record_id": "orchestra_electronic",
+      "order": 8,
+      "display_name": "Оркестр + электроника",
+      "initially_unlocked": false,
+      "prerequisite_record_id": "drum_and_bass",
+      "unlock_next_requires_track_ids": [
+        "orchestra_electronic_01"
+      ],
+      "music_goal_ru": "Музыкальная кульминация. Оркестровый масштаб и электроника; финал не обязан быть самым быстрым.",
+      "cover_art_brief_ru": "Светлое золото и фиолетовый; оживающий музыкальный мир.",
+      "tracks": [
+        {
+          "track_id": "orchestra_electronic_01",
+          "order": 1,
+          "title": "Неоновый симфоний",
+          "source_audio_path": "Music/Originals/Неоновый симфоний.m4a",
+          "source_audio_sha256": "05a871ff3ea09a6a9ce5eff9fb2588b88b6b2a24d90c363689fb201c50dec044",
+          "container_duration_seconds": 169.72,
+          "recommended_import_filename": "orchestra_electronic_01.wav",
+          "runtime_audio_path": "V3/Audio/orchestra_electronic_01",
+          "runtime_audio_sha256": "76e5f298e0d5fd93c41a779c9822e40309d7c195bf5bb6ad056cf1e34fae934d",
+          "runtime_duration_seconds": 169.7335,
+          "beatmap_path": "V3/Beatmaps/orchestra_electronic_01",
+          "beatmap_status": "automated-review-pending-listen",
+          "record_assignment": "confirmed_from_user_style_screenshot",
+          "source_file_received": "Неоновый симфоний (2).m4a",
+          "source_style_evidence": "Sources/Track_Styles_02.jpg",
+          "content_revision": 1,
+          "level_settings_path": "V3/balance"
+        }
+      ],
+      "cover_file": "Covers/08_orchestra_electronic.png"
+    }
+  ],
+  "menu_graphics_status": "19 Figma screens and 3 asset boards; track 5 and 6 labels corrected for revision 3",
+  "revision": 3,
+  "audio_assignment_evidence": [
+    "Sources/Track_Styles_01.jpg",
+    "Sources/Track_Styles_02.jpg"
+  ]
+}

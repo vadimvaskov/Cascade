@@ -1,0 +1,178 @@
+[
+  {
+    "source_file": "Disco Dancer (2).m4a",
+    "bytes": 2981477,
+    "sha256": "4b0e4a621c72d3c6f9a5d4dc1b1ceada0bad0b5334cdde9bb1c125e0726d3699",
+    "metadata": {
+      "©too": "Lavf60.16.100",
+      "©cmt": "made with suno; created=2026-11-08T08:28:19Z; id=adbe5330-cf5b-4b76-a519-e987d4eab5a4"
+    },
+    "audio_streams": [
+      {
+        "codec_fourcc": "Opus",
+        "channels": 2,
+        "sample_rate_hz": 48000
+      }
+    ],
+    "container_duration_seconds": 176.56,
+    "package_file": "Music/Originals/Disco Dancer.m4a",
+    "record_id": "disco_funk",
+    "track_id": "disco_funk_01",
+    "display_title": "Disco Dancer",
+    "verification": "source bytes copied unchanged; container headers inspected; style mapping confirmed by user screenshots; decode and beatmap validation still required"
+  },
+  {
+    "source_file": "Ethereal Flight.m4a",
+    "bytes": 3353166,
+    "sha256": "d721fd01759d4ab2d9b3d089b1e99a7ffc9d7ed447fa226e5d5ca2ac981b40d2",
+    "metadata": {
+      "©too": "Lavf60.16.100",
+      "©cmt": "made with suno; created=2026-11-08T09:57:57Z; id=bc101bb7-d991-486d-b00e-70843afcfe7a"
+    },
+    "audio_streams": [
+      {
+        "codec_fourcc": "Opus",
+        "channels": 2,
+        "sample_rate_hz": 48000
+      }
+    ],
+    "container_duration_seconds": 187.96,
+    "package_file": "Music/Originals/Ethereal Flight.m4a",
+    "record_id": "melodic_trance",
+    "track_id": "melodic_trance_01",
+    "display_title": "Ethereal Flight",
+    "verification": "source bytes copied unchanged; container headers inspected; style mapping confirmed by user screenshots; decode and beatmap validation still required"
+  },
+  {
+    "source_file": "Liquid Nitrogen (2).m4a",
+    "bytes": 3113216,
+    "sha256": "710fa1c0ad7a65b23bb71a7d8c6f236ac4d4bcda3608cfd0c6656835e211f50b",
+    "metadata": {
+      "©too": "Lavf60.16.100",
+      "©cmt": "made with suno; created=2026-11-08T08:48:09Z; id=697e9fc0-f6b2-4167-9521-8b7901acb642"
+    },
+    "audio_streams": [
+      {
+        "codec_fourcc": "Opus",
+        "channels": 2,
+        "sample_rate_hz": 48000
+      }
+    ],
+    "container_duration_seconds": 177.72,
+    "package_file": "Music/Originals/Liquid Nitrogen.m4a",
+    "record_id": "drum_and_bass",
+    "track_id": "drum_and_bass_01",
+    "display_title": "Liquid Nitrogen",
+    "verification": "source bytes copied unchanged; container headers inspected; style mapping confirmed by user screenshots; decode and beatmap validation still required"
+  },
+  {
+    "source_file": "Neon Overdrive (2).m4a",
+    "bytes": 3479276,
+    "sha256": "c6b96d77b86c3fa7a9a828412c5f1e2ab4d15e2a52936a45a1de509476ed86ec",
+    "metadata": {
+      "©too": "Lavf60.16.100",
+      "©cmt": "made with suno; created=2026-11-08T08:36:10Z; id=7634f2d5-f0e0-4c93-b0fb-34a9003c98ab"
+    },
+    "audio_streams": [
+      {
+        "codec_fourcc": "Opus",
+        "channels": 2,
+        "sample_rate_hz": 48000
+      }
+    ],
+    "container_duration_seconds": 207.36,
+    "package_file": "Music/Originals/Neon Overdrive.m4a",
+    "record_id": "synthwave_electro",
+    "track_id": "synthwave_electro_01",
+    "display_title": "Neon Overdrive",
+    "verification": "source bytes copied unchanged; container headers inspected; style mapping confirmed by user screenshots; decode and beatmap validation still required"
+  },
+  {
+    "source_file": "Phantom Limb (2).m4a",
+    "bytes": 2495083,
+    "sha256": "5f5bfba4e03f8ce7466c6f732d7ecbd2eed39c649b2451c06298762d5a1c28df",
+    "metadata": {
+      "©too": "Lavf60.16.100",
+      "©cmt": "made with suno; created=2026-11-08T08:38:15Z; id=62b69da8-399b-4e01-98f1-28389c4e624d"
+    },
+    "audio_streams": [
+      {
+        "codec_fourcc": "Opus",
+        "channels": 2,
+        "sample_rate_hz": 48000
+      }
+    ],
+    "container_duration_seconds": 142.52,
+    "package_file": "Music/Originals/Phantom Limb.m4a",
+    "record_id": "electro_swing",
+    "track_id": "electro_swing_01",
+    "display_title": "Phantom Limb",
+    "verification": "source bytes copied unchanged; container headers inspected; style mapping confirmed by user screenshots; decode and beatmap validation still required"
+  },
+  {
+    "source_file": "Static Rocker (2).m4a",
+    "bytes": 3144124,
+    "sha256": "6b150c80b1d4398565cb960b5a78a49102ec638402dd09d1d69bbbbdba43b8a0",
+    "metadata": {
+      "©too": "Lavf60.16.100",
+      "©cmt": "made with suno; created=2026-11-08T08:30:58Z; id=7b960b03-deb2-4fbd-a14e-0a8c71474775"
+    },
+    "audio_streams": [
+      {
+        "codec_fourcc": "Opus",
+        "channels": 2,
+        "sample_rate_hz": 48000
+      }
+    ],
+    "container_duration_seconds": 188.12,
+    "package_file": "Music/Originals/Static Rocker.m4a",
+    "record_id": "electronic_rock",
+    "track_id": "electronic_rock_01",
+    "display_title": "Static Rocker",
+    "verification": "source bytes copied unchanged; container headers inspected; style mapping confirmed by user screenshots; decode and beatmap validation still required"
+  },
+  {
+    "source_file": "Wasted Potential (2).m4a",
+    "bytes": 2198583,
+    "sha256": "64f4e6cabb5948153a498fe83652d4392c729c13250925c976390848e132889e",
+    "metadata": {
+      "©too": "Lavf60.16.100",
+      "©cmt": "made with suno; created=2026-11-08T08:44:02Z; id=1c41b855-90c0-4848-b767-661170b924ee"
+    },
+    "audio_streams": [
+      {
+        "codec_fourcc": "Opus",
+        "channels": 2,
+        "sample_rate_hz": 48000
+      }
+    ],
+    "container_duration_seconds": 133.04,
+    "package_file": "Music/Originals/Wasted Potential.m4a",
+    "record_id": "dubstep_bass",
+    "track_id": "dubstep_bass_01",
+    "display_title": "Wasted Potential",
+    "verification": "source bytes copied unchanged; container headers inspected; style mapping confirmed by user screenshots; decode and beatmap validation still required"
+  },
+  {
+    "source_file": "Неоновый симфоний (2).m4a",
+    "bytes": 2793035,
+    "sha256": "05a871ff3ea09a6a9ce5eff9fb2588b88b6b2a24d90c363689fb201c50dec044",
+    "metadata": {
+      "©too": "Lavf60.16.100",
+      "©cmt": "made with suno; created=2026-11-08T08:49:36Z; id=7477d9c1-54f6-4b01-9e20-40b616382bf5"
+    },
+    "audio_streams": [
+      {
+        "codec_fourcc": "Opus",
+        "channels": 2,
+        "sample_rate_hz": 48000
+      }
+    ],
+    "container_duration_seconds": 169.72,
+    "package_file": "Music/Originals/Неоновый симфоний.m4a",
+    "record_id": "orchestra_electronic",
+    "track_id": "orchestra_electronic_01",
+    "display_title": "Неоновый симфоний",
+    "verification": "source bytes copied unchanged; container headers inspected; style mapping confirmed by user screenshots; decode and beatmap validation still required"
+  }
+]

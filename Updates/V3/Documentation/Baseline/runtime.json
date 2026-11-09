@@ -1,0 +1,6 @@
+{
+  "runtime": "PASS: x10/cascade/miss/locked input; original input availability boundary; song end boundary and beat envelope; scheduled start gating; pause and resume clocks; audio device change during paused countdown; paused and active audio reset recovery; full-field priority, result idempotence and restart; real touch phases, held-touch resume and lost End recovery; native 36-byte touch prefix, secondary fingers, rapid taps and cancellation",
+  "calibration": "PASS: calibration menu/pause, native timestamp +150 ms, warmup/duplicate exclusion, explicit Apply/Cancel, no gameplay moves, focus/audio interruption and corrected Update light pulse",
+  "nativeRecovery": "PASS: real Dark resource, independent PCM pulse parities, native 36-byte input, hit/miss reaction rejection, recovery and x2 at offsets 0/+142 ms. Audio playback accuracy still requires device listening.",
+  "raster": "PASS: 36 native 36-byte touches at JSON coordinates; 4 separate sphere states and next preview; live HUD; 3 track titles; corrected hit pulses, reduced effects, pause, cascade and restart"
+}

@@ -112,12 +112,19 @@ namespace Cascade.Prototype
         // Automated analysis is a separate provenance state, never promoted implicitly.
         public bool verified, analysisPassed;
         public string reviewStatus, analysisMethod;
-        public double duration;
+        public double duration, nominalBpm;
         public double[] beats = Array.Empty<double>();
         public Exclusion[] excluded = Array.Empty<Exclusion>();
         public bool IsProvisional => !verified && analysisPassed && reviewStatus == ProvisionalReview;
         public bool IsExcluded(double t) => excluded != null && excluded.Any(x => x != null && t >= x.start && t < x.end);
         // Shared by hit judgement and temporary bonuses, so the final late hit remains eligible.
+        public double HitWindowStart(int index,double window)
+        {
+            double beat=beats[index];double left=index==0?window:Math.Min(window,.45*(beat-beats[index-1]));
+            double start=Math.Max(0,beat-left);
+            if(excluded!=null)foreach(var e in excluded)if(e!=null&&e.end<=beat)start=Math.Max(start,e.end);
+            return start;
+        }
         public double HitWindowEnd(int index,double window)
         {
             double beat=beats[index];
@@ -223,12 +230,7 @@ namespace Cascade.Prototype
                     t - map.beats[right - 1] <= map.beats[right] - t + 1e-9 ? right - 1 : right;
             }
             double beat = map.beats[index];
-            double left = index == 0 ? balance.rhythmWindow : Math.Min(balance.rhythmWindow, .45 * (beat - map.beats[index - 1]));
-            double lo = Math.Max(0, beat - left), hi = map.HitWindowEnd(index,balance.rhythmWindow);
-            if (map.excluded != null) foreach (var e in map.excluded)
-            {
-                if (e.end <= beat) lo = Math.Max(lo, e.end);
-            }
+            double lo = map.HitWindowStart(index,balance.rhythmWindow), hi = map.HitWindowEnd(index,balance.rhythmWindow);
             result.beat = index; result.error = t - beat;
             if (t >= lo - 1e-9 && t <= hi + 1e-9 && !map.IsExcluded(beat))
             {

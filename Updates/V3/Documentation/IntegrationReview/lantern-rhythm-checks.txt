@@ -1,0 +1,60 @@
+PASS: integrated game scene loaded
+PASS: button available: Settings
+PASS: button available: Toggle Музыка
+PASS: music toggle enabled
+PASS: button available: Toggle Музыка
+PASS: music toggle disabled
+PASS: button available: Language
+PASS: button available: Language 1
+PASS: language persisted
+PASS: button available: Language
+PASS: button available: Language 0
+PASS: button available: Choose hero
+PASS: button available: Choose Fa
+PASS: button available: Confirm hero
+PASS: Fa selected on home
+PASS: button available: Choose hero
+PASS: button available: Choose Mi
+PASS: button available: Confirm hero
+PASS: button available: World map
+PASS: button available: Open record
+PASS: button available: Play selected
+PASS: home → record → countdown → gameplay
+PASS: music muted without stopping song
+PASS: selected Mi is running
+PASS: muted clock and world continue
+PASS: visual guide works before the first hit
+PASS: visual guide produces visible geometry
+PASS: rhythm instruction fits the visible caption
+PASS: character fill illuminates runner without flattening bridge lighting
+PASS: exactly one companion sphere
+PASS: sphere remains ahead of hero
+PASS: screen tap reaches matching board collider
+PASS: world, next preview and board share charge 1 artwork
+PASS: no differently tinted 3D duplicate for charge 1
+PASS: world, next preview and board share charge 2 artwork
+PASS: no differently tinted 3D duplicate for charge 2
+PASS: world, next preview and board share charge 3 artwork
+PASS: no differently tinted 3D duplicate for charge 3
+PASS: world, next preview and board share charge 4 artwork
+PASS: no differently tinted 3D duplicate for charge 4
+PASS: pause freezes world and rhythm
+PASS: button available: Settings
+PASS: pause settings preserve the actual world background
+PASS: button available: Language
+PASS: button available: Language 1
+PASS: button available: Close
+PASS: closing pause settings returns to the same paused attempt
+PASS: button available: Cancel
+PASS: cancelling restart preserves board, audio position and scenery
+PASS: button available: Settings
+PASS: button available: Language
+PASS: button available: Language 0
+PASS: button available: Close
+PASS: pause primary action follows the changed language
+PASS: resume continues same attempt
+PASS: result returns home
+PASS: Fa choice changes the actual runner
+PASS: bridge lighting stays bounded and follows recycled scenery over 80 simulated seconds
+PASS: safe composition retains aspect ratio
+ALL PLAY CHECKS PASSED

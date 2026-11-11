@@ -1,0 +1,16 @@
+PASS: approved release scene, 667 scene/Resources dependencies and GUIDs, both runners and native iOS plugins
+PASS: all x1-x10 thresholds and cap; one multiplier for whole cascade; miss, repeat, timeout and restart; original event time versus display time; window boundaries, tie break and offset; excluded intervals and frozen timeout; map integrity and honest analysis provenance
+PASS: 6 charging hits +1; next four musical beats +2; no repeat/stack/recharge; second cycle; offsets 0/+142/-80 ms; Miss resets only charging; active miss does not cancel; no-input expiry; 10-second charge timeout; Read-only HUD vs delayed events; early/late bounds; dense beats; exclusions; song-end truncation
+PASS: 3 legacy + 8 V3 audio SHA-256 signatures, imported durations, stereo48k and beat-map structures
+PASS: continuous baseline pulse, each-hit growth to actual x10, cap, smooth reset, quarter phase, pause, soft mode and musical rests
+PASS: continuous companion flight over 180s, lane bounds, soft motion, 3D companion-to-hero volume, live anchors, shader, expiry and bounded stream reuse
+PASS: free 1/4 → 1/8 → 1/16 → 1/4 transitions, repeats, calibration, rests, delayed events, musical bonus duration
+PASS: disco_funk_01 · 184 quarter anchors · 727 playable ticks
+PASS: drum_and_bass_01 · 264 quarter anchors · 1023 playable ticks
+PASS: dubstep_bass_01 · 220 quarter anchors · 874 playable ticks
+PASS: electro_swing_01 · 186 quarter anchors · 739 playable ticks
+PASS: electronic_rock_01 · 205 quarter anchors · 803 playable ticks
+PASS: melodic_trance_01 · 205 quarter anchors · 811 playable ticks
+PASS: orchestra_electronic_01 · 156 quarter anchors · 595 playable ticks
+PASS: synthwave_electro_01 · 159 quarter anchors · 621 playable ticks
+PASS: persistent settings and daily rollover in an isolated save

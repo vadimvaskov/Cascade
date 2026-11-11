@@ -13,7 +13,7 @@ using UnityEditor.iOS.Xcode;
 // Called explicitly by release tooling; loading the Editor never starts a build.
 public static class CascadeIOSBuild
 {
-    public const string ScenePath = "Assets/Scenes/CascadePrototype.unity";
+    public const string ScenePath = "Assets/Scenes/CascadeGame.unity";
     public const string IconPath = "Assets/Cascade/Art/AppIcon.png";
     public const string StatusPath = "Builds/iOS/build-status.json";
     const string BundleIdentifier = "fitness.quokka.caskade";
@@ -41,7 +41,7 @@ public static class CascadeIOSBuild
     public static string Configure(string version, string build)
     {
         if (string.IsNullOrWhiteSpace(version)) throw new ArgumentException("A release version is required.", nameof(version));
-        if (string.IsNullOrWhiteSpace(build)) throw new ArgumentException("An iOS build number is required.", nameof(build));
+        if (!int.TryParse(build, out int number) || number < 1) throw new ArgumentException("Use a positive integer iOS build number.", nameof(build));
         if (!File.Exists(ScenePath)) throw new FileNotFoundException("Cascade release scene is missing.", ScenePath);
         var texture = AssetDatabase.LoadAssetAtPath<Texture2D>(IconPath);
         if (texture == null) throw new FileNotFoundException("Import the Cascade app icon before configuring iOS.", IconPath);

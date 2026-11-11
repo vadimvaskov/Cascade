@@ -30,16 +30,18 @@ namespace Cascade.Prototype
             safeRoot.anchoredPosition=offset/legacyScale;
             if(rasterRoot!=null)
             {
-                float scale=Mathf.Max(.01f,Mathf.Min(area.width/RasterWidth,area.height/RasterHeight));
+                float width=approvedDesign?414:RasterWidth,height=approvedDesign?850:RasterHeight;
+                float scale=Mathf.Max(.01f,Mathf.Min(area.width/width,area.height/height));
                 rasterScaler.scaleFactor=scale;
-                rasterRoot.sizeDelta=new Vector2(RasterWidth,RasterHeight);
+                rasterRoot.sizeDelta=new Vector2(width,height);
                 rasterRoot.anchoredPosition=offset/scale;
                 // The complete gameplay composition fits uniformly in the safe area.
                 // Only the background covers the screen, also with uniform scaling.
-                float cover=Mathf.Max(Screen.width/(scale*RasterWidth),Screen.height/(scale*RasterHeight));
-                rasterBackground.sizeDelta=new Vector2(RasterWidth,RasterHeight)*cover;
+                float cover=Mathf.Max(Screen.width/(scale*width),Screen.height/(scale*height));
+                rasterBackground.sizeDelta=new Vector2(width,height)*cover;
                 gameCamera.orthographicSize=Screen.height/(2*scale*RasterPixelsPerUnit);
                 gameCamera.transform.SetPositionAndRotation(new Vector3(-offset.x/(scale*RasterPixelsPerUnit),-offset.y/(scale*RasterPixelsPerUnit),-18),Quaternion.identity);
+                LayoutApprovedWorld();
                 return;
             }
             gameCamera.orthographicSize=Screen.height/(2*legacyScale*(1280f/13.5f));
@@ -48,6 +50,7 @@ namespace Cascade.Prototype
         void ConfigureRasterFeedback()
         {
             if(rasterRoot==null)return;
+            if(approvedDesign){statusText.fontSize=11;statusText.rectTransform.sizeDelta=new Vector2(364,23);streakText.fontSize=11;return;}
             statusText.fontSize=26;statusText.rectTransform.sizeDelta=new Vector2(881,48);
             streakText.fontSize=20;
             if(useV3)

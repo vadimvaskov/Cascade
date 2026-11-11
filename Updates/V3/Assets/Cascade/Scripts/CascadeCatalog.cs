@@ -54,6 +54,10 @@ namespace Cascade.Prototype
         public List<string> unlockedRecordIds=new List<string>();
         public List<CascadeTrackResult> results=new List<CascadeTrackResult>(), archivedResults=new List<CascadeTrackResult>();
         public float volume=.7f; public bool softEffects; public int calibrationMs;
+        public int preferencesRevision;
+        public bool musicEnabled=true, soundsEnabled=true, hapticsEnabled=true;
+        public string language="ru", selectedHero="Mi", dailyDate="";
+        public int dailyHits,dailyTracks,dailyCascades;
     }
     // Results are tied to the actual song hash. Earned unlocks never depend on the current track count.
     public sealed class CascadeProgressStore
@@ -70,6 +74,13 @@ namespace Cascade.Prototype
             Data=Read(path);
             if(Data==null){Data=Read(path+".bak");RecoveredBackup=Data!=null;}
             if(Data==null)Data=new CascadeProgress{volume=volume,softEffects=soft,calibrationMs=offset};
+            if(Data.preferencesRevision<1)
+            {
+                Data.musicEnabled=Data.volume>0;Data.soundsEnabled=true;Data.hapticsEnabled=true;
+                Data.language="ru";Data.selectedHero="Mi";Data.preferencesRevision=1;
+            }
+            if(Data.language!="en")Data.language="ru";
+            if(Data.selectedHero!="Fa")Data.selectedHero="Mi";
             foreach(var result in Data.results.ToArray())
             {
                 var t=catalog.Tracks.FirstOrDefault(x=>x.track_id==result.trackId);
@@ -91,6 +102,17 @@ namespace Cascade.Prototype
             }catch(Exception e) when(e is IOException||e is ArgumentException||e is UnauthorizedAccessException){return null;}
         }
         public bool IsOpen(CascadeRecord r)=>catalog.testing_unlock_all_records||Data.unlockedRecordIds.Contains(r.record_id);
+        public void RefreshDaily()
+        {
+            string today=DateTime.Now.ToString("yyyy-MM-dd",System.Globalization.CultureInfo.InvariantCulture);
+            if(Data.dailyDate==today)return;
+            Data.dailyDate=today;Data.dailyHits=Data.dailyTracks=Data.dailyCascades=0;
+        }
+        public void RecordAttempt(int hits,int cascades,bool completed)
+        {
+            RefreshDaily();Data.dailyHits+=Math.Max(0,hits);Data.dailyCascades+=Math.Max(0,cascades);
+            if(completed)Data.dailyTracks++;Save();
+        }
         public CascadeTrackResult Result(CascadeTrack t)=>Data.results.FirstOrDefault(r=>r.trackId==t.track_id&&r.audioSha256==t.runtime_audio_sha256);
         public void Complete(CascadeTrack track,int score)
         {

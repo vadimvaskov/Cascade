@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace Cascade.Prototype
 {
-    public sealed class CascadeMenuUI:MonoBehaviour
+    public sealed partial class CascadeMenuUI:MonoBehaviour
     {
         const string Root="V3/Menu/";
         CascadeGame game;CascadeMenuLayout layout;CascadeRecord[] records;
@@ -19,7 +19,7 @@ namespace Cascade.Prototype
         readonly Dictionary<string,RectTransform> elements=new Dictionary<string,RectTransform>();
         readonly Dictionary<string,Sprite> sprites=new Dictionary<string,Sprite>();
         readonly List<RectTransform> recordGroups=new List<RectTransform>();
-        public enum Page { Records,Tracks,Settings }
+        public enum Page { Records,Tracks,Settings,World,Heroes,Language,Collection,Daily,Events,Information }
         public Page CurrentPage{get;private set;}
         Page settingsOrigin;
         public int SelectedRecord{get;private set;}
@@ -36,6 +36,7 @@ namespace Cascade.Prototype
         string error="";
         public void Initialize(CascadeGame owner)
         {
+            if(owner.UsesApprovedDesign){InitializeApproved(owner);return;}
             gameObject.layer=29;game=owner;layout=JsonUtility.FromJson<CascadeMenuLayout>(Resources.Load<TextAsset>(Root+"Layout_941x1672").text);
             records=game.Catalog.records.OrderBy(r=>r.order).ToArray();
             regular=Resources.Load<Font>(Root+"Fonts/Montserrat-Regular");bold=Resources.Load<Font>(Root+"Fonts/Montserrat-Bold");
@@ -51,6 +52,7 @@ namespace Cascade.Prototype
         }
         void Update()
         {
+            if(approvedDesign){UpdateApprovedLayout();return;}
             var area=Screen.safeArea;float s=Mathf.Max(.01f,Mathf.Min(area.width/941,area.height/1672));scaler.scaleFactor=s;
             safe.anchoredPosition=(area.center-new Vector2(Screen.width*.5f,Screen.height*.5f))/s;
             background.sizeDelta=new Vector2(941,1672)*Mathf.Max(Screen.width/(941*s),Screen.height/(1672*s));
@@ -74,6 +76,9 @@ namespace Cascade.Prototype
         public void Back()
         {
             if(Busy)return;
+            if(approvedDesign&&CurrentPage==Page.Language){CurrentPage=Page.Settings;Draw();return;}
+            if(approvedDesign&&pauseSettings&&CurrentPage==Page.Information){CurrentPage=Page.Settings;Draw();return;}
+            if(approvedDesign&&pauseSettings){gameObject.SetActive(false);pauseSettings=false;game.SetPauseSettingsVisible(false);return;}
             if(CurrentPage==Page.Settings){CurrentPage=settingsOrigin;Draw();}
             else ShowRecords();
         }
@@ -90,6 +95,7 @@ namespace Cascade.Prototype
         }
         void Draw()
         {
+            if(approvedDesign){DrawApproved();return;}
             if(screen!=null){screen.gameObject.SetActive(false);Destroy(screen.gameObject);}
             elements.Clear();recordGroups.Clear();
             screen=Rect("Menu screen",safe,new Rect(0,0,941,1672));
@@ -198,6 +204,7 @@ namespace Cascade.Prototype
         {
             if(Busy||CurrentPage!=Page.Records||direction==0)return;
             int next=SelectedRecord+Math.Sign(direction);if(next<0||next>=records.Length)return;
+            if(approvedDesign){ShowRecords(next);return;}
             StartCoroutine(Slide(next));
         }
         IEnumerator Slide(int next)

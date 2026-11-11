@@ -15,5 +15,11 @@
 *.jpeg binary
 *.ttf binary
 *.otf binary
+*.fbx binary
+*.controller text eol=lf
+*.asset text=auto eol=lf
+*.shader text eol=lf
+*.sh text eol=lf
+*.plist text eol=lf
 *.zip binary
 *.docx binary

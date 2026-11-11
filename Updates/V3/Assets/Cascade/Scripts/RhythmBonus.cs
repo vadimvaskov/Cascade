@@ -14,11 +14,13 @@ namespace Cascade.Prototype
         readonly BeatMap map;
         readonly Balance balance;
         readonly int[] eligible;
+        readonly int ticksPerBeat;
         int charge,first=-1,count;
         double lastCharge=double.NaN,lastEvent=double.NegativeInfinity;
-        public RhythmBonus(BeatMap map,Balance balance)
+        public RhythmBonus(BeatMap map,Balance balance,int ticksPerBeat=1)
         {
             this.map=map??throw new ArgumentNullException(nameof(map));
+            this.ticksPerBeat=Math.Max(1,ticksPerBeat);
             this.balance=balance??throw new ArgumentNullException(nameof(balance));balance.Validate();
             eligible=Enumerable.Range(0,map.beats.Length).Where(i=>!map.IsExcluded(map.beats[i])).ToArray();
         }
@@ -31,7 +33,7 @@ namespace Cascade.Prototype
             {
                 int remaining=0;
                 for(int n=first;n<first+count;n++)if(songTime-offset<=map.HitWindowEnd(eligible[n],balance.rhythmWindow)+1e-9)remaining++;
-                return new RhythmBonusView{remaining=remaining,pending=songTime-offset<map.beats[eligible[first]]};
+                return new RhythmBonusView{remaining=(remaining+ticksPerBeat-1)/ticksPerBeat,pending=songTime-offset<map.beats[eligible[first]]};
             }
             return new RhythmBonusView{charge=ChargeAt(songTime)};
         }
@@ -52,7 +54,7 @@ namespace Cascade.Prototype
             {
                 int index=Array.BinarySearch(eligible,judgement.beat);
                 first=index>=0?index+1:~index;
-                count=Math.Min(balance.rhythmBonusBeats,eligible.Length-first);
+                count=Math.Min(balance.rhythmBonusBeats*ticksPerBeat,eligible.Length-first);
                 if(count==0)first=-1;
                 charge=0;lastCharge=double.NaN;
             }

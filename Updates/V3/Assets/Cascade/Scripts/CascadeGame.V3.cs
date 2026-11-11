@@ -71,6 +71,7 @@ namespace Cascade.Prototype
         }
         void BuildV3Lighting()
         {
+            if(approvedDesign){BuildApprovedLighting();return;}
             if(rasterRoot==null)return;
             rasterFramePulse.gameObject.SetActive(false);
             frameGlow=NewGlow("V3 Board rim",hud.transform,new Vector2(68.54f+802.296f/2-470.5f,836-561.136f-765.864f/2),new Vector2(802.296f,765.864f),48,new Color(1,.72f,.2f),new Color(1,.15f,.85f));
@@ -90,6 +91,7 @@ namespace Cascade.Prototype
         }
         void UpdateV3Lighting(bool active,bool frozenVisuals)
         {
+            if(approvedDesign){UpdateApprovedLighting(active,frozenVisuals);return;}
             if(frameGlow==null)return;
             double visualPosition=VisualSongPosition;
             bool outputStarted=AudioSettings.dspTime>=scheduledDsp+outputTiming.visualDelay;

@@ -7,6 +7,9 @@
 UserSettings/
 MemoryCaptures/
 Recordings/
+# Unity crash recovery is local, not a release scene
+**/Assets/_Recovery/
+**/Assets/_Recovery.meta
 # IDE and local build files
 .vs/
 .vscode/

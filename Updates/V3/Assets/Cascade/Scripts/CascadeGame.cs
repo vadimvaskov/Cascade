@@ -33,7 +33,7 @@ namespace Cascade.Prototype
         [SerializeField] string[] trackNames = { "Midnight Floor", "Drop Bass Princess", "Dark Bass Drop" };
         public Phase State { get; private set; } = Phase.Menu;
         public Board Model { get; private set; }
-        Balance balance; Rhythm rhythm; BeatMap beatMap;
+        Balance balance; Rhythm rhythm; BeatMap beatMap; RhythmGrid rhythmGrid;
         int level, score, moves, bestOccupied;
         double startDsp, pausedPosition, scheduledDsp, eventAnchor, dspAnchor;
         float reactionAge, countdown;
@@ -67,13 +67,13 @@ namespace Cascade.Prototype
             balance = JsonUtility.FromJson<Balance>(Resources.Load<TextAsset>(useV3?"V3/balance":"Data/balance").text);
             volume = PlayerPrefs.GetFloat("cascade.volume", .7f); reduced = PlayerPrefs.GetInt("cascade.reduced", 0) != 0;
             offsetMs = PlayerPrefs.GetInt("cascade.offset", 0);
-            InitializeV3(); BindUI(); SetupCalibration(); ConfigureRasterFeedback(); music.volume = volume; Application.targetFrameRate = 60;
+            InitializeV3(); BindUI(); SetupCalibration(); ConfigureRasterFeedback(); InitializeApprovedRuntime(); music.volume = volume; Application.targetFrameRate = 60;
             Screen.orientation = ScreenOrientation.Portrait;
             AudioSettings.OnAudioConfigurationChanged += AudioChanged;
             InputSystem.onEvent += InputEvent;
             ShowMenu();
         }
-        void OnDestroy() { AudioSettings.OnAudioConfigurationChanged -= AudioChanged; InputSystem.onEvent -= InputEvent; DisposeCalibration(); }
+        void OnDestroy() { AudioSettings.OnAudioConfigurationChanged -= AudioChanged; InputSystem.onEvent -= InputEvent; DisposeCalibration(); DisposeApproved(); }
         void OnApplicationPause(bool pause) { if (pause) { CloseCalibration(); Pause(); } }
         void OnApplicationFocus(bool focus) { if (!focus) { CloseCalibration(); Pause(); } }
         void AudioChanged(bool changed)
@@ -98,6 +98,7 @@ namespace Cascade.Prototype
         }
         void ShowMenu()
         {
+            RecordApprovedAttempt(false);
             RestoreResultActions();
             rhythmBonus=null;
             music.Stop(); fadeRemaining=0; State = Phase.Menu; menu.SetActive(!useV3); hud.SetActive(false); modal.SetActive(false); boardRoot.gameObject.SetActive(false);
@@ -109,6 +110,7 @@ namespace Cascade.Prototype
         {
             if (State == Phase.Countdown || index < 0 || index >= trackNames.Length) return;
             if(useV3&&!developerPreview&&!progressStore.IsOpen(catalog.RecordFor(catalogTracks[index].track_id)))return;
+            RecordApprovedAttempt(false);
             RestoreResultActions();
             outputTiming = CascadeAudioOutputTiming.Capture();
             if(useV3)
@@ -130,7 +132,8 @@ namespace Cascade.Prototype
             var signature=manifest?.tracks?.FirstOrDefault(x=>x.resourceName==trackNames[level]);
             if(useV3){var t=catalogTracks[level];signature=new TrackSignature{trackId=t.track_id,audioSha256=t.runtime_audio_sha256,duration=t.runtime_duration_seconds};}
             if(beatMap==null||signature==null||signature.trackId!=beatMap.trackId||!beatMap.Valid(music.clip.length,signature.audioSha256,allowProvisionalMaps)) { Error("Разметка не соответствует музыке. Попробуй загрузить уровень ещё раз."); return; }
-            rhythm=new Rhythm(beatMap,balance);
+            rhythmGrid=useV3?new RhythmGrid(beatMap):null;
+            rhythm=new Rhythm(rhythmGrid?.Map??beatMap,balance);
             ResetRhythmBonus();
             if(useV3)lighting=new CascadeRhythmLighting(beatMap,lightingConfig);
             music.loop = false; music.pitch = 1; music.volume = volume; music.time = 0; music.clip.LoadAudioData();
@@ -138,6 +141,7 @@ namespace Cascade.Prototype
             levelText.text = "УРОВЕНЬ " + (level + 1); trackText.text=TrackTitle;
             statusText.text = "";
             countdown = 3; State = Phase.Countdown; pausedPosition = 0;
+            ApprovedStart();
             foreach(var v in views) { v.charge=-1; v.raster?.ResetEffects(); if(v.burst!=null)v.burst.gameObject.SetActive(false); if(v.sparks!=null)v.sparks.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear); }
             Render(Model.cells); RefreshHud();
             UnityEngine.Debug.Log("Cascade seed=" + Model.seed + " config=" + balance.version + " track=" + trackNames[level]);
@@ -211,12 +215,13 @@ namespace Cascade.Prototype
             foreach(var view in views)view.Animate(effectClock,pulse,lightStrength,reduced,frozenVisuals);
             preview.Animate(effectClock,pulse,lightStrength,reduced,frozenVisuals);
             }
-            if(active&&effectClock>feedbackUntil)statusText.text=excluded?"СВОБОДНЫЙ РИТМ":"";
+            if(active&&effectClock>feedbackUntil)statusText.text=excluded?T("СВОБОДНЫЙ РИТМ","FREE RHYTHM"):"";
         }
         void LateUpdate()
         {
             if(State==Phase.Playing&&AudioSettings.dspTime>=scheduledDsp&&Position>=music.clip.length)Finish(true);
             UpdateResultActions();
+            UpdateApprovedRuntime();
         }
         public float BeatPulse(double t)
         {
@@ -276,14 +281,17 @@ namespace Cascade.Prototype
             { journal.Add(new MoveLog { time = songTime, cell = cell, rejection = "occupied" }); return false; }
             var assessment = rhythm == null ? new RhythmResult { multiplier = 1, kind = "unmapped", error = double.NaN } : rhythm.Evaluate(songTime, offsetMs / 1000.0);
             if(assessment.kind=="invalid"||assessment.kind=="stale")return false; lastAcceptedTime=songTime;
+            ApprovedHit(assessment);
             bool bonusApplied=rhythmBonus!=null?rhythmBonus.Evaluate(assessment,songTime,offsetMs/1000d):balance.rhythmPrimaryBonus&&assessment.kind=="hit";
             pending = Model.Place(cell, assessment.multiplier, bonusApplied);
+            EmitMusicEnergy(pending,assessment.kind=="hit");
             if(useV3&&assessment.kind=="hit")lighting?.LocalHit(cell,Time.unscaledTimeAsDouble); score += pending.points; moves++; bestOccupied = Math.Max(bestOccupied, Model.Occupied);
             var bonusState=rhythmBonus?.View(songTime,offsetMs/1000d)??default;
             journal.Add(new MoveLog { time = songTime, cell = cell, points = pending.points, waves = pending.waves.Count, occupied = Model.Occupied, streak = rhythm?.Streak ?? 0, rhythm = assessment.kind, multiplier=assessment.multiplier, offsetMs=offsetMs, error = double.IsNaN(assessment.error) ? 0 : assessment.error,bonusApplied=bonusApplied,bonusCharge=bonusState.charge,bonusBeatsRemaining=bonusState.remaining });
             string advance = Multiplier >= balance.maxMultiplier ? "×"+Multiplier : (Streak % balance.hitsPerStep)+"/"+balance.hitsPerStep+" ДО ×"+(Multiplier+1);
             statusText.text=assessment.kind=="hit"?"В РИТМЕ · "+advance+" · +"+pending.points:assessment.kind=="miss"?(assessment.error<0?"РАНО НА ":"ПОЗДНО НА ")+Math.Round(Math.Abs(assessment.error)*1000)+" мс · +"+pending.points:assessment.kind=="repeat"?"ДОЛЯ УЖЕ УЧТЕНА · ×1 · +"+pending.points:assessment.kind=="excluded"?"СВОБОДНЫЙ РИТМ · ×1 · +"+pending.points:"+"+pending.points;
             statusText.color=assessment.kind=="miss"?new Color(.9f,.53f,.65f):new Color(1,.8f,.45f);feedbackUntil=effectClock+1.2;
+            if(IsEnglish)statusText.text=assessment.kind=="hit"?"ON BEAT · ×"+Multiplier+" · +"+pending.points:assessment.kind=="miss"?(assessment.error<0?"EARLY BY ":"LATE BY ")+Math.Round(Math.Abs(assessment.error)*1000)+" ms · +"+pending.points:assessment.kind=="repeat"?"TICK ALREADY COUNTED · +"+pending.points:"FREE RHYTHM · +"+pending.points;
             if(useV3){PresentImmediate(pending);return true;}
             reactionAge=0;lastStage=0;State=Phase.Reaction;Render(pending.afterPlacement);RefreshHud();return true;
         }
@@ -295,7 +303,7 @@ namespace Cascade.Prototype
             double t = Math.Min(Position, music.clip.length); if (State == Phase.Countdown) t = 0;
             timeText.text = Clock(t) + " / " + Clock(music.clip.length); progress.fillAmount = (float)(t / music.clip.length);
             
-            nextText.text = "СЛЕДУЮЩАЯ";
+            nextText.text = T("СЛЕДУЮЩАЯ","NEXT");
             preview.SetCharge(Model.NextCharge,orbMaterials,effectClock,false);
         }
         static string Clock(double t) => ((int)t / 60) + ":" + ((int)t % 60).ToString("00");
@@ -306,8 +314,8 @@ namespace Cascade.Prototype
             resumePhase = State; pausedPosition = State == Phase.Countdown ? 0 : Position;
             lastKnownPosition = pausedPosition;
             if (State != Phase.Countdown && AudioSettings.dspTime < scheduledDsp) audioNeedsReschedule = true;
-            music.Pause(); State = Phase.Paused; foreach(var v in views)if(v.sparks!=null)v.sparks.Pause(); RestoreContinue(); modal.SetActive(true); modalTitle.text = "ПАУЗА";
-            modalBody.text = "Музыка и поле ждут тебя"; SetModalButtons(true);
+            music.Pause(); State = Phase.Paused; foreach(var v in views)if(v.sparks!=null)v.sparks.Pause(); RestoreContinue(); modal.SetActive(true); modalTitle.text = T("ПАУЗА","PAUSED");
+            modalBody.text = T("Музыка и поле ждут тебя","Your music and board are waiting"); SetModalButtons(true);
             Export("paused");
         }
         public void Resume()
@@ -350,9 +358,10 @@ namespace Cascade.Prototype
             }
             PrepareResultActions();modal.SetActive(true);
             if (!useV3 && won && rhythm != null) { int best = PlayerPrefs.GetInt(BestKey(level), 0); if (score > best) PlayerPrefs.SetInt(BestKey(level), score); PlayerPrefs.Save(); }
-            modalTitle.text = won ? "ТРЕК ЗАВЕРШЁН" : "ПОЛЕ ЗАПОЛНЕНО";
+            modalTitle.text = won ? T("ТРЕК ЗАВЕРШЁН","TRACK COMPLETE") : T("ПОЛЕ ЗАПОЛНЕНО","BOARD FULL");
             modalBody.text = score.ToString("N0",ScoreCulture) + " ОЧКОВ\n\nХодов: " + moves + "   •   Макс. занято: " + bestOccupied + "\nЛучшая серия: " + (rhythm?.Best ?? 0) + "\nПопаданий: " + (rhythm?.Hits ?? 0) + "   •   Промахов: " + (rhythm?.Misses ?? 0) + (rhythm == null ? "\n\nТест механики: ритм и рекорды отключены" : "");
             if(useV3&&won&&IsLastRecordComplete())modalTitle.text="КОЛЛЕКЦИЯ ПРОЙДЕНА";
+            if(IsEnglish)modalBody.text=score.ToString("N0",ScoreCulture)+" POINTS\n\nMoves: "+moves+"   ·   Peak occupied: "+bestOccupied+"\nBest streak: "+(rhythm?.Best??0)+"\nHits: "+(rhythm?.Hits??0)+"   ·   Misses: "+(rhythm?.Misses??0);
             SetModalButtons(false); Export(won ? "completed" : "full");
         }
         void Export(string result)
@@ -364,25 +373,33 @@ namespace Cascade.Prototype
         }
         void SetModalButtons(bool paused)
         {
-            modal.transform.Find("Restart").GetComponentInChildren<Text>().text = State == Phase.Result ? "ПОПРОБОВАТЬ ЕЩЁ РАЗ" : "НАЧАТЬ ЗАНОВО";
+            modal.transform.Find("Restart").GetComponentInChildren<Text>().text = State == Phase.Result ? T("ПОПРОБОВАТЬ ЕЩЁ РАЗ","TRY AGAIN") : T("НАЧАТЬ ЗАНОВО","RESTART");
+            modal.transform.Find("Menu").GetComponentInChildren<Text>().text=T("В МЕНЮ","HOME");
+            modal.transform.Find("Next").GetComponentInChildren<Text>().text=T("СЛЕДУЮЩИЙ УРОВЕНЬ","NEXT RECORD");
+            modal.transform.Find("Settings").GetComponentInChildren<Text>().text=T(approvedDesign?"НАСТРОЙКИ":"ГРОМКОСТЬ",approvedDesign?"SETTINGS":"VOLUME");
+            modal.transform.Find("Effects").GetComponentInChildren<Text>().text=T("ЭФФЕКТЫ","EFFECTS");
+            modal.transform.Find("Cancel").GetComponentInChildren<Text>().text=T("ОТМЕНА","CANCEL");
+            if(calibrationPauseButton)calibrationPauseButton.GetComponentInChildren<Text>().text=T("НАСТРОЙКА РИТМА","RHYTHM CALIBRATION");
             modal.transform.Find("Continue").gameObject.SetActive(paused);
             modal.transform.Find("Next").gameObject.SetActive(!paused && State == Phase.Result && (useV3?HasNextOpenRecord():level < trackNames.Length-1) && !developerPreview && wonAttempt && Model.Occupied < Model.cells.Length);
             modal.transform.Find("Settings").gameObject.SetActive(paused);
             modal.transform.Find("Effects").gameObject.SetActive(paused);
             modal.transform.Find("Cancel").gameObject.SetActive(false);
             if (calibrationPauseButton != null) calibrationPauseButton.gameObject.SetActive(paused);
+            LayoutApprovedModal();
         }
         public void Restart() { if(State==Phase.Result&&!resultActionsReady)return; if (State == Phase.Paused) Confirm(true); else StartLevel(level); }
         public void ExitMenu() { if(State==Phase.Result&&!resultActionsReady)return; if (State == Phase.Paused) Confirm(false); else ShowMenu(); }
         void Confirm(bool restart)
         {
             calibrationPauseButton.gameObject.SetActive(false);
-            modal.transform.Find("Cancel").gameObject.SetActive(true); modalTitle.text = "ЗАВЕРШИТЬ ПОПЫТКУ?"; modalBody.text = "Текущее поле и очки будут потеряны.";
+            modal.transform.Find("Cancel").gameObject.SetActive(true); modalTitle.text = T("ЗАВЕРШИТЬ ПОПЫТКУ?","END THIS ATTEMPT?"); modalBody.text = T("Текущее поле и очки будут потеряны.","The current board and score will be lost.");
             var btn = modal.transform.Find("Continue").GetComponent<Button>(); var label = btn.GetComponentInChildren<Text>();
-            label.text = restart ? "ДА, НАЧАТЬ ЗАНОВО" : "ДА, В МЕНЮ"; btn.onClick.RemoveAllListeners();
+            label.text = restart ? T("ДА, НАЧАТЬ ЗАНОВО","YES, RESTART") : T("ДА, В МЕНЮ","YES, GO HOME"); btn.onClick.RemoveAllListeners();
             btn.onClick.AddListener(() => { RestoreContinue(); if (restart) StartLevel(level); else ShowMenu(); });
+            LayoutApprovedModal(true);
         }
-        void RestoreContinue() { var b = modal.transform.Find("Continue").GetComponent<Button>(); b.GetComponentInChildren<Text>().text = "ПРОДОЛЖИТЬ"; b.onClick.RemoveAllListeners(); b.onClick.AddListener(Resume); }
+        void RestoreContinue() { var b = modal.transform.Find("Continue").GetComponent<Button>(); b.GetComponentInChildren<Text>().text = T("ПРОДОЛЖИТЬ","CONTINUE"); b.onClick.RemoveAllListeners(); b.onClick.AddListener(Resume); }
         public void CycleSettings()
         {
             volume = volume >= .99f ? 0 : Mathf.Min(1,volume + .25f); music.volume = volume;
@@ -424,7 +441,7 @@ namespace Cascade.Prototype
             modal.transform.Find("Next").GetComponent<Button>().onClick.AddListener(NextRecord);
             modal.transform.Find("Settings").GetComponent<Button>().onClick.AddListener(CycleSettings);
             modal.transform.Find("Effects").GetComponent<Button>().onClick.AddListener(ToggleEffects);
-            modal.transform.Find("Cancel").GetComponent<Button>().onClick.AddListener(() => { RestoreContinue(); modalTitle.text="ПАУЗА"; modalBody.text="Музыка и поле ждут тебя"; modal.transform.Find("Cancel").gameObject.SetActive(false); calibrationPauseButton.gameObject.SetActive(true); });
+            modal.transform.Find("Cancel").GetComponent<Button>().onClick.AddListener(() => { RestoreContinue(); modalTitle.text=T("ПАУЗА","PAUSED"); modalBody.text=T("Музыка и поле ждут тебя","Your music and board are waiting"); SetModalButtons(true); });
         }
     }
 }

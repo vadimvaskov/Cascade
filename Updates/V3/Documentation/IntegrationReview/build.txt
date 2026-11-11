@@ -1,0 +1,2 @@
+Integrated scene: Assets/Scenes/CascadeGame.unity
+Mi + Fa humanoid avatars, single companion orb, approved home/menu/board, free sixteenth grid.

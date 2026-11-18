@@ -690,7 +690,7 @@ namespace Cascade.UI
                 LevelDef next = LevelCatalog.NextAfter(level);
                 Modal.GoldButton(panel, 0f, -top + 250f, 560f, Loc.T("next"), delegate
                 {
-                    if (next == null || !App.StartLevel(next))
+                    if (next == null || (!App.StartLevel(next) && !App.EnergyOfferOpen))
                     {
                         App.ShowWorldMap();
                     }
@@ -717,7 +717,8 @@ namespace Cascade.UI
                 Modal.StatRow(panel, y - 140f, 700f, Loc.T("energy"), SaveSystem.Data.energy + " / " + config.maxEnergy);
                 Modal.GoldButton(panel, 0f, -top + 250f, 560f, Loc.T("retry"), delegate
                 {
-                    if (!App.StartLevel(level))
+                    // Без энергии поверх итога открывается окно пополнения — остаёмся на этом экране
+                    if (!App.StartLevel(level) && !App.EnergyOfferOpen)
                     {
                         App.ShowWorldMap();
                     }

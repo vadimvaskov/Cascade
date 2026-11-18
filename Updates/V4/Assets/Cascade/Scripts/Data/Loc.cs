@@ -63,6 +63,10 @@ namespace Cascade.Data
             Add("retry", "RETRY", "ЕЩЁ РАЗ");
             Add("levels", "LEVELS", "УРОВНИ");
             Add("no_energy", "No energy. +1 every 30 minutes", "Нет энергии. +1 каждые 30 минут");
+            Add("energy_out_title", "OUT OF ENERGY", "ЭНЕРГИЯ ЗАКОНЧИЛАСЬ");
+            Add("energy_out_text", "Refills are free during testing", "Пока идёт тестирование, пополнение бесплатное");
+            Add("refill", "REFILL", "ПОПОЛНИТЬ");
+            Add("later", "LATER", "ПОЗЖЕ");
             Add("idle_warning", "Place a sphere!", "Ставь сферу!");
             Add("perfect", "PERFECT", "ИДЕАЛЬНО");
             Add("good", "GOOD", "ХОРОШО");

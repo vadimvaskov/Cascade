@@ -24,6 +24,11 @@ namespace Cascade
         public ScreenBase Current { get; private set; }
 
         private RectTransform toastRoot;
+        private RectTransform energyOffer;
+        private LevelDef energyOfferLevel;
+
+        /// <summary>Открыто окно «Энергия закончилась».</summary>
+        public bool EnergyOfferOpen { get { return energyOffer != null; } }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Boot()
@@ -156,6 +161,8 @@ namespace Cascade
             {
                 Destroy(OverlayRoot.GetChild(i).gameObject);
             }
+            energyOffer = null;
+            energyOfferLevel = null;
             Time.timeScale = 1f;
             UpdateInsets();
             RectTransform root = UiKit.Stretch(UiKit.Rect(typeof(T).Name, ScreenRoot));
@@ -182,7 +189,10 @@ namespace Cascade
             Show<SettingsScreen>();
         }
 
-        /// <summary>Запуск уровня. Без энергии уровень не начинается.</summary>
+        /// <summary>
+        /// Запуск уровня. Без энергии уровень не начинается: открывается окно с предложением пополнить её
+        /// (см. EnergyOfferOpen), и метод возвращает false.
+        /// </summary>
         public bool StartLevel(LevelDef level)
         {
             if (level == null)
@@ -196,12 +206,68 @@ namespace Cascade
             }
             if (SaveSystem.RefreshEnergy(Config) <= 0)
             {
-                Toast(Loc.T("no_energy"));
+                if (Config.freeEnergyRefill)
+                {
+                    ShowEnergyOffer(level);
+                }
+                else
+                {
+                    Toast(Loc.T("no_energy"));
+                }
                 return false;
             }
             GameScreen game = Show<GameScreen>();
             game.Begin(level, false);
             return true;
+        }
+
+        /// <summary>Окно «Энергия закончилась»: бесплатное пополнение и сразу запуск выбранного уровня.</summary>
+        private void ShowEnergyOffer(LevelDef level)
+        {
+            CloseEnergyOffer();
+            RectTransform panel;
+            energyOffer = Modal.Create(OverlayRoot, "EnergyOffer", 900f, 900f, 0.76f, out panel);
+            energyOfferLevel = level;
+            // Окно может открыться поверх итога уровня, поэтому фон непрозрачный: текст снизу не просвечивает
+            Image solid = UiKit.SlicedImg("Solid", panel, "ui/round16", 24f, new Color32(30, 22, 46, 255));
+            UiKit.Stretch(solid.rectTransform);
+            solid.transform.SetAsFirstSibling();
+            float top = panel.sizeDelta.y * 0.5f;
+            Text title = UiKit.FitLabel("Title", panel, Loc.T("energy_out_title"), 70, UiKit.Gold, TextAnchor.MiddleCenter, true);
+            UiKit.Center(title.rectTransform, 0f, top - 100f, 800f, 100f);
+            Image icon = UiKit.Img("Icon", panel, "ui/energy");
+            icon.preserveAspect = true;
+            UiKit.Center(icon.rectTransform, 0f, top - 260f, 150f, 150f);
+            Text count = UiKit.Label("Count", panel, SaveSystem.Data.energy + " / " + Config.maxEnergy, 56, UiKit.Cream, TextAnchor.MiddleCenter, true);
+            UiKit.Center(count.rectTransform, 0f, top - 372f, 500f, 64f);
+            Text note = UiKit.FitLabel("Note", panel, Loc.T("energy_out_text"), 36, UiKit.Muted, TextAnchor.MiddleCenter, false);
+            UiKit.Center(note.rectTransform, 0f, top - 446f, 800f, 50f);
+            Modal.GoldButton(panel, 0f, -top + 250f, 560f, Loc.T("refill"), AcceptEnergyOffer);
+            Modal.PlainButton(panel, 0f, -top + 90f, 620f, Loc.T("later"), CloseEnergyOffer);
+            Debug.Log("[Cascade] Out of energy, free refill offered");
+        }
+
+        /// <summary>Игрок согласился: энергия полная, выбранный уровень запускается.</summary>
+        public void AcceptEnergyOffer()
+        {
+            LevelDef level = energyOfferLevel;
+            CloseEnergyOffer();
+            SaveSystem.RefillEnergy(Config);
+            Debug.Log("[Cascade] Energy refilled for free");
+            if (level != null)
+            {
+                StartLevel(level);
+            }
+        }
+
+        public void CloseEnergyOffer()
+        {
+            if (energyOffer != null)
+            {
+                Destroy(energyOffer.gameObject);
+            }
+            energyOffer = null;
+            energyOfferLevel = null;
         }
 
         public void StartTutorial()

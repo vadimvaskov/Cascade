@@ -48,6 +48,49 @@ namespace Cascade
             }
         }
 
+        /// <summary>Energy set &lt;n&gt; | refill | later — проверка окна «Энергия закончилась».</summary>
+        public static string Energy(string[] args)
+        {
+            CascadeApp app = CascadeApp.Instance;
+            if (app == null || args.Length == 0)
+            {
+                return "no app";
+            }
+            switch (args[0])
+            {
+                case "set":
+                    SaveSystem.Data.energy = args.Length > 1 ? int.Parse(args[1]) : 0;
+                    SaveSystem.Data.energyTicks = System.DateTime.UtcNow.Ticks;
+                    SaveSystem.Save();
+                    return "energy " + SaveSystem.Data.energy;
+                case "refill":
+                    if (!app.EnergyOfferOpen)
+                    {
+                        return "offer is not open";
+                    }
+                    app.AcceptEnergyOffer();
+                    return "refilled, energy " + SaveSystem.Data.energy;
+                case "later":
+                    app.CloseEnergyOffer();
+                    return "closed";
+                default:
+                    return "energy " + SaveSystem.Data.energy + ", offer open " + app.EnergyOfferOpen;
+            }
+        }
+
+        /// <summary>ClockJump &lt;seconds&gt; — как будто аудиочасы простояли столько секунд (игра была свёрнута).</summary>
+        public static string ClockJump(string[] args)
+        {
+            CascadeApp app = CascadeApp.Instance;
+            if (app == null)
+            {
+                return "no app";
+            }
+            double seconds = args.Length > 0 ? double.Parse(args[0], System.Globalization.CultureInfo.InvariantCulture) : 120.0;
+            app.Conductor.DevShiftClock(seconds);
+            return "clock shifted by " + seconds + " s, song time " + app.Conductor.SongTime.ToString("0.00");
+        }
+
         public static string SkipTutorial(string[] args)
         {
             SaveSystem.Data.tutorialDone = true;

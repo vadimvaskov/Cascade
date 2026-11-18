@@ -57,6 +57,8 @@ namespace Cascade.Core
         // Энергия
         public int maxEnergy = 5;
         public float energyRestoreMinutes = 30f;
+        /// <summary>Пока идёт тестирование: когда энергия закончилась, игра предлагает пополнить её бесплатно.</summary>
+        public bool freeEnergyRefill = true;
 
         // Монеты за победу
         public int coinsPerStar = 20;

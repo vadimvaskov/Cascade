@@ -22,6 +22,12 @@ namespace Cascade.Audio
         private double lastRealtime;
         private double bufferLatency;
         private double userOffset;
+        private double lastSongTime;
+
+        /// <summary>На сколько плавные часы могут обгонять аудиочасы. Больше — значит, аудиочасы стояли или сбросились.</summary>
+        private double maxClockLead = 0.06;
+        /// <summary>Допустимое расхождение между расчётным местом в треке и тем, что реально играет источник.</summary>
+        private const double MaxSourceDrift = 0.2;
 
         public double Duration { get; private set; }
         public bool IsStarted { get { return started; } }
@@ -37,6 +43,43 @@ namespace Cascade.Audio
             source.loop = false;
             source.spatialBlend = 0f;
             MeasureBufferLatency();
+            AudioSettings.OnAudioConfigurationChanged += OnAudioConfigurationChanged;
+        }
+
+        private void OnDestroy()
+        {
+            AudioSettings.OnAudioConfigurationChanged -= OnAudioConfigurationChanged;
+        }
+
+        /// <summary>Сверить плавные часы с аудиочасами заново (после сворачивания игры или смены аудиоустройства).</summary>
+        public void ResyncClock()
+        {
+            clockOffset = double.MinValue;
+        }
+
+        private void OnApplicationPause(bool pausedByOs)
+        {
+            if (!pausedByOs)
+            {
+                ResyncClock();
+            }
+        }
+
+        /// <summary>
+        /// Телефон сменил аудиоустройство (наушники, Bluetooth) или звук перезапустился: Unity останавливает
+        /// все источники и обнуляет аудиочасы. Меряем задержку заново и продолжаем трек с того же места.
+        /// </summary>
+        private void OnAudioConfigurationChanged(bool deviceWasChanged)
+        {
+            ResyncClock();
+            MeasureBufferLatency();
+            Debug.Log("[Cascade] Audio configuration changed, device changed: " + deviceWasChanged);
+            if (started && !paused && source != null && source.clip != null)
+            {
+                pausedAt = lastSongTime;
+                paused = true;
+                Resume(0.1);
+            }
         }
 
         /// <summary>Задержка микшера: размер буфера × число буферов / частота.</summary>
@@ -47,6 +90,8 @@ namespace Cascade.Audio
             AudioSettings.GetDSPBufferSize(out bufferLength, out bufferCount);
             int sampleRate = AudioSettings.outputSampleRate;
             bufferLatency = sampleRate > 0 ? (double)bufferLength * bufferCount / sampleRate : 0.05;
+            // Аудиочасы идут ступеньками размером в один буфер; три ступеньки — запас на неровную работу телефона
+            maxClockLead = Math.Max(0.06, sampleRate > 0 ? 3.0 * bufferLength / sampleRate : 0.06);
             Debug.Log("[Cascade] Audio: buffer " + bufferLength + " x " + bufferCount + ", " + sampleRate + " Hz, mixer latency "
                 + (bufferLatency * 1000.0).ToString("0") + " ms");
         }
@@ -92,6 +137,12 @@ namespace Cascade.Audio
                     elapsed = 0;
                 }
                 clockOffset = Math.Max(clockOffset - elapsed * 0.002, candidate);
+                // Аудиочасы стоят, пока игра свёрнута, и обнуляются при смене аудиоустройства, а системные
+                // часы идут дальше. Без этой проверки игра считала бы, что трек давно закончился.
+                if (clockOffset - candidate > maxClockLead)
+                {
+                    clockOffset = candidate;
+                }
             }
             lastRealtime = realtime;
             return realtime + clockOffset;
@@ -99,7 +150,24 @@ namespace Cascade.Audio
 
         private void Update()
         {
-            SmoothDspTime();
+            double now = SmoothDspTime();
+            if (!started || paused)
+            {
+                return;
+            }
+            AudioClip clip = source.clip;
+            if (clip != null && source.isPlaying && source.timeSamples > 0)
+            {
+                // Источник — истина: если расчёт ушёл от того, что реально играет, привязываемся к источнику
+                double actual = (double)source.timeSamples / clip.frequency;
+                double expected = now - dspStart;
+                if (Math.Abs(expected - actual) > MaxSourceDrift)
+                {
+                    Debug.LogWarning("[Cascade] Song clock corrected by " + ((actual - expected) * 1000.0).ToString("0") + " ms");
+                    dspStart = now - actual;
+                }
+            }
+            lastSongTime = now - dspStart - OutputLatency;
         }
 
         /// <summary>Запуск с задержкой: до старта SongTime отрицательное (идёт отсчёт).</summary>
@@ -114,6 +182,7 @@ namespace Cascade.Audio
             source.PlayScheduled(dspStart);
             started = true;
             paused = false;
+            lastSongTime = -delaySeconds;
         }
 
         /// <summary>Слышимое положение в треке, секунды. Отрицательное — музыка ещё не началась.</summary>
@@ -169,6 +238,13 @@ namespace Cascade.Audio
             source.timeSamples = sample;
             dspStart = startDsp - (double)sample / clip.frequency;
             source.PlayScheduled(startDsp);
+        }
+
+        /// <summary>Только для проверки: сдвигает плавные часы вперёд, как будто аудиочасы стояли.</summary>
+        public void DevShiftClock(double seconds)
+        {
+            SmoothDspTime();
+            clockOffset += seconds;
         }
 
         public void Stop()

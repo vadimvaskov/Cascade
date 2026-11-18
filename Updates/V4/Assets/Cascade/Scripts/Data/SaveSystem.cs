@@ -130,6 +130,15 @@ namespace Cascade.Data
             return energy;
         }
 
+        /// <summary>Пополняет энергию до максимума.</summary>
+        public static void RefillEnergy(BalanceConfig config)
+        {
+            SaveData save = Data;
+            save.energy = config.maxEnergy;
+            save.energyTicks = DateTime.UtcNow.Ticks;
+            Save();
+        }
+
         public static void SpendEnergy(BalanceConfig config)
         {
             SaveData save = Data;

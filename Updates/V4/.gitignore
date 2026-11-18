@@ -1,0 +1,13 @@
+# Unity: создаётся заново на каждой машине
+/Library/
+/Temp/
+/Logs/
+/UserSettings/
+/obj/
+/Build/
+/Builds/
+*.csproj
+*.sln
+*.slnx
+# Рабочая папка моста редактора: журнал, снимки экрана, команды
+/DevBridge/

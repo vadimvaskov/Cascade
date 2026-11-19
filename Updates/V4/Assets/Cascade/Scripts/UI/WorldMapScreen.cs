@@ -67,7 +67,6 @@ namespace Cascade.UI
             UiKit.MakeButton(back, delegate { App.ShowMenu(); });
             Text title = UiKit.Label("Title", Safe, Loc.T("world_map"), 34, UiKit.Cream, TextAnchor.MiddleLeft, false);
             UiKit.Top(title.rectTransform, 140f, 46f, 300f, 50f);
-            UiKit.AddShadow(title, 2f);
             Counter(Safe, "ui/coin", 560f, 42f, 220f, UiKit.FormatNumber(SaveSystem.Data.coins));
             Counter(Safe, "ui/energy", 802f, 42f, 190f, SaveSystem.RefreshEnergy(App.Config) + " / " + App.Config.maxEnergy);
         }

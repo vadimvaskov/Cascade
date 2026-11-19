@@ -40,9 +40,8 @@ namespace Cascade
         private void Awake()
         {
             Instance = this;
-            Application.targetFrameRate = 60;
-            // Игра не замирает, когда окно редактора теряет фокус (на телефоне настройка ни на что не влияет)
-            Application.runInBackground = true;
+            Application.runInBackground = false;
+            UseIdlePower();
             Config = new BalanceConfig();
             SaveSystem.Load();
             Loc.SetLanguage(SaveSystem.Data.language);
@@ -144,6 +143,22 @@ namespace Cascade
             BottomInset = Mathf.Max(0f, safe.yMin / scale);
         }
 
+        /// <summary>Меню, карта и пауза: 30 кадров, экран может погаснуть, аудиоспикер молчит.</summary>
+        public void UseIdlePower()
+        {
+            Application.targetFrameRate = 30;
+            Screen.sleepTimeout = SleepTimeout.SystemSetting;
+            AudioListener.pause = true;
+        }
+
+        /// <summary>Уровень: 60 кадров для ритма, экран не гаснет, звук включён.</summary>
+        public void UsePlayPower()
+        {
+            Application.targetFrameRate = 60;
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
+            AudioListener.pause = false;
+        }
+
         private T Show<T>() where T : ScreenBase
         {
             if (Current != null)
@@ -157,6 +172,7 @@ namespace Cascade
                 Destroy(OverlayRoot.GetChild(i).gameObject);
             }
             Time.timeScale = 1f;
+            UseIdlePower();
             UpdateInsets();
             RectTransform root = UiKit.Stretch(UiKit.Rect(typeof(T).Name, ScreenRoot));
             T screen = root.gameObject.AddComponent<T>();
@@ -246,6 +262,7 @@ namespace Cascade
                 {
                     Current.OnAppPaused();
                 }
+                UseIdlePower();
                 SaveSystem.Save();
             }
             else

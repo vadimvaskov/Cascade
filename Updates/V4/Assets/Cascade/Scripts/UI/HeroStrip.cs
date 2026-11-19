@@ -10,7 +10,7 @@ namespace Cascade.UI
     /// </summary>
     public sealed class HeroStrip : MonoBehaviour
     {
-        private const int StreakCount = 7;
+        private const int StreakCount = 4;
 
         private RectTransform hero;
         private RectTransform orbRoot;
@@ -29,6 +29,10 @@ namespace Cascade.UI
         private float stripTop;
         private float stripHeight;
         private double bpm = 120;
+        private Vector2 lastHero;
+        private Vector2 lastOrb;
+        private float lastFade = -1f;
+        private float lastPulse = -1f;
 
         public void Build(RectTransform parent, float feetY, double trackBpm)
         {
@@ -115,14 +119,23 @@ namespace Cascade.UI
         {
             float beat = (float)(songTime * bpm / 60.0);
             float bob = Mathf.Sin(beat * Mathf.PI * 2f);
-            hero.anchoredPosition = heroHome + new Vector2(0f, Mathf.Abs(bob) * 7f);
+            Vector2 heroPos = heroHome + new Vector2(0f, Mathf.Abs(bob) * 7f);
+            if (heroPos != lastHero)
+            {
+                hero.anchoredPosition = heroPos;
+                lastHero = heroPos;
+            }
 
             if (fade < 1f)
             {
                 fade = Mathf.Min(1f, fade + deltaTime * 9f);
             }
-            orbFront.color = new Color(1f, 1f, 1f, fade);
-            orbBack.color = new Color(1f, 1f, 1f, 1f - fade);
+            if (fade != lastFade)
+            {
+                orbFront.color = new Color(1f, 1f, 1f, fade);
+                orbBack.color = new Color(1f, 1f, 1f, 1f - fade);
+                lastFade = fade;
+            }
 
             kick = Mathf.MoveTowards(kick, 0f, deltaTime * 3.5f);
             float phase = beat - Mathf.Floor(beat);
@@ -133,9 +146,17 @@ namespace Cascade.UI
                 flyAway += deltaTime;
                 orbPosition.x += flyAway * flyAway * 2600f;
             }
-            orbRoot.anchoredPosition = orbPosition;
-            orbRoot.localScale = new Vector3(pulse, pulse, 1f);
-            swirl.rectTransform.anchoredPosition = new Vector2(orbPosition.x - 205f, orbPosition.y - 6f);
+            if (orbPosition != lastOrb)
+            {
+                orbRoot.anchoredPosition = orbPosition;
+                swirl.rectTransform.anchoredPosition = new Vector2(orbPosition.x - 205f, orbPosition.y - 6f);
+                lastOrb = orbPosition;
+            }
+            if (pulse != lastPulse)
+            {
+                orbRoot.localScale = new Vector3(pulse, pulse, 1f);
+                lastPulse = pulse;
+            }
 
             float speedScale = 0.75f + multiplier * 0.09f;
             for (int i = 0; i < streaks.Length; i++)

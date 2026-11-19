@@ -72,6 +72,9 @@ namespace Cascade.Core
         public double Duration { get { return rules.Duration; } }
         public int Seed { get { return rules.Seed; } }
 
+        /// <summary>Очки, множитель, поле или исход попытки изменились.</summary>
+        public event Action Changed;
+
         public bool IdleWarning
         {
             get { return State == SessionState.Playing && !rules.NoDefeat && IdleSeconds >= config.idleWarningSeconds; }
@@ -125,6 +128,7 @@ namespace Cascade.Core
             CurrentSphere = currentSphere;
             IdleSeconds = 0;
             State = SessionState.Playing;
+            Notify();
         }
 
         public int Star2Score
@@ -244,6 +248,7 @@ namespace Cascade.Core
             }
             CurrentSphere = generator.Next(multiplier.Multiplier);
             result.NextSphere = CurrentSphere;
+            Notify();
             return result;
         }
 
@@ -254,11 +259,18 @@ namespace Cascade.Core
             {
                 return;
             }
+            bool wasWarning = IdleWarning;
             IdleSeconds += deltaSeconds;
+            bool lost = false;
             if (IdleSeconds >= config.idleDefeatSeconds)
             {
                 State = SessionState.Lost;
                 Defeat = DefeatReason.Idle;
+                lost = true;
+            }
+            if (lost || wasWarning != IdleWarning)
+            {
+                Notify();
             }
         }
 
@@ -277,6 +289,16 @@ namespace Cascade.Core
             {
                 State = SessionState.Lost;
                 Defeat = DefeatReason.NotEnoughScore;
+            }
+            Notify();
+        }
+
+        private void Notify()
+        {
+            Action handler = Changed;
+            if (handler != null)
+            {
+                handler();
             }
         }
 

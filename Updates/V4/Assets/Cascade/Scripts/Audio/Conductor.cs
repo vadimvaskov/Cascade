@@ -27,6 +27,9 @@ namespace Cascade.Audio
         public bool IsStarted { get { return started; } }
         public bool IsPaused { get { return paused; } }
 
+        /// <summary>Старт, пауза, продолжение или стоп. Время трека само по себе каждый кадр не тикает.</summary>
+        public event Action PlaybackChanged;
+
         /// <summary>Полная учитываемая задержка звука, секунды.</summary>
         public double OutputLatency { get { return bufferLatency + DeviceLatency + userOffset; } }
 
@@ -97,11 +100,6 @@ namespace Cascade.Audio
             return realtime + clockOffset;
         }
 
-        private void Update()
-        {
-            SmoothDspTime();
-        }
-
         /// <summary>Запуск с задержкой: до старта SongTime отрицательное (идёт отсчёт).</summary>
         public void Play(double delaySeconds)
         {
@@ -114,6 +112,7 @@ namespace Cascade.Audio
             source.PlayScheduled(dspStart);
             started = true;
             paused = false;
+            RaisePlayback();
         }
 
         /// <summary>Слышимое положение в треке, секунды. Отрицательное — музыка ещё не началась.</summary>
@@ -142,6 +141,7 @@ namespace Cascade.Audio
             pausedAt = SongTime;
             paused = true;
             source.Stop();
+            RaisePlayback();
         }
 
         /// <summary>Продолжение с того же слышимого места через короткую задержку.</summary>
@@ -158,6 +158,7 @@ namespace Cascade.Audio
                 source.timeSamples = 0;
                 dspStart = startDsp - pausedAt;
                 source.PlayScheduled(dspStart);
+                RaisePlayback();
                 return;
             }
             AudioClip clip = source.clip;
@@ -169,6 +170,7 @@ namespace Cascade.Audio
             source.timeSamples = sample;
             dspStart = startDsp - (double)sample / clip.frequency;
             source.PlayScheduled(startDsp);
+            RaisePlayback();
         }
 
         public void Stop()
@@ -176,6 +178,16 @@ namespace Cascade.Audio
             source.Stop();
             started = false;
             paused = false;
+            RaisePlayback();
+        }
+
+        private void RaisePlayback()
+        {
+            Action handler = PlaybackChanged;
+            if (handler != null)
+            {
+                handler();
+            }
         }
     }
 }

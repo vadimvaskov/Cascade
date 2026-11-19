@@ -67,7 +67,7 @@ namespace Cascade.Prototype
             balance = JsonUtility.FromJson<Balance>(Resources.Load<TextAsset>("Data/balance").text);
             volume = PlayerPrefs.GetFloat("cascade.volume", .7f); reduced = PlayerPrefs.GetInt("cascade.reduced", 0) != 0;
             offsetMs = PlayerPrefs.GetInt("cascade.offset", 0);
-            BindUI(); SetupCalibration(); ConfigureRasterFeedback(); music.volume = volume; Application.targetFrameRate = 60;
+            BindUI(); SetupCalibration(); ConfigureRasterFeedback(); music.volume = volume; CascadeFramePacing.Apply();
             Screen.orientation = ScreenOrientation.Portrait;
             AudioSettings.OnAudioConfigurationChanged += AudioChanged;
             InputSystem.onEvent += InputEvent;
@@ -147,6 +147,7 @@ namespace Cascade.Prototype
                     statusText.text = "";
                 }
             }
+            bool calmVisuals = reduced || !CascadeThermalController.ComplexAnimationsEnabled;
             if ((State == Phase.Playing || State == Phase.Reaction) && AudioSettings.dspTime >= scheduledDsp)
             {
                 lastKnownPosition = Math.Min(Position, music.clip.length);
@@ -158,7 +159,7 @@ namespace Cascade.Prototype
                     int stages = pending.waves.Count + 2;
                     int stage = Mathf.Min(stages - 1, Mathf.FloorToInt(reactionAge / duration * stages));
                     for(int k=lastStage+1;k<=stage;k++) {
-                        if(k>0&&k<=pending.waves.Count) { foreach(int cell in pending.waves[k-1])views[cell].Explode(effectClock,reduced);Render(pending.afterWaves[k-1]); }
+                        if(k>0&&k<=pending.waves.Count) { foreach(int cell in pending.waves[k-1])views[cell].Explode(effectClock,calmVisuals);Render(pending.afterWaves[k-1]); }
                         else if(k==stages-1)Render(pending.final);
                     }
                     lastStage=stage;
@@ -178,10 +179,10 @@ namespace Cascade.Prototype
             float pulse=active&&!excluded?BeatPulse(rhythmPosition):frozenVisuals&&Position>0&&!excluded?BeatPulse(rhythmPosition):0;
             float target=active&&!excluded&&Streak>0?.2f+.8f*Mathf.Clamp01((Multiplier-1)/9f):0;
             if(!frozenVisuals)lightStrength=Mathf.MoveTowards(lightStrength,target,Time.unscaledDeltaTime*10);
-            Shader.SetGlobalFloat("_CascadeSongTime",(float)Math.Max(0,rhythmPosition));Shader.SetGlobalFloat("_CascadeLight",reduced?pulse*.06f:pulse*(.12f+.6f*lightStrength));
-            UpdateRasterPulse(pulse,lightStrength,reduced);
-            foreach(var view in views)view.Animate(effectClock,pulse,lightStrength,reduced,frozenVisuals);
-            preview.Animate(effectClock,pulse,lightStrength,reduced,frozenVisuals);
+            Shader.SetGlobalFloat("_CascadeSongTime",(float)Math.Max(0,rhythmPosition));Shader.SetGlobalFloat("_CascadeLight",calmVisuals?pulse*.06f:pulse*(.12f+.6f*lightStrength));
+            UpdateRasterPulse(pulse,lightStrength,calmVisuals);
+            foreach(var view in views)view.Animate(effectClock,pulse,lightStrength,calmVisuals,frozenVisuals);
+            preview.Animate(effectClock,pulse,lightStrength,calmVisuals,frozenVisuals);
             if(active&&effectClock>feedbackUntil)statusText.text=excluded?"СВОБОДНЫЙ РИТМ":"";
         }
         void LateUpdate(){if(State==Phase.Playing&&AudioSettings.dspTime>=scheduledDsp&&Position>=music.clip.length)Finish(true);}

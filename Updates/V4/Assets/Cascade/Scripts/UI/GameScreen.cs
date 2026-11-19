@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Cascade.Audio;
 using Cascade.Core;
 using Cascade.Data;
@@ -55,6 +56,7 @@ namespace Cascade.UI
         private float gradeTimer;
         private double finishedClock;
         private bool warningShown;
+        private Coroutine clock;
 
         // Обучение
         private int tutorialStep;
@@ -79,6 +81,8 @@ namespace Cascade.UI
 
         public void Begin(LevelDef def, bool tutorial)
         {
+            StopClock();
+            UnbindSession();
             level = def;
             tutorialMode = tutorial;
             config = App.Config;
@@ -120,6 +124,9 @@ namespace Cascade.UI
                 phase = Phase.Countdown;
                 conductor.Play(LeadIn);
             }
+            session.Changed += OnSessionChanged;
+            App.UsePlayPower();
+            StartClock();
             Debug.Log("[Cascade] Level " + def.Id + " started, duration " + duration.ToString("0.0") + " s, goal " + def.MinScore
                 + ", seed " + rules.Seed + (tutorial ? " (tutorial)" : ""));
         }
@@ -166,10 +173,8 @@ namespace Cascade.UI
             UiKit.Top(avatarRing.rectTransform, 26f, 14f, 116f, 116f);
             Text name = UiKit.Label("Name", Safe, SaveSystem.Data.playerName, 40, UiKit.Cream, TextAnchor.MiddleLeft, false);
             UiKit.Top(name.rectTransform, 152f, 28f, 260f, 48f);
-            UiKit.AddShadow(name, 2f);
             Text title = UiKit.Label("Track", Safe, level.Title, 28, UiKit.Gold, TextAnchor.MiddleLeft, false);
             UiKit.Top(title.rectTransform, 152f, 76f, 300f, 36f);
-            UiKit.AddShadow(title, 2f);
 
             Image logo = UiKit.Img("Logo", Safe, "menu/logo");
             logo.preserveAspect = true;
@@ -205,7 +210,6 @@ namespace Cascade.UI
             multiplierPlate = multPlate.rectTransform;
             multiplierText = UiKit.Label("Multiplier", multPlate.transform, "x1", 76, UiKit.Gold, TextAnchor.MiddleCenter, true);
             UiKit.Stretch(multiplierText.rectTransform);
-            UiKit.AddShadow(multiplierText, 3f);
 
             // Шкала звёзд: заполняется по мере набора очков до порога трёх звёзд
             Image starBack = UiKit.SlicedImg("StarBar", Safe, "ui/pill", 30f, new Color(1f, 1f, 1f, 0.16f));
@@ -233,7 +237,6 @@ namespace Cascade.UI
             }
             goalText = UiKit.Label("Goal", Safe, Loc.T("goal") + " " + UiKit.FormatNumber(session.MinScore), 27, UiKit.Cream, TextAnchor.MiddleCenter, false);
             UiKit.Top(goalText.rectTransform, 352f, 654f, 416f, 36f);
-            UiKit.AddShadow(goalText, 2f);
         }
 
         private void BuildBoard()
@@ -252,22 +255,49 @@ namespace Cascade.UI
 
             gradeText = UiKit.Label("Grade", Safe, "", 60, UiKit.Gold, TextAnchor.MiddleCenter, true);
             UiKit.Top(gradeText.rectTransform, 240f, 690f, 600f, 76f);
-            UiKit.AddShadow(gradeText, 4f);
             gradeText.enabled = false;
             timingText = UiKit.Label("Timing", Safe, "", 30, UiKit.Cream, TextAnchor.MiddleCenter, false);
             UiKit.Top(timingText.rectTransform, 240f, 752f, 600f, 36f);
-            UiKit.AddShadow(timingText, 2f);
             timingText.enabled = false;
 
             countdownText = UiKit.Label("Countdown", Safe, "", 300, UiKit.Cream, TextAnchor.MiddleCenter, true);
             UiKit.Top(countdownText.rectTransform, 240f, 716f + board.Rect.sizeDelta.y * 0.5f - 180f, 600f, 360f);
-            UiKit.AddShadow(countdownText, 8f);
             countdownText.enabled = false;
         }
 
         // ---------- Игровой цикл ----------
 
-        private void Update()
+        private void StartClock()
+        {
+            StopClock();
+            clock = StartCoroutine(RunClock());
+        }
+
+        private void StopClock()
+        {
+            if (clock != null)
+            {
+                StopCoroutine(clock);
+                clock = null;
+            }
+        }
+
+        /// <summary>Тикает, только пока уровень не на паузе. На паузе корутина остановлена.</summary>
+        private IEnumerator RunClock()
+        {
+            while (phase != Phase.Idle && phase != Phase.Paused)
+            {
+                Advance();
+                if (phase == Phase.Paused || phase == Phase.Idle)
+                {
+                    break;
+                }
+                yield return null;
+            }
+            clock = null;
+        }
+
+        private void Advance()
         {
             if (phase == Phase.Idle || session == null)
             {
@@ -300,7 +330,7 @@ namespace Cascade.UI
             if (phase == Phase.Countdown)
             {
                 strip.Render(t, 1, dt);
-                rhythm.Render(t);
+                RenderRhythm(t);
                 if (t >= 0)
                 {
                     phase = Phase.Playing;
@@ -332,7 +362,7 @@ namespace Cascade.UI
             // Phase.Playing
             session.Tick(dt);
             strip.Render(t, session.Multiplier, dt);
-            rhythm.Render(t);
+            RenderRhythm(t);
             PulseOnBeats(t);
             SetFill(trackFill, duration > 0 ? (float)(t / duration) : 0f);
             UpdateGrade(dt);
@@ -363,6 +393,14 @@ namespace Cascade.UI
                     board.Pulse(beatLevel == 0 ? 1f : 0.55f);
                 }
                 pulseIndex++;
+            }
+        }
+
+        private void RenderRhythm(double songTime)
+        {
+            if (rhythm != null && rhythm.gameObject.activeSelf)
+            {
+                rhythm.Render(songTime);
             }
         }
 
@@ -419,7 +457,6 @@ namespace Cascade.UI
                 rhythm.Flash(result.Grade);
                 strip.Kick(result.Grade == HitGrade.Miss ? -1f : 1f);
             }
-            UpdateHud(false);
             if (phase == Phase.Tutorial)
             {
                 OnTutorialMove();
@@ -524,6 +561,23 @@ namespace Cascade.UI
             }
         }
 
+        private void OnSessionChanged()
+        {
+            if (scoreText == null || session == null)
+            {
+                return;
+            }
+            UpdateHud(false);
+        }
+
+        private void UnbindSession()
+        {
+            if (session != null)
+            {
+                session.Changed -= OnSessionChanged;
+            }
+        }
+
         private void UpdateHud(bool instant)
         {
             scoreText.text = UiKit.FormatNumber(session.Score);
@@ -558,7 +612,9 @@ namespace Cascade.UI
                 return;
             }
             phase = Phase.Paused;
+            StopClock();
             conductor.Pause();
+            App.UseIdlePower();
             Time.timeScale = 0f;
             countdownText.enabled = false;
             RectTransform panel;
@@ -585,6 +641,8 @@ namespace Cascade.UI
             countdownText.fontSize = 300;
             resumeTimer = ResumeStep * 3f;
             phase = Phase.Resuming;
+            App.UsePlayPower();
+            StartClock();
         }
 
         public override void OnAppPaused()
@@ -594,6 +652,8 @@ namespace Cascade.UI
 
         public override void OnClose()
         {
+            StopClock();
+            UnbindSession();
             Time.timeScale = 1f;
         }
 
@@ -852,7 +912,7 @@ namespace Cascade.UI
             {
                 return;
             }
-            rhythm.Render(t);
+            RenderRhythm(t);
             PulseOnBeats(t);
             UpdateGrade(dt);
             if (t >= duration - 0.5)

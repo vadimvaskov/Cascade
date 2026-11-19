@@ -1,0 +1,176 @@
+Отчёт: что изменено в билде V4 для энергии
+
+Дата: 19 ноября 2026
+Проект: Updates/V4
+Последний экспорт Unity: Release (не Development)
+Куда: Updates/V4/Builds/iOS/Xcode/Unity-iPhone.xcodeproj
+Bundle id: evgeniy.vvv.cascade.local
+Команда: 7P27V7D963
+Версия / номер: 1.0 / 4
+
+В этот отчёт входят только правки энергии и экспорта.
+Спрайты .meta, URP, QualitySettings, GameSession, Conductor, Anim, BoardView здесь не перечислены — их в этом проходе не меняли.
+
+
+1. Экспорт Unity
+
+Файл: Assets/Cascade/Editor/CascadeV4Build.cs
+
+Раньше всегда шла Development-сборка (профайлер, отладчик, радио Unity).
+Теперь по умолчанию Release: development = false, BuildOptions.None.
+
+Development включается только флагом командной строки:
+  -cascadeDevelopment
+
+Зачем: Energy Log показывал Overhead, сеть и фон из-за Player Connection, а не из-за игры.
+
+
+2. Питание и кадры
+
+Файл: Assets/Cascade/Scripts/App/CascadeApp.cs
+
+- Application.runInBackground = false (раньше true)
+- UseIdlePower(): 30 FPS, Screen.sleepTimeout = SystemSetting, AudioListener.pause = true
+- UsePlayPower(): 60 FPS, NeverSleep, AudioListener.pause = false
+
+Когда что:
+- старт приложения, меню, карта, настройки — idle
+- старт уровня и продолжение с паузы — play
+- пауза уровня и сворачивание приложения — idle
+
+DSP-буфер 256 не трогали: это задержка звука для ритма.
+
+
+3. Игровой экран
+
+Файл: Assets/Cascade/Scripts/UI/GameScreen.cs
+
+- Begin / Resume вызывают UsePlayPower
+- Pause вызывает UseIdlePower
+- RhythmBar.Render вызывается, только если диаграмма включена
+- убраны тени текста HUD (имя, трек, множитель, цель, оценка, тайминг, отсчёт)
+
+
+4. Сцена героя
+
+Файл: Assets/Cascade/Scripts/UI/HeroStrip.cs
+
+- полос света 4 вместо 7
+- позиция героя, сферы, swirl, цвет и масштаб пишутся, только если значение изменилось
+
+
+5. Меню и карта
+
+- MainMenuScreen: убраны тени имени игрока и названия главы
+- WorldMapScreen: убрана тень заголовка карты
+
+У Image raycast и так был выключен в UiKit.Img, это не меняли.
+
+
+6. Телеметрия
+
+- ProjectSettings/ProjectSettings.asset: submitAnalytics 1 → 0
+- ProjectSettings/UnityConnectSettings.asset: Insights m_EngineDiagnosticsEnabled 1 → 0
+
+В CascadeV4Build нельзя выставить PlayerSettings.submitAnalytics: в Unity 6000.6 этого свойства нет, сборка из-за этого один раз упала. Флаг оставлен только в ассете.
+
+
+7. Что не делали
+
+- геолокацию и сеть в игровом коде не добавляли и не искали: запросов нет
+- FPS уровня не снижали ниже 60
+- DSP-буфер не увеличивали
+- пакеты physics/XR/webrequest не вырезали (отложено)
+- Bloom не включали
+
+
+8. Как снять Energy Log после этих правок
+
+Экспорт без -cascadeDevelopment, в Xcode схема Unity-iPhone, конфигурация Release, без подключённого Unity Profiler.
+
+
+------------------------------------------------------------------------------
+Дополнение: пайплайн, кадры, Adaptive Performance, разгрузка CPU
+Дата: 19 ноября 2026 (тот же день, отдельный проход)
+V3 не трогали.
+
+
+9. Этап 1. Графика URP (V4)
+
+Файлы:
+- Assets/Settings/UniversalRP.asset
+- Assets/Scenes/SampleScene.unity
+- ProjectSettings/QualitySettings.asset (профиль Medium)
+- Assets/Settings/DefaultVolumeProfile.asset
+
+Что сделано:
+- HDR в пайплайне и на камере SampleScene уже был Off — не меняли.
+- Тени URP: UI использует UnityEngine.UI.Shadow, не shadow map. Дополнительная карта теней 2048 → 512, камера m_RenderShadows = 0, Medium shadows = 0. Основная поддержка теней в URP уже была выключена.
+- Bloom удалён из DefaultVolumeProfile целиком (не только intensity 0).
+
+Шаблон URP2DSceneTemplate.unity не трогали.
+
+
+10. Этап 1 в текущем билде (корень репозитория, не V4)
+
+Сцена сборки: Assets/Scenes/CascadePrototype.unity, пайплайн iPhone: Assets/Settings/Mobile_RPAsset.asset
+
+- HDR Off в Mobile_RPAsset и на Game Camera (m_HDR, AllowHDROutput)
+- тени URP Off, карты 512, Quality Mobile shadows = 0
+- Bloom выключен в CascadeVolume.asset и SampleSceneProfile.asset
+- CascadeGame.Visuals.cs: allowHDR = false, renderShadows = false, bloom.active = false, чтобы следующий BuildVisuals не вернул нагрузку
+
+
+11. Этап 2. Render scale и VSync (текущий билд)
+
+Файлы:
+- Assets/Cascade/Scripts/CascadeFramePacing.cs (новый)
+- Assets/Cascade/Scripts/CascadeGame.cs
+- Assets/Settings/Mobile_RPAsset.asset
+
+- iOS: render scale 0.9 (в ассете было 0.8, подняли до ТЗ)
+- QualitySettings.vSyncCount = 0, затем Application.targetFrameRate = 60
+- в редакторе на Mac масштаб не меняется (PC_RPAsset = 1)
+
+
+12. Этап 3. Adaptive Performance (текущий билд)
+
+Файлы:
+- Assets/Cascade/Scripts/CascadeThermalController.cs (новый)
+- Assets/Cascade/Editor/CascadeAdaptivePerformanceSetup.cs (новый)
+- Assets/Cascade/Editor/CascadeIOSBuild.cs
+- Packages/manifest.json: com.unity.adaptiveperformance.apple 6.0.0
+
+Термальные уровни Apple:
+- Nominal / NoWarning → 60 FPS, render scale 0.9, сложные анимации включены
+- Serious / ThrottlingImminent (Fair и Serious приходят одним сигналом) → 30 FPS, render scale 0.75
+- Critical / Throttling → 15 FPS, render scale 0.75, искры и подскок сфер гаснут (флаг игрока «уменьшенные эффекты» не переписывается)
+
+В редакторе на Mac провайдера нет, остаётся 60 FPS.
+
+
+13. Этап 4. Разгрузка CPU (V4)
+
+Файлы:
+- Assets/Cascade/Scripts/UI/Anim.cs
+- Assets/Cascade/Scripts/Audio/Conductor.cs
+- Assets/Cascade/Scripts/UI/BoardView.cs
+- Assets/Cascade/Scripts/UI/GameScreen.cs
+- Assets/Cascade/Core/GameSession.cs
+
+Anim: Update убран. Корутина идёт, только пока есть твины, и останавливается, когда список пуст.
+
+Conductor: Update убран. SongTime считается при чтении. Событие PlaybackChanged на Play / Pause / Resume / Stop.
+
+BoardView: Update убран. Клетки рисуются в Play / SyncAll. Пульс рамки — корутина FadePulse, пока alpha > 0.
+
+GameScreen: Update заменён на корутину часов уровня; на паузе она останавливается. HUD (очки, множитель, звёзды) обновляется по GameSession.Changed, не каждый кадр.
+
+HeroStrip и RhythmBar по-прежнему двигаются по времени трека, пока уровень идёт: это не очки, а движение по dspTime.
+
+
+14. Что этот проход не закрывал
+
+- LOD и half-rate
+- вырезание physics / XR / webrequest
+- повторный iOS-экспорт после этих правок (нужен отдельный Unity export)

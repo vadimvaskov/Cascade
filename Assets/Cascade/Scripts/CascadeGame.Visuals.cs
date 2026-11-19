@@ -93,8 +93,8 @@ namespace Cascade.Prototype
             var lowerMesh=ArtAsset("Board underside.asset",CascadeMeshFactory.RoundedBox(6.5f,6.5f,.23f,.34f,.05f,12));
             var recessMesh=ArtAsset("Cell recess.asset",CascadeMeshFactory.Recess(.98f,.98f,.18f,.12f,.055f,10));
 
-            var camObj=new GameObject("Game Camera",typeof(Camera),typeof(AudioListener));camObj.transform.SetParent(transform,false);camObj.tag="MainCamera";gameCamera=camObj.GetComponent<Camera>();gameCamera.orthographic=true;gameCamera.orthographicSize=6.75f;gameCamera.transform.position=new Vector3(0,-3,-18);gameCamera.transform.LookAt(Vector3.zero);gameCamera.clearFlags=CameraClearFlags.SolidColor;gameCamera.backgroundColor=new Color(.012f,.001f,.029f);gameCamera.allowHDR=true;gameCamera.nearClipPlane=.1f;gameCamera.farClipPlane=50;
-            var cameraData=camObj.AddComponent<UniversalAdditionalCameraData>();cameraData.renderPostProcessing=true;cameraData.volumeLayerMask=1<<8;cameraData.antialiasing=AntialiasingMode.SubpixelMorphologicalAntiAliasing;cameraData.antialiasingQuality=AntialiasingQuality.High;
+            var camObj=new GameObject("Game Camera",typeof(Camera),typeof(AudioListener));camObj.transform.SetParent(transform,false);camObj.tag="MainCamera";gameCamera=camObj.GetComponent<Camera>();gameCamera.orthographic=true;gameCamera.orthographicSize=6.75f;gameCamera.transform.position=new Vector3(0,-3,-18);gameCamera.transform.LookAt(Vector3.zero);gameCamera.clearFlags=CameraClearFlags.SolidColor;gameCamera.backgroundColor=new Color(.012f,.001f,.029f);gameCamera.allowHDR=false;gameCamera.nearClipPlane=.1f;gameCamera.farClipPlane=50;
+            var cameraData=camObj.AddComponent<UniversalAdditionalCameraData>();cameraData.renderShadows=false;cameraData.renderPostProcessing=true;cameraData.volumeLayerMask=1<<8;cameraData.antialiasing=AntialiasingMode.SubpixelMorphologicalAntiAliasing;cameraData.antialiasingQuality=AntialiasingQuality.High;
             music=gameObject.AddComponent<AudioSource>();music.playOnAwake=false;music.spatialBlend=0;
             Quad("Atmospheric violet background",transform,new Vector3(0,0,4),new Vector2(24,28),backdrop);
             Quad("Soft glow around the board",transform,new Vector3(0,-1,1.5f),new Vector2(10,11),auraMat);
@@ -105,7 +105,7 @@ namespace Cascade.Prototype
             var profile=AssetDatabase.LoadAssetAtPath<VolumeProfile>(ArtFolder+"CascadeVolume.asset");
             if(profile==null){profile=ScriptableObject.CreateInstance<VolumeProfile>();AssetDatabase.CreateAsset(profile,ArtFolder+"CascadeVolume.asset");}
             if(!profile.TryGet<Bloom>(out var bloom)){bloom=profile.Add<Bloom>();AssetDatabase.AddObjectToAsset(bloom,profile);}
-            bloom.intensity.Override(.65f);bloom.threshold.Override(.8f);bloom.scatter.Override(.6f);bloom.clamp.Override(8);EditorUtility.SetDirty(profile);EditorUtility.SetDirty(bloom);volumeComponent.sharedProfile=profile;
+            bloom.active=false;bloom.intensity.Override(0f);bloom.threshold.Override(.8f);bloom.scatter.Override(.6f);bloom.clamp.Override(8);EditorUtility.SetDirty(profile);EditorUtility.SetDirty(bloom);volumeComponent.sharedProfile=profile;
 
             boardRoot=new GameObject("Board · 6 by 6").transform;boardRoot.SetParent(transform,false);boardRoot.localPosition=new Vector3(0,-.92f,0);
             MeshObject("Plum underside",boardRoot,lowerMesh,lowerMat,new Vector3(0,-.07f,.43f),Vector3.one);

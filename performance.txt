@@ -1,0 +1,14 @@
+Этап 1 для V4 сделан. V3 не трогал.
+
+HDR уже был выключен. В UniversalRP.asset стоит m_SupportsHDR: 0, на камере SampleScene — m_HDR: 0. Менять было нечего.
+
+Тени URP выключены. Подписи в UI идут через UnityEngine.UI.Shadow в UiKit, это не shadow map пайплайна. Поддержка теней в URP уже была 0, единственная 2D-лампа сцены тоже не отбрасывает тень. Добил остаток:
+
+m_AdditionalLightsShadowmapResolution и верхние tier-ы: 2048/1024 → 512. Основная карта уже была 512.
+Камера SampleScene: m_RenderShadows: 0.
+Профиль Medium (iPhone и Android): shadows: 0. High и Ultra не менял.
+Bloom удалён из DefaultVolumeProfile.asset целиком, не только выключен. Пост-процессинг на камере и раньше был выключен.
+
+Шаблон URP2DSceneTemplate.unity не трогал: это не игровая сцена, там HDR и render shadows ещё включены.
+
+

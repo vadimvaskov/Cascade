@@ -21,7 +21,6 @@ namespace Cascade.UI
             UiKit.Top(avatarRing.rectTransform, 26f, 14f, 116f, 116f);
             Text name = UiKit.Label("Name", Safe, save.playerName, 40, UiKit.Cream, TextAnchor.MiddleLeft, false);
             UiKit.Top(name.rectTransform, 152f, 46f, 300f, 50f);
-            UiKit.AddShadow(name, 2f);
             Counter(Safe, "ui/coin", 480f, 42f, 220f, UiKit.FormatNumber(save.coins));
             Counter(Safe, "ui/energy", 722f, 42f, 190f, energy + " / " + App.Config.maxEnergy);
             Image gearBack = UiKit.Img("Settings", Safe, "ui/btn_octagon");
@@ -59,7 +58,6 @@ namespace Cascade.UI
             UiKit.Center(chapterLabel.rectTransform, -217f, 62f, 400f, 40f);
             Text chapterName = UiKit.FitLabel("ChapterName", chapter.transform, world.Name.ToUpperInvariant(), 54, Color.white, TextAnchor.MiddleLeft, true);
             UiKit.Center(chapterName.rectTransform, -237f, 12f, 360f, 64f);
-            UiKit.AddShadow(chapterName, 3f);
             Text chapterStars = UiKit.Label("ChapterStars", chapter.transform,
                 LevelCatalog.StarsInWorld(world) + " / " + (world.Levels.Length * 3), 36, UiKit.Cream, TextAnchor.MiddleLeft, true);
             UiKit.Center(chapterStars.rectTransform, -207f, -47f, 300f, 44f);

@@ -82,6 +82,7 @@ public static class CascadeIOSBuild
             PlayerSettings.SetPlatformIcons(target, kind, icons);
         }
         EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(ScenePath, true) };
+        CascadeAdaptivePerformanceSetup.Ensure();
         AssetDatabase.SaveAssets();
         string result = "Configured Cascade " + PlayerSettings.bundleVersion + " (" + PlayerSettings.iOS.buildNumber + ") for iOS: " +
                         BundleIdentifier + ", IL2CPP Release, " + slots + " icon slots, " + ScenePath;
@@ -107,6 +108,7 @@ public static class CascadeIOSBuild
                 throw new InvalidOperationException("Wait for Edit Mode and all script compilation/imports before building.");
             if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.iOS)
                 throw new InvalidOperationException("Switch the active build target to iOS and wait for its reload before building.");
+            CascadeAdaptivePerformanceSetup.Ensure();
             if (!File.Exists(ScenePath)) throw new FileNotFoundException("Cascade release scene is missing.", ScenePath);
 
             var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions

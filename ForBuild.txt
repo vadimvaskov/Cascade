@@ -1,0 +1,87 @@
+Как устроены сборки и куда они кладутся
+
+Редактор везде один: Unity 6000.6.8f1, путь
+/Applications/Unity/Hub/Editor/6000.6.8f1/Unity.app
+Модуль iOS Build Support установлен. Xcode на этой машине: 26.2 (17C52).
+
+В репозитории три отдельных Unity-проекта. Сборка одного не трогает остальные.
+Папки Builds в git не входят: у V4 это /Builds/ в Updates/V4/.gitignore.
+Сейчас на диске есть только экспорт V4. У корня и у V3 папки Builds нет.
+
+
+V4 — текущая игра
+
+Проект: Updates/V4
+Сцена: Assets/Scenes/SampleScene.unity
+Вход: CascadeV4Build.Run в Assets/Cascade/Editor/CascadeV4Build.cs
+Пункта меню нет. Сборку запускает только batchmode, флаг -quit не ставят:
+метод сам ждёт компиляцию и выходит с кодом 0 или 1.
+
+Команда:
+
+"/Applications/Unity/Hub/Editor/6000.6.8f1/Unity.app/Contents/MacOS/Unity" \
+  -batchmode -buildTarget iOS \
+  -projectPath "/Users/evgenij/Projects/Cascade/Updates/V4" \
+  -executeMethod CascadeV4Build.Run \
+  -cascadeOutputPath "/Users/evgenij/Projects/Cascade/Updates/V4/Builds/iOS/Xcode" \
+  -logFile "/Users/evgenij/Projects/Cascade/Updates/V4/Builds/iOS/unity-export.log"
+
+Без -cascadeOutputPath экспорт идёт в Builds/iOS/Xcode относительно проекта V4.
+Путь в аргументе — каталог Xcode-проекта, не .xcodeproj.
+
+Что прописывает CascadeV4Build перед экспортом:
+- имя Cascade, версия 1.0, номер сборки 4
+- bundle id evgeniy.vvv.cascade.local
+- команда 7P27V7D963, автоматическая подпись
+- Device SDK, минимальная iOS 15.0, портрет, IL2CPP
+- Development-сборка
+
+Куда легло 19 ноября 2026:
+- Updates/V4/Builds/iOS/Xcode/Unity-iPhone.xcodeproj — свежий экспорт, открыт в Xcode
+- Updates/V4/Builds/iOS/unity-export.log — журнал этого экспорта
+- Updates/V4/Builds/iOS/Xcode_BackUpThisFolder_ButDontShipItWithYourGame — отладочные данные Unity, в приложение не входят
+- Updates/V4/Builds/iOS/1.0-4/Xcode — более ранний экспорт, рядом DerivedData и Cascade-GamePerformance.trace
+
+Дальше приложение собирает Xcode: схема Unity-iPhone, подпись уже автоматическая.
+Unity архив и загрузку в App Store не делает.
+
+
+V3 — TestFlight, справочный проект
+
+Проект: Updates/V3
+Сцена: Assets/Scenes/CascadeGame.unity
+Скрипт: Updates/V3/Tools/build-ios-mac.sh НОМЕР
+Он вызывает CascadeIOSBatchBuild.Run, тот вызывает CascadeIOSBuild.Configure и Build.
+Инструкция: Updates/V3/Documentation/BUILD_ON_MAC.md
+
+Куда кладётся экспорт номера N:
+- Updates/V3/Builds/iOS/1.0-N/Xcode/Unity-iPhone.xcodeproj
+- Updates/V3/Builds/iOS/1.0-N/unity-export.log
+- Updates/V3/Builds/iOS/build-status.json
+- Updates/V3/Builds/iOS/build-status-1.0-N.json
+
+Папка 1.0-N не перезаписывается: если она уже есть, скрипт останавливается.
+После экспорта скрипт открывает .xcodeproj. Архив и Upload — отдельные шаги Xcode.
+
+Настройки релиза в Updates/V3/Assets/Cascade/Editor/CascadeIOSBuild.cs:
+- bundle id fitness.quokka.caskade
+- команда RUT46C38YA (Quokka), автоматическая подпись
+- IL2CPP Release, не Development
+- версия 1.0, номер сборки передаётся аргументом -cascadeBuildNumber
+- App Store Connect App ID 6827096867
+
+Архив и выгрузка, когда их делают вручную, лежат рядом:
+- Builds/iOS/Cascade-1.0-N.xcarchive
+- Builds/iOS/DerivedData
+- Builds/iOS/export-1.0-N
+- Builds/iOS/archive-1.0-N.log, upload-1.0-N.log, preflight-1.0-N.json, published-1.0-N.json
+
+
+Корень репозитория
+
+Проект в корне Cascade, редактор тот же 6000.6.8f1.
+Assets/Cascade/Editor/CascadeIOSBuild.cs умеет настроить и экспортировать iOS,
+но пакетного скрипта и CascadeIOSBatchBuild здесь нет. Сцена другая:
+Assets/Scenes/CascadePrototype.unity.
+Bundle id и команда те же, что у V3: fitness.quokka.caskade, RUT46C38YA.
+Отчёт писался бы в Builds/iOS/build-status.json в корне. Этой папки сейчас нет.

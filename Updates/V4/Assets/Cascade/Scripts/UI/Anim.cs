@@ -1,10 +1,11 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Cascade.UI
 {
-    /// <summary>Простые анимации без корутин: функция получает прогресс от 0 до 1.</summary>
+        /// <summary>Короткие анимации. Корутина идёт, только пока есть активные твины, и засыпает, когда список пуст.</summary>
     public sealed class Anim : MonoBehaviour
     {
         private sealed class Tween
@@ -21,6 +22,7 @@ namespace Cascade.UI
         private static Anim instance;
         private readonly List<Tween> tweens = new List<Tween>(64);
         private readonly List<Tween> incoming = new List<Tween>(16);
+        private bool running;
 
         private static Anim Instance
         {
@@ -46,7 +48,9 @@ namespace Cascade.UI
             tween.Step = step;
             tween.Done = done;
             tween.Unscaled = unscaled;
-            Instance.incoming.Add(tween);
+            Anim host = Instance;
+            host.incoming.Add(tween);
+            host.Wake();
         }
 
         public static void Run(UnityEngine.Object owner, float duration, Action<float> step)
@@ -78,13 +82,40 @@ namespace Cascade.UI
             return 1f + c3 * x * x * x + c1 * x * x;
         }
 
-        private void Update()
+        private void Wake()
         {
-            if (incoming.Count > 0)
+            if (!running)
             {
-                tweens.AddRange(incoming);
-                incoming.Clear();
+                StartCoroutine(Play());
             }
+        }
+
+        private IEnumerator Play()
+        {
+            running = true;
+            while (true)
+            {
+                if (incoming.Count > 0)
+                {
+                    tweens.AddRange(incoming);
+                    incoming.Clear();
+                }
+                if (tweens.Count == 0)
+                {
+                    break;
+                }
+                Step();
+                if (tweens.Count == 0 && incoming.Count == 0)
+                {
+                    break;
+                }
+                yield return null;
+            }
+            running = false;
+        }
+
+        private void Step()
+        {
             float scaled = Time.deltaTime;
             float unscaled = Time.unscaledDeltaTime;
             for (int i = tweens.Count - 1; i >= 0; i--)

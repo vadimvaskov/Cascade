@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Cascade.Core;
 using UnityEngine;
@@ -60,6 +61,7 @@ namespace Cascade.UI
         private readonly List<Text> scorePool = new List<Text>();
         private RectTransform effects;
         private float pulse;
+        private bool pulseRunning;
         private int[] shownAfterMove;
         private int moveSerial;
         private float busyUntil;
@@ -350,29 +352,36 @@ namespace Cascade.UI
             }, delegate { captured.enabled = false; }, false);
         }
 
-        /// <summary>Мягкая пульсация рамки в ритм. strength 0..1.</summary>
+        public void SetPulseVisible(bool visible)
+        {
+            frameGlow.enabled = visible;
+        }
+
+        /// <summary>Мягкая пульсация рамки в ритм. Затухание живёт, только пока рамка ещё видна.</summary>
         public void Pulse(float strength)
         {
             if (strength > pulse)
             {
                 pulse = strength;
             }
+            if (!pulseRunning && pulse > 0f)
+            {
+                StartCoroutine(FadePulse());
+            }
         }
 
-        public void SetPulseVisible(bool visible)
+        private IEnumerator FadePulse()
         {
-            frameGlow.enabled = visible;
-        }
-
-        private void Update()
-        {
-            if (pulse > 0f)
+            pulseRunning = true;
+            while (pulse > 0f)
             {
                 pulse = Mathf.Max(0f, pulse - Time.deltaTime * 3.2f);
                 Color c = frameGlow.color;
                 c.a = pulse * 0.75f;
                 frameGlow.color = c;
+                yield return null;
             }
+            pulseRunning = false;
         }
     }
 }

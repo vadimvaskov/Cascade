@@ -33,6 +33,7 @@ namespace Cascade.UI
         private GameSession session;
         private Conductor conductor;
         private Phase phase = Phase.Idle;
+        private Phase resumePhase;
         private double duration;
         private bool tutorialMode;
 
@@ -311,7 +312,9 @@ namespace Cascade.UI
                     countdownText.enabled = false;
                     Time.timeScale = 1f;
                     conductor.Resume(0.05);
-                    phase = conductor.SongTime < 0 ? Phase.Countdown : Phase.Playing;
+                    phase = resumePhase == Phase.Tutorial
+                        ? Phase.Tutorial
+                        : (conductor.SongTime < 0 ? Phase.Countdown : Phase.Playing);
                 }
                 else
                 {
@@ -607,10 +610,11 @@ namespace Cascade.UI
 
         public void Pause()
         {
-            if (phase != Phase.Playing && phase != Phase.Countdown)
+            if (phase != Phase.Playing && phase != Phase.Countdown && phase != Phase.Tutorial)
             {
                 return;
             }
+            resumePhase = phase;
             phase = Phase.Paused;
             StopClock();
             conductor.Pause();
@@ -622,7 +626,7 @@ namespace Cascade.UI
             Text title = UiKit.Label("Title", panel, Loc.T("pause"), 84, UiKit.Cream, TextAnchor.MiddleCenter, true);
             UiKit.Center(title.rectTransform, 0f, 250f, 700f, 100f);
             Modal.GoldButton(panel, 0f, 80f, 560f, Loc.T("continue"), Resume);
-            Modal.PlainButton(panel, 0f, -110f, 620f, Loc.T("restart"), delegate { App.StartLevel(level); });
+            Modal.PlainButton(panel, 0f, -110f, 620f, Loc.T("restart"), RestartFromPause);
             Modal.PlainButton(panel, 0f, -230f, 620f, Loc.T("menu"), delegate { App.ShowMenu(); });
         }
 
@@ -643,6 +647,17 @@ namespace Cascade.UI
             phase = Phase.Resuming;
             App.UsePlayPower();
             StartClock();
+        }
+
+        /// <summary>Заново: в обучении снова обучение, на уровне — тот же уровень.</summary>
+        public void RestartFromPause()
+        {
+            if (tutorialMode)
+            {
+                App.StartTutorial();
+                return;
+            }
+            App.StartLevel(level);
         }
 
         public override void OnAppPaused()

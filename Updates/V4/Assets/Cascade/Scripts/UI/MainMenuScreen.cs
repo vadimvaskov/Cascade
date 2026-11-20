@@ -78,7 +78,7 @@ namespace Cascade.UI
                 UiKit.Center((RectTransform)hit.transform, cx, 0f, 240f, 150f);
             }
 
-            if (!save.tutorialDone)
+            if (App.StartTutorialFromMenu && !save.tutorialDone)
             {
                 Anim.DelayUnscaled(this, 0.05f, delegate { App.StartTutorial(); });
             }

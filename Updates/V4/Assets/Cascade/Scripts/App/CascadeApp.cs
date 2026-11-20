@@ -54,7 +54,7 @@ namespace Cascade
             Conductor.SetVolume(SaveSystem.Data.musicVolume);
             Conductor.SetUserOffsetMs(SaveSystem.Data.audioOffsetMs);
             Debug.Log("[Cascade] App started, canvas " + CanvasWidth + "x" + CanvasHeight + ", language " + Loc.Language);
-            ShowMenu();
+            ShowMenu(true);
         }
 
         /// <summary>Маленький аудиобуфер: звук выходит быстрее, попадание в ритм точнее.</summary>
@@ -181,8 +181,17 @@ namespace Cascade
             return screen;
         }
 
+        /// <summary>Только первый показ меню при запуске сам открывает обучение.</summary>
+        public bool StartTutorialFromMenu { get; private set; }
+
         public void ShowMenu()
         {
+            ShowMenu(false);
+        }
+
+        public void ShowMenu(bool startTutorialIfNeeded)
+        {
+            StartTutorialFromMenu = startTutorialIfNeeded;
             Conductor.Stop();
             Show<MainMenuScreen>();
         }
